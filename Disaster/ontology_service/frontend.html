@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>온톨로지 구축 서비스</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .tab-active {
+            border-bottom: 2px solid #3b82f6;
+            color: #3b82f6;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const API_BASE = 'http://localhost:5000/api';
+
+        function App() {
+            const [activeTab, setActiveTab] = useState('upload');
+            const [ontologies, setOntologies] = useState([]);
+            const [selectedOntology, setSelectedOntology] = useState('');
+            const [message, setMessage] = useState({ type: '', text: '' });
+
+            useEffect(() => {
+                fetchOntologies();
+            }, []);
+
+            const fetchOntologies = async () => {
+                try {
+                    const response = await fetch(`${API_BASE}/ontology/list`);
+                    const data = await response.json();
+                    if (data.success) {
+                        setOntologies(data.ontologies);
+                    }
+                } catch (error) {
+                    console.error('온톨로지 목록 조회 실패:', error);
+                }
+            };
+
+            const showMessage = (type, text) => {
+                setMessage({ type, text });
+                setTimeout(() => setMessage({ type: '', text: '' }), 5000);
+            };
+
+            return (
+                <div className="min-h-screen">
+                    <header className="bg-blue-600 text-white p-6 shadow-lg">
+                        <h1 className="text-3xl font-bold">온톨로지 구축 서비스</h1>
+                        <p className="mt-2 text-blue-100">시계열 및 이미지 데이터로 온톨로지를 생성하세요</p>
+                    </header>
+
+                    {message.text && (
+                        <div className={`mx-6 mt-4 p-4 rounded-lg ${
+                            message.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                        }`}>
+                            {message.text}
+                        </div>
+                    )}
+
+                    <div className="container mx-auto p-6">
+                        <div className="bg-white rounded-lg shadow-md">
+                            <div className="flex border-b">
+                                <button
+                                    className={`px-6 py-4 font-semibold ${activeTab === 'upload' ? 'tab-active' : 'text-gray-600'}`}
+                                    onClick={() => setActiveTab('upload')}
+                                >
+                                    데이터 업로드
+                                </button>
+                                <button
+                                    className={`px-6 py-4 font-semibold ${activeTab === 'create' ? 'tab-active' : 'text-gray-600'}`}
+                                    onClick={() => setActiveTab('create')}
+                                >
+                                    온톨로지 생성
+                                </button>
+                                <button
+                                    className={`px-6 py-4 font-semibold ${activeTab === 'query' ? 'tab-active' : 'text-gray-600'}`}
+                                    onClick={() => setActiveTab('query')}
+                                >
+                                    쿼리
+                                </button>
+                                <button
+                                    className={`px-6 py-4 font-semibold ${activeTab === 'visualize' ? 'tab-active' : 'text-gray-600'}`}
+                                    onClick={() => setActiveTab('visualize')}
+                                >
+                                    시각화
+                                </button>
+                            </div>
+
+                            <div className="p-6">
+                                {activeTab === 'upload' && (
+                                    <UploadTab showMessage={showMessage} />
+                                )}
+                                {activeTab === 'create' && (
+                                    <CreateTab 
+                                        ontologies={ontologies} 
+                                        fetchOntologies={fetchOntologies}
+                                        showMessage={showMessage}
+                                        setSelectedOntology={setSelectedOntology}
+                                    />
+                                )}
+                                {activeTab === 'query' && (
+                                    <QueryTab 
+                                        ontologies={ontologies}
+                                        selectedOntology={selectedOntology}
+                                        showMessage={showMessage}
+                                    />
+                                )}
+                                {activeTab === 'visualize' && (
+                                    <VisualizeTab 
+                                        ontologies={ontologies}
+                                        showMessage={showMessage}
+                                    />
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function UploadTab({ showMessage }) {
+            const [dataType, setDataType] = useState('timeseries');
+            const [file, setFile] = useState(null);
+            const [metadata, setMetadata] = useState(null);
+            const [loading, setLoading] = useState(false);
+
+            const handleUpload = async () => {
+                if (!file) {
+                    showMessage('error', '파일을 선택해주세요');
+                    return;
+                }
+
+                setLoading(true);
+                const formData = new FormData();
+                formData.append('file', file);
+
+                try {
+                    const endpoint = dataType === 'timeseries' ? 'upload/timeseries' : 'upload/image';
+                    const response = await fetch(`${API_BASE}/${endpoint}`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const data = await response.json();
+
+                    if (data.success) {
+                        setMetadata(data.metadata);
+                        showMessage('success', '파일 업로드 및 분석 완료!');
+                    } else {
+                        showMessage('error', data.error || '업로드 실패');
+                    }
+                } catch (error) {
+                    showMessage('error', '업로드 중 오류 발생');
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            return (
+                <div className="space-y-6">
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">데이터 타입</label>
+                        <select
+                            className="w-full p-3 border rounded-lg"
+                            value={dataType}
+                            onChange={(e) => setDataType(e.target.value)}
+                        >
+                            <option value="timeseries">시계열 데이터</option>
+                            <option value="image">이미지 데이터</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">파일 선택</label>
+                        <input
+                            type="file"
+                            className="w-full p-3 border rounded-lg"
+                            onChange={(e) => setFile(e.target.files[0])}
+                            accept={dataType === 'timeseries' ? '.csv,.json,.xlsx' : '.jpg,.jpeg,.png,.gif'}
+                        />
+                        {file && (
+                            <p className="mt-2 text-sm text-gray-600">선택된 파일: {file.name}</p>
+                        )}
+                    </div>
+
+                    <button
+                        className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-400"
+                        onClick={handleUpload}
+                        disabled={loading}
+                    >
+                        {loading ? '업로드 중...' : '업로드 및 분석'}
+                    </button>
+
+                    {metadata && (
+                        <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+                            <h3 className="text-lg font-semibold mb-3">분석 결과</h3>
+                            <pre className="text-sm overflow-auto max-h-96 bg-white p-4 rounded border">
+                                {JSON.stringify(metadata, null, 2)}
+                            </pre>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        function CreateTab({ ontologies, fetchOntologies, showMessage, setSelectedOntology }) {
+            const [ontologyName, setOntologyName] = useState('');
+            const [loading, setLoading] = useState(false);
+
+            const handleCreate = async () => {
+                if (!ontologyName.trim()) {
+                    showMessage('error', '온톨로지 이름을 입력해주세요');
+                    return;
+                }
+
+                setLoading(true);
+                try {
+                    const response = await fetch(`${API_BASE}/ontology/create`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name: ontologyName })
+                    });
+                    const data = await response.json();
+
+                    if (data.success) {
+                        showMessage('success', '온톨로지가 생성되었습니다!');
+                        setOntologyName('');
+                        fetchOntologies();
+                        setSelectedOntology(ontologyName);
+                    } else {
+                        showMessage('error', data.error || '생성 실패');
+                    }
+                } catch (error) {
+                    showMessage('error', '온톨로지 생성 중 오류 발생');
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            return (
+                <div className="space-y-6">
+                    <div>
+                        <h3 className="text-lg font-semibold mb-4">새 온톨로지 생성</h3>
+                        <input
+                            type="text"
+                            className="w-full p-3 border rounded-lg"
+                            placeholder="온톨로지 이름"
+                            value={ontologyName}
+                            onChange={(e) => setOntologyName(e.target.value)}
+                        />
+                        <button
+                            className="mt-3 w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 disabled:bg-gray-400"
+                            onClick={handleCreate}
+                            disabled={loading}
+                        >
+                            {loading ? '생성 중...' : '온톨로지 생성'}
+                        </button>
+                    </div>
+
+                    <div className="border-t pt-6">
+                        <h3 className="text-lg font-semibold mb-4">기존 온톨로지 목록</h3>
+                        {ontologies.length === 0 ? (
+                            <p className="text-gray-500">생성된 온톨로지가 없습니다</p>
+                        ) : (
+                            <div className="grid gap-3">
+                                {ontologies.map((ont) => (
+                                    <div key={ont} className="p-4 bg-gray-50 rounded-lg flex justify-between items-center">
+                                        <span className="font-medium">{ont}</span>
+                                        <button
+                                            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                                            onClick={async () => {
+                                                try {
+                                                    const response = await fetch(`${API_BASE}/ontology/export/${ont}`);
+                                                    const blob = await response.blob();
+                                                    const url = window.URL.createObjectURL(blob);
+                                                    const a = document.createElement('a');
+                                                    a.href = url;
+                                                    a.download = `${ont}.owl`;
+                                                    a.click();
+                                                } catch (error) {
+                                                    showMessage('error', '다운로드 실패');
+                                                }
+                                            }}
+                                        >
+                                            다운로드
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        }
+
+        function QueryTab({ ontologies, selectedOntology, showMessage }) {
+            const [ontology, setOntology] = useState(selectedOntology || '');
+            const [query, setQuery] = useState('SELECT ?s ?p ?o WHERE { ?s ?p ?o } LIMIT 10');
+            const [results, setResults] = useState(null);
+            const [loading, setLoading] = useState(false);
+
+            const handleQuery = async () => {
+                if (!ontology) {
+                    showMessage('error', '온톨로지를 선택해주세요');
+                    return;
+                }
+
+                setLoading(true);
+                try {
+                    const response = await fetch(`${API_BASE}/ontology/query`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ ontology_name: ontology, query })
+                    });
+                    const data = await response.json();
+
+                    if (data.success) {
+                        setResults(data.results);
+                        showMessage('success', '쿼리 실행 완료!');
+                    } else {
+                        showMessage('error', data.error || '쿼리 실패');
+                    }
+                } catch (error) {
+                    showMessage('error', '쿼리 실행 중 오류 발생');
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            return (
+                <div className="space-y-6">
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">온톨로지 선택</label>
+                        <select
+                            className="w-full p-3 border rounded-lg"
+                            value={ontology}
+                            onChange={(e) => setOntology(e.target.value)}
+                        >
+                            <option value="">선택하세요</option>
+                            {ontologies.map((ont) => (
+                                <option key={ont} value={ont}>{ont}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">SPARQL 쿼리</label>
+                        <textarea
+                            className="w-full p-3 border rounded-lg font-mono text-sm"
+                            rows="8"
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                        />
+                    </div>
+
+                    <button
+                        className="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 disabled:bg-gray-400"
+                        onClick={handleQuery}
+                        disabled={loading}
+                    >
+                        {loading ? '실행 중...' : '쿼리 실행'}
+                    </button>
+
+                    {results && (
+                        <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+                            <h3 className="text-lg font-semibold mb-3">쿼리 결과 ({results.length}건)</h3>
+                            <pre className="text-sm overflow-auto max-h-96 bg-white p-4 rounded border">
+                                {JSON.stringify(results, null, 2)}
+                            </pre>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        function VisualizeTab({ ontologies, showMessage }) {
+            const [ontology, setOntology] = useState('');
+            const [graphData, setGraphData] = useState(null);
+            const [loading, setLoading] = useState(false);
+
+            const handleVisualize = async () => {
+                if (!ontology) {
+                    showMessage('error', '온톨로지를 선택해주세요');
+                    return;
+                }
+
+                setLoading(true);
+                try {
+                    const response = await fetch(`${API_BASE}/ontology/visualize/${ontology}`);
+                    const data = await response.json();
+
+                    if (data.success) {
+                        setGraphData(data.graph);
+                        showMessage('success', '그래프 데이터 로드 완료!');
+                    } else {
+                        showMessage('error', data.error || '시각화 실패');
+                    }
+                } catch (error) {
+                    showMessage('error', '시각화 중 오류 발생');
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            return (
+                <div className="space-y-6">
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">온톨로지 선택</label>
+                        <select
+                            className="w-full p-3 border rounded-lg"
+                            value={ontology}
+                            onChange={(e) => setOntology(e.target.value)}
+                        >
+                            <option value="">선택하세요</option>
+                            {ontologies.map((ont) => (
+                                <option key={ont} value={ont}>{ont}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <button
+                        className="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 disabled:bg-gray-400"
+                        onClick={handleVisualize}
+                        disabled={loading}
+                    >
+                        {loading ? '로딩 중...' : '그래프 시각화'}
+                    </button>
+
+                    {graphData && (
+                        <div className="mt-6">
+                            <h3 className="text-lg font-semibold mb-3">
+                                그래프 구조 (노드: {graphData.nodes?.length || 0}, 엣지: {graphData.edges?.length || 0})
+                            </h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="p-4 bg-gray-50 rounded-lg">
+                                    <h4 className="font-semibold mb-2">노드</h4>
+                                    <div className="overflow-auto max-h-96 text-sm">
+                                        {graphData.nodes?.slice(0, 20).map((node, idx) => (
+                                            <div key={idx} className="p-2 mb-2 bg-white rounded border">
+                                                <div className="font-medium text-blue-600">{node.label}</div>
+                                                <div className="text-xs text-gray-500">{node.type}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="p-4 bg-gray-50 rounded-lg">
+                                    <h4 className="font-semibold mb-2">엣지</h4>
+                                    <div className="overflow-auto max-h-96 text-sm">
+                                        {graphData.edges?.slice(0, 20).map((edge, idx) => (
+                                            <div key={idx} className="p-2 mb-2 bg-white rounded border">
+                                                <div className="text-xs">
+                                                    <span className="font-medium">{edge.label}</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>

@@ -15,11 +15,12 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # FastAPI 앱 생성
+# 프로덕션 환경에서는 API 문서 비활성화
 app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
-    docs_url="/docs",
-    redoc_url="/redoc"
+    docs_url="/docs" if settings.DEBUG else None,
+    redoc_url="/redoc" if settings.DEBUG else None
 )
 
 # CORS 설정
@@ -50,8 +51,18 @@ async def health_check():
 
 @app.get("/ready")
 async def readiness_check():
-    # DB 연결 체크 등
-    return {"status": "ready"}
+    """Readiness check - 데이터베이스 연결 상태 확인"""
+    try:
+        from sqlalchemy import text
+        with engine.connect() as conn:
+            conn.execute(text("SELECT 1"))
+        return {"status": "ready"}
+    except Exception as e:
+        logger.error(f"Readiness check failed: {e}")
+        return JSONResponse(
+            status_code=503,
+            content={"status": "not ready", "error": str(e)}
+        )
 
 # Error handler
 @app.exception_handler(Exception)

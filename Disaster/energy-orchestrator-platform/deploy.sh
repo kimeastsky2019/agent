@@ -91,18 +91,25 @@ sleep 10
 # Health check
 echo ""
 echo "🏥 Health Check 중..."
-for i in {1..30}; do
-    if curl -f http://localhost:8000/health > /dev/null 2>&1; then
-        echo -e "${GREEN}✅ Backend 서비스 정상 작동${NC}"
-        break
-    fi
-    if [ $i -eq 30 ]; then
-        echo -e "${RED}❌ Backend 서비스 시작 실패${NC}"
-        docker-compose -f docker-compose.prod.yml logs backend
-        exit 1
-    fi
-    echo -n "."
-    sleep 2
+services=("backend:8000/health" "ontology-service:5000/api/health" "image-broadcasting:5001/")
+for service in "${services[@]}"; do
+    IFS=':' read -r name port_path <<< "$service"
+    port=$(echo "$port_path" | cut -d'/' -f1)
+    path=$(echo "$port_path" | cut -d'/' -f2-)
+    
+    echo -n "Checking $name... "
+    for i in {1..30}; do
+        if curl -f "http://localhost:${port}/${path}" > /dev/null 2>&1; then
+            echo -e "${GREEN}✅ OK${NC}"
+            break
+        fi
+        if [ $i -eq 30 ]; then
+            echo -e "${RED}❌ FAILED${NC}"
+            echo "Logs for $name:"
+            docker-compose -f docker-compose.prod.yml logs --tail=50 "$name" || true
+        fi
+        sleep 1
+    done
 done
 
 echo ""

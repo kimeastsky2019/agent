@@ -91,6 +91,54 @@ services:
       - energy-net-prod
     restart: unless-stopped
 
+  ontology-service:
+    build:
+      context: ../ontology_service
+      dockerfile: Dockerfile
+    container_name: ontology_service_prod
+    ports:
+      - "${ONTOLOGY_SERVICE_PORT:-5000}:5000"
+    volumes:
+      - ontology_uploads_prod:/app/uploads
+      - ontology_data_prod:/app/ontologies
+    environment:
+      - FLASK_ENV=production
+      - FLASK_DEBUG=0
+      - PORT=5000
+    networks:
+      - energy-net-prod
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:5000/api/health').read()\""]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  image-broadcasting:
+    build:
+      context: ../image_brodcasting
+      dockerfile: Dockerfile
+    container_name: image_broadcasting_prod
+    ports:
+      - "${IMAGE_BROADCASTING_PORT:-5001}:5001"
+    volumes:
+      - image_broadcasting_data_prod:/app/data
+      - image_broadcasting_logs_prod:/app/logs
+    environment:
+      - FLASK_ENV=production
+      - FLASK_DEBUG=0
+      - PORT=5001
+    networks:
+      - energy-net-prod
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:5001/').read()\""]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
   backend:
     build:
       context: ./backend
@@ -104,6 +152,8 @@ services:
       - MQTT_BROKER_HOST=mqtt
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
       - JENA_FUSEKI_URL=http://jena:3030
+      - ONTOLOGY_SERVICE_URL=http://ontology-service:5000
+      - IMAGE_BROADCASTING_URL=http://image-broadcasting:5001
       - SECRET_KEY=${SECRET_KEY:-your-secret-key-here-change-in-production}
       - ENVIRONMENT=production
       - DEBUG=false
@@ -118,6 +168,10 @@ services:
       mqtt:
         condition: service_started
       jena:
+        condition: service_started
+      ontology-service:
+        condition: service_started
+      image-broadcasting:
         condition: service_started
     networks:
       - energy-net-prod
@@ -150,6 +204,10 @@ volumes:
   mqtt_data_prod:
   mqtt_logs_prod:
   jena_data_prod:
+  ontology_uploads_prod:
+  ontology_data_prod:
+  image_broadcasting_data_prod:
+  image_broadcasting_logs_prod:
 
 networks:
   energy-net-prod:

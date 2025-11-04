@@ -19,3 +19,5 @@ async def get_device(device_id: str, db: Session = Depends(get_db)):
 
 
 
+
+
