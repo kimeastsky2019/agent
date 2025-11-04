@@ -1,0 +1,36 @@
+# Multi-stage build for production
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# package.json 복사 및 의존성 설치 (빌드에는 devDependencies 필요)
+COPY package*.json ./
+RUN npm install
+
+# 소스 코드 복사 (public 포함)
+COPY . .
+
+# 환경 변수 설정 (빌드 시점)
+ARG VITE_API_URL
+ARG VITE_WS_URL
+ENV VITE_API_URL=$VITE_API_URL
+ENV VITE_WS_URL=$VITE_WS_URL
+
+# 빌드
+RUN npm run build
+
+# Production stage
+FROM nginx:alpine
+
+# 빌드된 파일 복사
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# nginx 설정 복사 (선택사항)
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# 포트 노출
+EXPOSE 80
+
+# nginx 시작
+CMD ["nginx", "-g", "daemon off;"]
+

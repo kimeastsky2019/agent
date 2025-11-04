@@ -1,0 +1,4296 @@
+{
+  "assets": [
+    {
+      "id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "name": "Solar Farm Fukuoka 1-1",
+      "type": "solar",
+      "capacity_kw": 2516.22,
+      "location": {
+        "lat": 33.539441845642884,
+        "lon": 130.47078360029516
+      },
+      "status": "online",
+      "service_type": "supply",
+      "created_at": "2025-09-14T11:02:58.809798",
+      "organization_id": "org_1"
+    },
+    {
+      "id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "name": "Solar Farm Nagoya 1-2",
+      "type": "solar",
+      "capacity_kw": 4427.18,
+      "location": {
+        "lat": 35.12652153209776,
+        "lon": 136.96520108428615
+      },
+      "status": "online",
+      "service_type": "supply",
+      "created_at": "2025-03-26T11:02:58.809903",
+      "organization_id": "org_3"
+    },
+    {
+      "id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "name": "Wind Farm Yokohama 2-1",
+      "type": "wind",
+      "capacity_kw": 1366.74,
+      "location": {
+        "lat": 35.46009592541945,
+        "lon": 139.64135693966503
+      },
+      "status": "online",
+      "service_type": "supply",
+      "created_at": "2025-03-16T11:02:58.809931",
+      "organization_id": "org_2"
+    },
+    {
+      "id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "name": "Wind Farm Tokyo 2-2",
+      "type": "wind",
+      "capacity_kw": 1865.55,
+      "location": {
+        "lat": 35.65171556406746,
+        "lon": 139.6411951168139
+      },
+      "status": "online",
+      "service_type": "supply",
+      "created_at": "2025-07-14T11:02:58.809953",
+      "organization_id": "org_3"
+    },
+    {
+      "id": "2d0db90c-0b0f-4c76-a1de-cf91028f8268",
+      "name": "Battery Farm Yokohama 3-1",
+      "type": "battery",
+      "capacity_kw": 929.98,
+      "location": {
+        "lat": 35.44084086323543,
+        "lon": 139.59057178360098
+      },
+      "status": "online",
+      "service_type": "storage",
+      "created_at": "2025-07-11T11:02:58.809976",
+      "organization_id": "org_1"
+    },
+    {
+      "id": "3eceb35c-885d-4518-a6e1-bbca33ae278c",
+      "name": "Battery Farm Fukuoka 3-2",
+      "type": "battery",
+      "capacity_kw": 841.82,
+      "location": {
+        "lat": 33.67556938308525,
+        "lon": 130.49199988354397
+      },
+      "status": "maintenance",
+      "service_type": "storage",
+      "created_at": "2025-02-18T11:02:58.809996",
+      "organization_id": "org_2"
+    },
+    {
+      "id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "name": "Demand Farm Nagoya 4-1",
+      "type": "demand",
+      "capacity_kw": 0.0,
+      "location": {
+        "lat": 35.25289188561254,
+        "lon": 136.85288631384688
+      },
+      "status": "online",
+      "service_type": "demand",
+      "created_at": "2025-10-19T11:02:58.810018",
+      "organization_id": "org_3"
+    },
+    {
+      "id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "name": "Demand Farm Nagoya 4-2",
+      "type": "demand",
+      "capacity_kw": 0.0,
+      "location": {
+        "lat": 35.25022976006707,
+        "lon": 136.94754644263904
+      },
+      "status": "maintenance",
+      "service_type": "demand",
+      "created_at": "2025-03-21T11:02:58.810038",
+      "organization_id": "org_1"
+    },
+    {
+      "id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "name": "Energy Demand Sector Tokyo",
+      "type": "demand",
+      "capacity_kw": 0.0,
+      "location": {
+        "lat": 35.6762,
+        "lon": 139.6503
+      },
+      "status": "online",
+      "service_type": "demand",
+      "created_at": "2025-03-13T11:02:58.810056",
+      "organization_id": "org_1"
+    },
+    {
+      "id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "name": "Energy Demand Sector Osaka",
+      "type": "demand",
+      "capacity_kw": 0.0,
+      "location": {
+        "lat": 34.6937,
+        "lon": 135.5023
+      },
+      "status": "online",
+      "service_type": "demand",
+      "created_at": "2025-04-15T11:02:58.810072",
+      "organization_id": "org_3"
+    },
+    {
+      "id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "name": "Energy Demand Sector Yokohama",
+      "type": "demand",
+      "capacity_kw": 0.0,
+      "location": {
+        "lat": 35.4437,
+        "lon": 139.638
+      },
+      "status": "online",
+      "service_type": "demand",
+      "created_at": "2025-01-18T11:02:58.810088",
+      "organization_id": "org_1"
+    }
+  ],
+  "disasters": [
+    {
+      "id": "184e8cd7-c46a-4248-9678-a73559b9da0f",
+      "event_type": "earthquake",
+      "severity": 7,
+      "location": {
+        "lat": 35.81737073341897,
+        "lon": 139.49942210400437
+      },
+      "affected_radius_km": 98.18,
+      "start_time": "2025-11-03T18:02:58.810104",
+      "end_time": null,
+      "status": "active"
+    },
+    {
+      "id": "db63bb9f-b01e-4256-95df-7171cb138649",
+      "event_type": "typhoon",
+      "severity": 5,
+      "location": {
+        "lat": 35.863061180610494,
+        "lon": 139.17857813087565
+      },
+      "affected_radius_km": 188.1,
+      "start_time": "2025-11-03T21:02:58.810126",
+      "end_time": null,
+      "status": "active"
+    },
+    {
+      "id": "fe7f2a2c-85e9-48ee-9db0-bcc1eda569be",
+      "event_type": "typhoon",
+      "severity": 4,
+      "location": {
+        "lat": 34.382060109189304,
+        "lon": 135.94315727867357
+      },
+      "affected_radius_km": 101.69,
+      "start_time": "2025-11-03T03:02:58.810146",
+      "end_time": null,
+      "status": "active"
+    },
+    {
+      "id": "234a065a-ed45-4fd9-b600-9eb7e31b67a5",
+      "event_type": "flood",
+      "severity": 3,
+      "location": {
+        "lat": 35.21857543826093,
+        "lon": 139.85480499000244
+      },
+      "affected_radius_km": 46.53,
+      "start_time": "2025-10-29T11:02:58.810166",
+      "end_time": "2025-11-01T07:02:58.810166",
+      "status": "resolved"
+    },
+    {
+      "id": "41b65625-ff90-48bc-9fab-c870d044df35",
+      "event_type": "flood",
+      "severity": 4,
+      "location": {
+        "lat": 35.32919354890044,
+        "lon": 139.4740958533342
+      },
+      "affected_radius_km": 13.74,
+      "start_time": "2025-10-23T11:02:58.810189",
+      "end_time": "2025-10-26T11:02:58.810189",
+      "status": "resolved"
+    },
+    {
+      "id": "2bb6fd99-74b2-40c4-bbc3-0ff84733650f",
+      "event_type": "typhoon",
+      "severity": 5,
+      "location": {
+        "lat": 35.92845225904945,
+        "lon": 139.28882942908731
+      },
+      "affected_radius_km": 199.63,
+      "start_time": "2025-10-26T11:02:58.810211",
+      "end_time": "2025-10-28T12:02:58.810211",
+      "status": "resolved"
+    },
+    {
+      "id": "8e588035-5f0a-4dc1-aa66-2d828b746588",
+      "event_type": "wildfire",
+      "severity": 5,
+      "location": {
+        "lat": 35.620936785064096,
+        "lon": 139.41067221415818
+      },
+      "affected_radius_km": 25.27,
+      "start_time": "2025-10-18T11:02:58.810232",
+      "end_time": "2025-10-21T03:02:58.810232",
+      "status": "resolved"
+    },
+    {
+      "id": "bf524538-1f61-4041-8344-58017846df86",
+      "event_type": "earthquake",
+      "severity": 7,
+      "location": {
+        "lat": 35.19534959840239,
+        "lon": 139.46294295149426
+      },
+      "affected_radius_km": 51.96,
+      "start_time": "2025-10-16T11:02:58.810253",
+      "end_time": "2025-10-19T06:02:58.810253",
+      "status": "resolved"
+    }
+  ],
+  "energy_readings": [
+    {
+      "time": "2025-11-03T12:02:58.810277",
+      "device_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "metric_type": "production",
+      "value": 2010.14,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T13:02:58.810277",
+      "device_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "metric_type": "production",
+      "value": 1049.44,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T14:02:58.810277",
+      "device_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "metric_type": "production",
+      "value": 1263.65,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T15:02:58.810277",
+      "device_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "metric_type": "production",
+      "value": 1401.92,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T16:02:58.810277",
+      "device_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "metric_type": "production",
+      "value": 1462.71,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T17:02:58.810277",
+      "device_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "metric_type": "production",
+      "value": 919.59,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T18:02:58.810277",
+      "device_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "metric_type": "production",
+      "value": 1793.0,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T19:02:58.810277",
+      "device_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "metric_type": "production",
+      "value": 0,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T20:02:58.810277",
+      "device_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "metric_type": "production",
+      "value": 0,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T21:02:58.810277",
+      "device_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "metric_type": "production",
+      "value": 0,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T22:02:58.810277",
+      "device_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "metric_type": "production",
+      "value": 0,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T23:02:58.810277",
+      "device_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "metric_type": "production",
+      "value": 0,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T00:02:58.810277",
+      "device_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "metric_type": "production",
+      "value": 0,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T01:02:58.810277",
+      "device_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "metric_type": "production",
+      "value": 0,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T02:02:58.810277",
+      "device_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "metric_type": "production",
+      "value": 0,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T03:02:58.810277",
+      "device_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "metric_type": "production",
+      "value": 0,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T04:02:58.810277",
+      "device_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "metric_type": "production",
+      "value": 0,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T05:02:58.810277",
+      "device_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "metric_type": "production",
+      "value": 0,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T06:02:58.810277",
+      "device_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "metric_type": "production",
+      "value": 818.01,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T07:02:58.810277",
+      "device_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "metric_type": "production",
+      "value": 1771.13,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T08:02:58.810277",
+      "device_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "metric_type": "production",
+      "value": 1178.91,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T09:02:58.810277",
+      "device_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "metric_type": "production",
+      "value": 992.7,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T10:02:58.810277",
+      "device_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "metric_type": "production",
+      "value": 1582.18,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T11:02:58.810277",
+      "device_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4",
+      "metric_type": "production",
+      "value": 1636.3,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T12:02:58.810277",
+      "device_id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "metric_type": "production",
+      "value": 2153.97,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T13:02:58.810277",
+      "device_id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "metric_type": "production",
+      "value": 1903.26,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T14:02:58.810277",
+      "device_id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "metric_type": "production",
+      "value": 3156.57,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T15:02:58.810277",
+      "device_id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "metric_type": "production",
+      "value": 3446.64,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T16:02:58.810277",
+      "device_id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "metric_type": "production",
+      "value": 3506.68,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T17:02:58.810277",
+      "device_id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "metric_type": "production",
+      "value": 2537.73,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T18:02:58.810277",
+      "device_id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "metric_type": "production",
+      "value": 1525.05,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T19:02:58.810277",
+      "device_id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "metric_type": "production",
+      "value": 0,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T20:02:58.810277",
+      "device_id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "metric_type": "production",
+      "value": 0,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T21:02:58.810277",
+      "device_id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "metric_type": "production",
+      "value": 0,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T22:02:58.810277",
+      "device_id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "metric_type": "production",
+      "value": 0,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T23:02:58.810277",
+      "device_id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "metric_type": "production",
+      "value": 0,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T00:02:58.810277",
+      "device_id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "metric_type": "production",
+      "value": 0,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T01:02:58.810277",
+      "device_id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "metric_type": "production",
+      "value": 0,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T02:02:58.810277",
+      "device_id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "metric_type": "production",
+      "value": 0,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T03:02:58.810277",
+      "device_id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "metric_type": "production",
+      "value": 0,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T04:02:58.810277",
+      "device_id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "metric_type": "production",
+      "value": 0,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T05:02:58.810277",
+      "device_id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "metric_type": "production",
+      "value": 0,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T06:02:58.810277",
+      "device_id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "metric_type": "production",
+      "value": 2889.83,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T07:02:58.810277",
+      "device_id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "metric_type": "production",
+      "value": 2868.63,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T08:02:58.810277",
+      "device_id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "metric_type": "production",
+      "value": 3374.91,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T09:02:58.810277",
+      "device_id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "metric_type": "production",
+      "value": 2531.76,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T10:02:58.810277",
+      "device_id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "metric_type": "production",
+      "value": 2475.53,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T11:02:58.810277",
+      "device_id": "52612fe4-4567-454f-967b-b33438fcd166",
+      "metric_type": "production",
+      "value": 3168.56,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T12:02:58.810277",
+      "device_id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "metric_type": "production",
+      "value": 575.2,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T13:02:58.810277",
+      "device_id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "metric_type": "production",
+      "value": 555.17,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T14:02:58.810277",
+      "device_id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "metric_type": "production",
+      "value": 390.63,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T15:02:58.810277",
+      "device_id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "metric_type": "production",
+      "value": 511.88,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T16:02:58.810277",
+      "device_id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "metric_type": "production",
+      "value": 493.41,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T17:02:58.810277",
+      "device_id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "metric_type": "production",
+      "value": 730.22,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T18:02:58.810277",
+      "device_id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "metric_type": "production",
+      "value": 553.52,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T19:02:58.810277",
+      "device_id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "metric_type": "production",
+      "value": 649.37,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T20:02:58.810277",
+      "device_id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "metric_type": "production",
+      "value": 560.05,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T21:02:58.810277",
+      "device_id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "metric_type": "production",
+      "value": 351.06,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T22:02:58.810277",
+      "device_id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "metric_type": "production",
+      "value": 590.05,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T23:02:58.810277",
+      "device_id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "metric_type": "production",
+      "value": 400.92,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T00:02:58.810277",
+      "device_id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "metric_type": "production",
+      "value": 883.81,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T01:02:58.810277",
+      "device_id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "metric_type": "production",
+      "value": 522.95,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T02:02:58.810277",
+      "device_id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "metric_type": "production",
+      "value": 653.46,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T03:02:58.810277",
+      "device_id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "metric_type": "production",
+      "value": 768.21,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T04:02:58.810277",
+      "device_id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "metric_type": "production",
+      "value": 613.72,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T05:02:58.810277",
+      "device_id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "metric_type": "production",
+      "value": 824.52,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T06:02:58.810277",
+      "device_id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "metric_type": "production",
+      "value": 386.48,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T07:02:58.810277",
+      "device_id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "metric_type": "production",
+      "value": 636.54,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T08:02:58.810277",
+      "device_id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "metric_type": "production",
+      "value": 798.38,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T09:02:58.810277",
+      "device_id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "metric_type": "production",
+      "value": 569.12,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T10:02:58.810277",
+      "device_id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "metric_type": "production",
+      "value": 881.03,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T11:02:58.810277",
+      "device_id": "d27817e8-9856-4823-9b29-e433dc85c393",
+      "metric_type": "production",
+      "value": 436.14,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T12:02:58.810277",
+      "device_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "metric_type": "production",
+      "value": 766.75,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T13:02:58.810277",
+      "device_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "metric_type": "production",
+      "value": 923.19,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T14:02:58.810277",
+      "device_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "metric_type": "production",
+      "value": 988.86,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T15:02:58.810277",
+      "device_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "metric_type": "production",
+      "value": 509.28,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T16:02:58.810277",
+      "device_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "metric_type": "production",
+      "value": 845.37,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T17:02:58.810277",
+      "device_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "metric_type": "production",
+      "value": 809.74,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T18:02:58.810277",
+      "device_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "metric_type": "production",
+      "value": 1013.38,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T19:02:58.810277",
+      "device_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "metric_type": "production",
+      "value": 707.95,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T20:02:58.810277",
+      "device_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "metric_type": "production",
+      "value": 921.2,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T21:02:58.810277",
+      "device_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "metric_type": "production",
+      "value": 1011.25,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T22:02:58.810277",
+      "device_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "metric_type": "production",
+      "value": 644.46,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T23:02:58.810277",
+      "device_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "metric_type": "production",
+      "value": 870.67,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T00:02:58.810277",
+      "device_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "metric_type": "production",
+      "value": 1182.08,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T01:02:58.810277",
+      "device_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "metric_type": "production",
+      "value": 732.73,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T02:02:58.810277",
+      "device_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "metric_type": "production",
+      "value": 969.21,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T03:02:58.810277",
+      "device_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "metric_type": "production",
+      "value": 785.81,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T04:02:58.810277",
+      "device_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "metric_type": "production",
+      "value": 1121.8,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T05:02:58.810277",
+      "device_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "metric_type": "production",
+      "value": 1238.32,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T06:02:58.810277",
+      "device_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "metric_type": "production",
+      "value": 1039.18,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T07:02:58.810277",
+      "device_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "metric_type": "production",
+      "value": 491.27,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T08:02:58.810277",
+      "device_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "metric_type": "production",
+      "value": 1200.35,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T09:02:58.810277",
+      "device_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "metric_type": "production",
+      "value": 1021.98,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T10:02:58.810277",
+      "device_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "metric_type": "production",
+      "value": 902.84,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T11:02:58.810277",
+      "device_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854",
+      "metric_type": "production",
+      "value": 693.47,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T12:02:58.810277",
+      "device_id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "metric_type": "consumption",
+      "value": 43.85,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T13:02:58.810277",
+      "device_id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "metric_type": "consumption",
+      "value": 50.41,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T14:02:58.810277",
+      "device_id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "metric_type": "consumption",
+      "value": 59.51,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T15:02:58.810277",
+      "device_id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "metric_type": "consumption",
+      "value": 74.13,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T16:02:58.810277",
+      "device_id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "metric_type": "consumption",
+      "value": 31.39,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T17:02:58.810277",
+      "device_id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "metric_type": "consumption",
+      "value": 55.61,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T18:02:58.810277",
+      "device_id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "metric_type": "consumption",
+      "value": 116.32,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T19:02:58.810277",
+      "device_id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "metric_type": "consumption",
+      "value": 79.88,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T20:02:58.810277",
+      "device_id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "metric_type": "consumption",
+      "value": 132.98,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T21:02:58.810277",
+      "device_id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "metric_type": "consumption",
+      "value": 141.48,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T22:02:58.810277",
+      "device_id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "metric_type": "consumption",
+      "value": 100.59,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T23:02:58.810277",
+      "device_id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "metric_type": "consumption",
+      "value": 43.34,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T00:02:58.810277",
+      "device_id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "metric_type": "consumption",
+      "value": 26.06,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T01:02:58.810277",
+      "device_id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "metric_type": "consumption",
+      "value": 41.52,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T02:02:58.810277",
+      "device_id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "metric_type": "consumption",
+      "value": 27.3,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T03:02:58.810277",
+      "device_id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "metric_type": "consumption",
+      "value": 37.98,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T04:02:58.810277",
+      "device_id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "metric_type": "consumption",
+      "value": 33.05,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T05:02:58.810277",
+      "device_id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "metric_type": "consumption",
+      "value": 20.59,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T06:02:58.810277",
+      "device_id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "metric_type": "consumption",
+      "value": 36.17,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T07:02:58.810277",
+      "device_id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "metric_type": "consumption",
+      "value": 110.66,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T08:02:58.810277",
+      "device_id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "metric_type": "consumption",
+      "value": 76.1,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T09:02:58.810277",
+      "device_id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "metric_type": "consumption",
+      "value": 51.43,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T10:02:58.810277",
+      "device_id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "metric_type": "consumption",
+      "value": 50.18,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T11:02:58.810277",
+      "device_id": "ce676c69-c3dc-415e-9311-05f65351c2f8",
+      "metric_type": "consumption",
+      "value": 33.12,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T12:02:58.810277",
+      "device_id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "metric_type": "consumption",
+      "value": 54.23,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T13:02:58.810277",
+      "device_id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "metric_type": "consumption",
+      "value": 64.77,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T14:02:58.810277",
+      "device_id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "metric_type": "consumption",
+      "value": 70.37,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T15:02:58.810277",
+      "device_id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "metric_type": "consumption",
+      "value": 31.29,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T16:02:58.810277",
+      "device_id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "metric_type": "consumption",
+      "value": 47.91,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T17:02:58.810277",
+      "device_id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "metric_type": "consumption",
+      "value": 44.44,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T18:02:58.810277",
+      "device_id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "metric_type": "consumption",
+      "value": 77.2,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T19:02:58.810277",
+      "device_id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "metric_type": "consumption",
+      "value": 131.3,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T20:02:58.810277",
+      "device_id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "metric_type": "consumption",
+      "value": 84.13,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T21:02:58.810277",
+      "device_id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "metric_type": "consumption",
+      "value": 116.29,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T22:02:58.810277",
+      "device_id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "metric_type": "consumption",
+      "value": 114.05,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T23:02:58.810277",
+      "device_id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "metric_type": "consumption",
+      "value": 45.38,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T00:02:58.810277",
+      "device_id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "metric_type": "consumption",
+      "value": 45.74,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T01:02:58.810277",
+      "device_id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "metric_type": "consumption",
+      "value": 37.15,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T02:02:58.810277",
+      "device_id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "metric_type": "consumption",
+      "value": 30.6,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T03:02:58.810277",
+      "device_id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "metric_type": "consumption",
+      "value": 41.95,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T04:02:58.810277",
+      "device_id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "metric_type": "consumption",
+      "value": 38.39,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T05:02:58.810277",
+      "device_id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "metric_type": "consumption",
+      "value": 39.04,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T06:02:58.810277",
+      "device_id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "metric_type": "consumption",
+      "value": 38.09,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T07:02:58.810277",
+      "device_id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "metric_type": "consumption",
+      "value": 108.36,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T08:02:58.810277",
+      "device_id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "metric_type": "consumption",
+      "value": 55.91,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T09:02:58.810277",
+      "device_id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "metric_type": "consumption",
+      "value": 124.2,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T10:02:58.810277",
+      "device_id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "metric_type": "consumption",
+      "value": 68.92,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T11:02:58.810277",
+      "device_id": "500428cd-4c32-4caa-9110-fa2b983d6b73",
+      "metric_type": "consumption",
+      "value": 38.82,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T12:02:58.810277",
+      "device_id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "metric_type": "consumption",
+      "value": 70.59,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T13:02:58.810277",
+      "device_id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "metric_type": "consumption",
+      "value": 49.8,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T14:02:58.810277",
+      "device_id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "metric_type": "consumption",
+      "value": 36.78,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T15:02:58.810277",
+      "device_id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "metric_type": "consumption",
+      "value": 61.14,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T16:02:58.810277",
+      "device_id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "metric_type": "consumption",
+      "value": 33.96,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T17:02:58.810277",
+      "device_id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "metric_type": "consumption",
+      "value": 59.57,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T18:02:58.810277",
+      "device_id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "metric_type": "consumption",
+      "value": 58.53,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T19:02:58.810277",
+      "device_id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "metric_type": "consumption",
+      "value": 117.61,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T20:02:58.810277",
+      "device_id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "metric_type": "consumption",
+      "value": 125.93,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T21:02:58.810277",
+      "device_id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "metric_type": "consumption",
+      "value": 127.58,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T22:02:58.810277",
+      "device_id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "metric_type": "consumption",
+      "value": 136.37,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T23:02:58.810277",
+      "device_id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "metric_type": "consumption",
+      "value": 41.38,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T00:02:58.810277",
+      "device_id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "metric_type": "consumption",
+      "value": 20.02,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T01:02:58.810277",
+      "device_id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "metric_type": "consumption",
+      "value": 28.43,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T02:02:58.810277",
+      "device_id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "metric_type": "consumption",
+      "value": 22.03,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T03:02:58.810277",
+      "device_id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "metric_type": "consumption",
+      "value": 34.42,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T04:02:58.810277",
+      "device_id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "metric_type": "consumption",
+      "value": 46.77,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T05:02:58.810277",
+      "device_id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "metric_type": "consumption",
+      "value": 38.65,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T06:02:58.810277",
+      "device_id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "metric_type": "consumption",
+      "value": 37.9,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T07:02:58.810277",
+      "device_id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "metric_type": "consumption",
+      "value": 77.21,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T08:02:58.810277",
+      "device_id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "metric_type": "consumption",
+      "value": 98.95,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T09:02:58.810277",
+      "device_id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "metric_type": "consumption",
+      "value": 93.59,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T10:02:58.810277",
+      "device_id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "metric_type": "consumption",
+      "value": 68.44,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T11:02:58.810277",
+      "device_id": "4739847c-c01e-4145-8f0c-5cb695358501",
+      "metric_type": "consumption",
+      "value": 53.33,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T12:02:58.810277",
+      "device_id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "metric_type": "consumption",
+      "value": 52.78,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T13:02:58.810277",
+      "device_id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "metric_type": "consumption",
+      "value": 55.1,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T14:02:58.810277",
+      "device_id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "metric_type": "consumption",
+      "value": 64.88,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T15:02:58.810277",
+      "device_id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "metric_type": "consumption",
+      "value": 64.01,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T16:02:58.810277",
+      "device_id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "metric_type": "consumption",
+      "value": 36.32,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T17:02:58.810277",
+      "device_id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "metric_type": "consumption",
+      "value": 71.86,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T18:02:58.810277",
+      "device_id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "metric_type": "consumption",
+      "value": 109.11,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T19:02:58.810277",
+      "device_id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "metric_type": "consumption",
+      "value": 135.88,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T20:02:58.810277",
+      "device_id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "metric_type": "consumption",
+      "value": 105.0,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T21:02:58.810277",
+      "device_id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "metric_type": "consumption",
+      "value": 71.86,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T22:02:58.810277",
+      "device_id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "metric_type": "consumption",
+      "value": 72.91,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T23:02:58.810277",
+      "device_id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "metric_type": "consumption",
+      "value": 23.82,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T00:02:58.810277",
+      "device_id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "metric_type": "consumption",
+      "value": 26.41,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T01:02:58.810277",
+      "device_id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "metric_type": "consumption",
+      "value": 37.34,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T02:02:58.810277",
+      "device_id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "metric_type": "consumption",
+      "value": 35.68,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T03:02:58.810277",
+      "device_id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "metric_type": "consumption",
+      "value": 29.07,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T04:02:58.810277",
+      "device_id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "metric_type": "consumption",
+      "value": 30.21,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T05:02:58.810277",
+      "device_id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "metric_type": "consumption",
+      "value": 39.2,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T06:02:58.810277",
+      "device_id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "metric_type": "consumption",
+      "value": 33.54,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T07:02:58.810277",
+      "device_id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "metric_type": "consumption",
+      "value": 61.06,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T08:02:58.810277",
+      "device_id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "metric_type": "consumption",
+      "value": 93.53,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T09:02:58.810277",
+      "device_id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "metric_type": "consumption",
+      "value": 124.46,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T10:02:58.810277",
+      "device_id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "metric_type": "consumption",
+      "value": 33.01,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T11:02:58.810277",
+      "device_id": "04c4501a-8e98-494c-94b5-fe040a49eb5c",
+      "metric_type": "consumption",
+      "value": 68.87,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T12:02:58.810277",
+      "device_id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "metric_type": "consumption",
+      "value": 63.5,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T13:02:58.810277",
+      "device_id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "metric_type": "consumption",
+      "value": 78.39,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T14:02:58.810277",
+      "device_id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "metric_type": "consumption",
+      "value": 37.51,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T15:02:58.810277",
+      "device_id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "metric_type": "consumption",
+      "value": 37.88,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T16:02:58.810277",
+      "device_id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "metric_type": "consumption",
+      "value": 58.62,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T17:02:58.810277",
+      "device_id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "metric_type": "consumption",
+      "value": 46.09,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T18:02:58.810277",
+      "device_id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "metric_type": "consumption",
+      "value": 70.83,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T19:02:58.810277",
+      "device_id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "metric_type": "consumption",
+      "value": 63.78,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T20:02:58.810277",
+      "device_id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "metric_type": "consumption",
+      "value": 93.72,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T21:02:58.810277",
+      "device_id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "metric_type": "consumption",
+      "value": 125.31,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T22:02:58.810277",
+      "device_id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "metric_type": "consumption",
+      "value": 101.12,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-03T23:02:58.810277",
+      "device_id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "metric_type": "consumption",
+      "value": 24.42,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T00:02:58.810277",
+      "device_id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "metric_type": "consumption",
+      "value": 25.02,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T01:02:58.810277",
+      "device_id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "metric_type": "consumption",
+      "value": 42.83,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T02:02:58.810277",
+      "device_id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "metric_type": "consumption",
+      "value": 37.2,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T03:02:58.810277",
+      "device_id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "metric_type": "consumption",
+      "value": 48.36,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T04:02:58.810277",
+      "device_id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "metric_type": "consumption",
+      "value": 21.02,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T05:02:58.810277",
+      "device_id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "metric_type": "consumption",
+      "value": 20.62,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T06:02:58.810277",
+      "device_id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "metric_type": "consumption",
+      "value": 20.82,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T07:02:58.810277",
+      "device_id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "metric_type": "consumption",
+      "value": 147.8,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T08:02:58.810277",
+      "device_id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "metric_type": "consumption",
+      "value": 135.4,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T09:02:58.810277",
+      "device_id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "metric_type": "consumption",
+      "value": 80.21,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T10:02:58.810277",
+      "device_id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "metric_type": "consumption",
+      "value": 50.46,
+      "unit": "kW"
+    },
+    {
+      "time": "2025-11-04T11:02:58.810277",
+      "device_id": "9e5960de-213b-44c4-8c3a-a49e57620be4",
+      "metric_type": "consumption",
+      "value": 54.01,
+      "unit": "kW"
+    }
+  ],
+  "demand_data": [
+    {
+      "date": "2025-08-03",
+      "kWh": 120.6,
+      "kW": 9.81,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-04",
+      "kWh": 136.28,
+      "kW": 11.91,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-05",
+      "kWh": 145.92,
+      "kW": 11.0,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-06",
+      "kWh": 132.11,
+      "kW": 11.78,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-07",
+      "kWh": 134.9,
+      "kW": 11.86,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-08",
+      "kWh": 139.85,
+      "kW": 14.13,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-09",
+      "kWh": 116.79,
+      "kW": 10.17,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-10",
+      "kWh": 109.53,
+      "kW": 7.96,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-11",
+      "kWh": 131.71,
+      "kW": 10.89,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-12",
+      "kWh": 110.61,
+      "kW": 10.19,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-13",
+      "kWh": 109.86,
+      "kW": 6.95,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-14",
+      "kWh": 130.59,
+      "kW": 11.67,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-15",
+      "kWh": 113.19,
+      "kW": 8.07,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-16",
+      "kWh": 108.1,
+      "kW": 7.47,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-17",
+      "kWh": 103.92,
+      "kW": 8.39,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-18",
+      "kWh": 143.88,
+      "kW": 11.73,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-19",
+      "kWh": 112.36,
+      "kW": 10.34,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-20",
+      "kWh": 122.67,
+      "kW": 9.39,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-21",
+      "kWh": 146.65,
+      "kW": 14.61,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-22",
+      "kWh": 138.98,
+      "kW": 14.2,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-23",
+      "kWh": 102.47,
+      "kW": 8.29,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-24",
+      "kWh": 88.3,
+      "kW": 8.66,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-25",
+      "kWh": 106.13,
+      "kW": 8.52,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-26",
+      "kWh": 155.83,
+      "kW": 10.4,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-27",
+      "kWh": 124.93,
+      "kW": 11.51,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-28",
+      "kWh": 154.17,
+      "kW": 15.43,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-29",
+      "kWh": 115.68,
+      "kW": 11.89,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-30",
+      "kWh": 124.18,
+      "kW": 8.4,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-31",
+      "kWh": 102.6,
+      "kW": 9.66,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-01",
+      "kWh": 97.12,
+      "kW": 6.3,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-02",
+      "kWh": 97.12,
+      "kW": 10.06,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-03",
+      "kWh": 98.35,
+      "kW": 9.4,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-04",
+      "kWh": 105.99,
+      "kW": 8.45,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-05",
+      "kWh": 82.13,
+      "kW": 5.58,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-06",
+      "kWh": 94.98,
+      "kW": 7.29,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-07",
+      "kWh": 75.07,
+      "kW": 6.31,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-08",
+      "kWh": 86.67,
+      "kW": 6.24,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-09",
+      "kWh": 96.22,
+      "kW": 6.19,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-10",
+      "kWh": 88.44,
+      "kW": 5.78,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-11",
+      "kWh": 101.77,
+      "kW": 7.83,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-12",
+      "kWh": 110.84,
+      "kW": 8.66,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-13",
+      "kWh": 90.56,
+      "kW": 7.87,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-14",
+      "kWh": 67.45,
+      "kW": 5.21,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-15",
+      "kWh": 93.1,
+      "kW": 7.41,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-16",
+      "kWh": 84.39,
+      "kW": 6.47,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-17",
+      "kWh": 112.47,
+      "kW": 8.51,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-18",
+      "kWh": 85.97,
+      "kW": 7.08,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-19",
+      "kWh": 82.49,
+      "kW": 6.3,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-20",
+      "kWh": 78.06,
+      "kW": 6.55,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-21",
+      "kWh": 94.56,
+      "kW": 6.57,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-22",
+      "kWh": 80.59,
+      "kW": 5.46,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-23",
+      "kWh": 111.5,
+      "kW": 8.52,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-24",
+      "kWh": 119.49,
+      "kW": 10.2,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-25",
+      "kWh": 116.6,
+      "kW": 10.24,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-26",
+      "kWh": 115.82,
+      "kW": 11.19,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-27",
+      "kWh": 64.67,
+      "kW": 5.6,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-28",
+      "kWh": 92.64,
+      "kW": 6.86,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-29",
+      "kWh": 92.73,
+      "kW": 6.34,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-09-30",
+      "kWh": 97.6,
+      "kW": 9.49,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-01",
+      "kWh": 107.43,
+      "kW": 7.3,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-02",
+      "kWh": 110.08,
+      "kW": 10.59,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-03",
+      "kWh": 105.47,
+      "kW": 8.42,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-04",
+      "kWh": 89.5,
+      "kW": 7.9,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-05",
+      "kWh": 88.24,
+      "kW": 5.91,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-06",
+      "kWh": 82.74,
+      "kW": 7.28,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-07",
+      "kWh": 106.63,
+      "kW": 7.04,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-08",
+      "kWh": 99.84,
+      "kW": 10.19,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-09",
+      "kWh": 86.5,
+      "kW": 5.72,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-10",
+      "kWh": 91.73,
+      "kW": 7.94,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-11",
+      "kWh": 79.98,
+      "kW": 6.13,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-12",
+      "kWh": 89.21,
+      "kW": 6.66,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-13",
+      "kWh": 96.98,
+      "kW": 8.02,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-14",
+      "kWh": 118.86,
+      "kW": 8.11,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-15",
+      "kWh": 101.45,
+      "kW": 9.46,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-16",
+      "kWh": 84.92,
+      "kW": 7.03,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-17",
+      "kWh": 106.92,
+      "kW": 8.91,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-18",
+      "kWh": 82.52,
+      "kW": 8.19,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-19",
+      "kWh": 87.01,
+      "kW": 5.53,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-20",
+      "kWh": 83.52,
+      "kW": 5.41,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-21",
+      "kWh": 114.61,
+      "kW": 11.1,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-22",
+      "kWh": 84.87,
+      "kW": 6.23,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-23",
+      "kWh": 84.61,
+      "kW": 5.45,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-24",
+      "kWh": 93.19,
+      "kW": 7.8,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-25",
+      "kWh": 75.83,
+      "kW": 7.09,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-26",
+      "kWh": 73.75,
+      "kW": 4.83,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-27",
+      "kWh": 80.6,
+      "kW": 6.93,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-28",
+      "kWh": 80.91,
+      "kW": 6.09,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-29",
+      "kWh": 81.86,
+      "kW": 5.78,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-30",
+      "kWh": 106.04,
+      "kW": 9.37,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-10-31",
+      "kWh": 102.75,
+      "kW": 9.56,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-11-01",
+      "kWh": 81.22,
+      "kW": 5.31,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-11-02",
+      "kWh": 75.21,
+      "kW": 6.02,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-11-03",
+      "kWh": 83.99,
+      "kW": 8.57,
+      "asset_id": "ce676c69-c3dc-415e-9311-05f65351c2f8"
+    },
+    {
+      "date": "2025-08-03",
+      "kWh": 93.16,
+      "kW": 8.06,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-04",
+      "kWh": 135.29,
+      "kW": 10.46,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-05",
+      "kWh": 119.09,
+      "kW": 10.27,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-06",
+      "kWh": 118.84,
+      "kW": 9.41,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-07",
+      "kWh": 120.26,
+      "kW": 7.64,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-08",
+      "kWh": 142.4,
+      "kW": 9.88,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-09",
+      "kWh": 113.26,
+      "kW": 7.91,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-10",
+      "kWh": 90.8,
+      "kW": 6.06,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-11",
+      "kWh": 135.76,
+      "kW": 12.82,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-12",
+      "kWh": 124.01,
+      "kW": 7.92,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-13",
+      "kWh": 129.91,
+      "kW": 10.68,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-14",
+      "kWh": 153.6,
+      "kW": 13.55,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-15",
+      "kWh": 140.86,
+      "kW": 9.41,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-16",
+      "kWh": 98.76,
+      "kW": 7.4,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-17",
+      "kWh": 99.75,
+      "kW": 9.32,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-18",
+      "kWh": 122.86,
+      "kW": 10.63,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-19",
+      "kWh": 113.55,
+      "kW": 10.21,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-20",
+      "kWh": 128.5,
+      "kW": 10.44,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-21",
+      "kWh": 107.31,
+      "kW": 10.16,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-22",
+      "kWh": 117.58,
+      "kW": 7.85,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-23",
+      "kWh": 96.02,
+      "kW": 8.48,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-24",
+      "kWh": 116.27,
+      "kW": 10.63,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-25",
+      "kWh": 153.75,
+      "kW": 12.7,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-26",
+      "kWh": 140.8,
+      "kW": 14.43,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-27",
+      "kWh": 133.94,
+      "kW": 8.45,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-28",
+      "kWh": 122.17,
+      "kW": 11.95,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-29",
+      "kWh": 108.95,
+      "kW": 9.87,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-30",
+      "kWh": 122.8,
+      "kW": 11.59,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-31",
+      "kWh": 117.55,
+      "kW": 10.4,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-01",
+      "kWh": 108.92,
+      "kW": 6.89,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-02",
+      "kWh": 108.53,
+      "kW": 11.15,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-03",
+      "kWh": 119.68,
+      "kW": 9.64,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-04",
+      "kWh": 107.74,
+      "kW": 11.09,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-05",
+      "kWh": 88.08,
+      "kW": 6.46,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-06",
+      "kWh": 68.65,
+      "kW": 6.8,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-07",
+      "kWh": 87.99,
+      "kW": 6.73,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-08",
+      "kWh": 88.84,
+      "kW": 7.81,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-09",
+      "kWh": 82.31,
+      "kW": 6.97,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-10",
+      "kWh": 108.1,
+      "kW": 6.8,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-11",
+      "kWh": 109.63,
+      "kW": 10.28,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-12",
+      "kWh": 117.13,
+      "kW": 8.29,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-13",
+      "kWh": 86.44,
+      "kW": 6.54,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-14",
+      "kWh": 81.29,
+      "kW": 6.85,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-15",
+      "kWh": 94.29,
+      "kW": 8.37,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-16",
+      "kWh": 96.8,
+      "kW": 8.97,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-17",
+      "kWh": 96.47,
+      "kW": 9.95,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-18",
+      "kWh": 82.14,
+      "kW": 6.29,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-19",
+      "kWh": 82.28,
+      "kW": 7.8,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-20",
+      "kWh": 89.76,
+      "kW": 6.12,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-21",
+      "kWh": 72.0,
+      "kW": 7.32,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-22",
+      "kWh": 104.25,
+      "kW": 8.32,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-23",
+      "kWh": 84.83,
+      "kW": 5.37,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-24",
+      "kWh": 105.7,
+      "kW": 10.84,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-25",
+      "kWh": 85.33,
+      "kW": 6.69,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-26",
+      "kWh": 102.18,
+      "kW": 9.24,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-27",
+      "kWh": 90.49,
+      "kW": 5.88,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-28",
+      "kWh": 65.36,
+      "kW": 5.18,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-29",
+      "kWh": 117.57,
+      "kW": 9.55,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-09-30",
+      "kWh": 111.29,
+      "kW": 7.69,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-01",
+      "kWh": 90.95,
+      "kW": 7.98,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-02",
+      "kWh": 84.0,
+      "kW": 6.78,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-03",
+      "kWh": 108.77,
+      "kW": 7.25,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-04",
+      "kWh": 89.71,
+      "kW": 6.92,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-05",
+      "kWh": 82.38,
+      "kW": 6.8,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-06",
+      "kWh": 118.13,
+      "kW": 9.76,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-07",
+      "kWh": 118.12,
+      "kW": 8.34,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-08",
+      "kWh": 87.6,
+      "kW": 6.92,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-09",
+      "kWh": 102.42,
+      "kW": 8.56,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-10",
+      "kWh": 98.39,
+      "kW": 9.15,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-11",
+      "kWh": 89.04,
+      "kW": 8.74,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-12",
+      "kWh": 83.76,
+      "kW": 8.62,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-13",
+      "kWh": 112.99,
+      "kW": 9.84,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-14",
+      "kWh": 103.68,
+      "kW": 8.0,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-15",
+      "kWh": 93.14,
+      "kW": 6.79,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-16",
+      "kWh": 113.93,
+      "kW": 7.42,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-17",
+      "kWh": 103.56,
+      "kW": 6.82,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-18",
+      "kWh": 72.43,
+      "kW": 5.52,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-19",
+      "kWh": 88.11,
+      "kW": 6.24,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-20",
+      "kWh": 117.37,
+      "kW": 9.79,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-21",
+      "kWh": 111.5,
+      "kW": 10.41,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-22",
+      "kWh": 111.88,
+      "kW": 9.62,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-23",
+      "kWh": 92.19,
+      "kW": 7.79,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-24",
+      "kWh": 85.49,
+      "kW": 7.9,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-25",
+      "kWh": 81.5,
+      "kW": 7.24,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-26",
+      "kWh": 92.47,
+      "kW": 9.04,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-27",
+      "kWh": 82.46,
+      "kW": 6.41,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-28",
+      "kWh": 83.89,
+      "kW": 6.27,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-29",
+      "kWh": 104.78,
+      "kW": 6.58,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-30",
+      "kWh": 80.43,
+      "kW": 8.03,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-10-31",
+      "kWh": 106.08,
+      "kW": 9.01,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-11-01",
+      "kWh": 75.03,
+      "kW": 7.44,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-11-02",
+      "kWh": 93.71,
+      "kW": 7.43,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-11-03",
+      "kWh": 100.69,
+      "kW": 10.14,
+      "asset_id": "500428cd-4c32-4caa-9110-fa2b983d6b73"
+    },
+    {
+      "date": "2025-08-03",
+      "kWh": 120.33,
+      "kW": 10.6,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-04",
+      "kWh": 144.86,
+      "kW": 10.42,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-05",
+      "kWh": 144.77,
+      "kW": 10.35,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-06",
+      "kWh": 117.15,
+      "kW": 8.64,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-07",
+      "kWh": 149.07,
+      "kW": 13.43,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-08",
+      "kWh": 140.68,
+      "kW": 12.93,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-09",
+      "kWh": 93.15,
+      "kW": 8.78,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-10",
+      "kWh": 109.93,
+      "kW": 7.41,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-11",
+      "kWh": 117.47,
+      "kW": 9.67,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-12",
+      "kWh": 130.26,
+      "kW": 8.88,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-13",
+      "kWh": 130.23,
+      "kW": 11.59,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-14",
+      "kWh": 145.85,
+      "kW": 9.52,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-15",
+      "kWh": 149.19,
+      "kW": 15.28,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-16",
+      "kWh": 88.23,
+      "kW": 7.55,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-17",
+      "kWh": 115.03,
+      "kW": 7.85,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-18",
+      "kWh": 147.63,
+      "kW": 11.13,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-19",
+      "kWh": 106.07,
+      "kW": 10.08,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-20",
+      "kWh": 155.31,
+      "kW": 10.66,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-21",
+      "kWh": 124.15,
+      "kW": 9.72,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-22",
+      "kWh": 145.84,
+      "kW": 13.87,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-23",
+      "kWh": 94.65,
+      "kW": 7.26,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-24",
+      "kWh": 115.22,
+      "kW": 11.35,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-25",
+      "kWh": 138.65,
+      "kW": 11.84,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-26",
+      "kWh": 105.93,
+      "kW": 6.86,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-27",
+      "kWh": 104.87,
+      "kW": 10.49,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-28",
+      "kWh": 135.4,
+      "kW": 12.96,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-29",
+      "kWh": 115.45,
+      "kW": 7.93,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-30",
+      "kWh": 108.74,
+      "kW": 8.46,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-08-31",
+      "kWh": 122.63,
+      "kW": 10.16,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-01",
+      "kWh": 101.02,
+      "kW": 6.74,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-02",
+      "kWh": 89.91,
+      "kW": 7.14,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-03",
+      "kWh": 80.33,
+      "kW": 6.62,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-04",
+      "kWh": 95.09,
+      "kW": 7.12,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-05",
+      "kWh": 88.24,
+      "kW": 6.67,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-06",
+      "kWh": 90.38,
+      "kW": 7.05,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-07",
+      "kWh": 67.76,
+      "kW": 5.13,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-08",
+      "kWh": 84.66,
+      "kW": 6.05,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-09",
+      "kWh": 98.62,
+      "kW": 9.36,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-10",
+      "kWh": 94.69,
+      "kW": 6.35,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-11",
+      "kWh": 91.37,
+      "kW": 7.98,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-12",
+      "kWh": 109.69,
+      "kW": 11.02,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-13",
+      "kWh": 90.22,
+      "kW": 7.31,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-14",
+      "kWh": 80.11,
+      "kW": 5.43,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-15",
+      "kWh": 104.94,
+      "kW": 7.66,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-16",
+      "kWh": 114.4,
+      "kW": 7.4,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-17",
+      "kWh": 84.8,
+      "kW": 6.47,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-18",
+      "kWh": 115.95,
+      "kW": 11.78,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-19",
+      "kWh": 81.05,
+      "kW": 6.16,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-20",
+      "kWh": 81.7,
+      "kW": 6.76,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-21",
+      "kWh": 77.71,
+      "kW": 6.58,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-22",
+      "kWh": 104.73,
+      "kW": 8.71,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-23",
+      "kWh": 117.65,
+      "kW": 7.76,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-24",
+      "kWh": 95.59,
+      "kW": 9.18,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-25",
+      "kWh": 91.64,
+      "kW": 6.42,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-26",
+      "kWh": 113.63,
+      "kW": 9.56,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-27",
+      "kWh": 67.19,
+      "kW": 4.22,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-28",
+      "kWh": 83.69,
+      "kW": 5.74,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-29",
+      "kWh": 117.94,
+      "kW": 12.02,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-09-30",
+      "kWh": 112.89,
+      "kW": 11.2,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-01",
+      "kWh": 88.51,
+      "kW": 8.9,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-02",
+      "kWh": 119.63,
+      "kW": 7.72,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-03",
+      "kWh": 101.09,
+      "kW": 6.95,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-04",
+      "kWh": 82.55,
+      "kW": 8.19,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-05",
+      "kWh": 79.31,
+      "kW": 5.27,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-06",
+      "kWh": 91.63,
+      "kW": 7.2,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-07",
+      "kWh": 98.22,
+      "kW": 7.41,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-08",
+      "kWh": 99.35,
+      "kW": 10.16,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-09",
+      "kWh": 116.68,
+      "kW": 8.98,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-10",
+      "kWh": 113.05,
+      "kW": 8.11,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-11",
+      "kWh": 75.5,
+      "kW": 5.66,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-12",
+      "kWh": 84.05,
+      "kW": 5.91,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-13",
+      "kWh": 90.17,
+      "kW": 8.25,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-14",
+      "kWh": 99.36,
+      "kW": 8.11,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-15",
+      "kWh": 116.19,
+      "kW": 10.0,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-16",
+      "kWh": 117.85,
+      "kW": 10.69,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-17",
+      "kWh": 100.19,
+      "kW": 8.07,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-18",
+      "kWh": 94.91,
+      "kW": 7.6,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-19",
+      "kWh": 70.78,
+      "kW": 6.86,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-20",
+      "kWh": 83.98,
+      "kW": 5.34,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-21",
+      "kWh": 90.48,
+      "kW": 5.99,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-22",
+      "kWh": 102.15,
+      "kW": 9.41,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-23",
+      "kWh": 93.34,
+      "kW": 7.91,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-24",
+      "kWh": 83.0,
+      "kW": 8.56,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-25",
+      "kWh": 87.3,
+      "kW": 9.02,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-26",
+      "kWh": 83.13,
+      "kW": 5.97,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-27",
+      "kWh": 88.62,
+      "kW": 6.9,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-28",
+      "kWh": 95.53,
+      "kW": 7.52,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-29",
+      "kWh": 101.15,
+      "kW": 8.88,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-30",
+      "kWh": 105.46,
+      "kW": 7.3,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-10-31",
+      "kWh": 86.93,
+      "kW": 7.44,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-11-01",
+      "kWh": 89.59,
+      "kW": 7.59,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-11-02",
+      "kWh": 76.3,
+      "kW": 6.25,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    },
+    {
+      "date": "2025-11-03",
+      "kWh": 97.01,
+      "kW": 9.5,
+      "asset_id": "4739847c-c01e-4145-8f0c-5cb695358501"
+    }
+  ],
+  "supply_data": [
+    {
+      "date": "2025-10-05",
+      "production_kwh": 16256.35,
+      "peak_power_kw": 1180.23,
+      "efficiency": 52.12,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-06",
+      "production_kwh": 45708.38,
+      "peak_power_kw": 2165.67,
+      "efficiency": 86.07,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-07",
+      "production_kwh": 44286.36,
+      "peak_power_kw": 2501.71,
+      "efficiency": 99.42,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-08",
+      "production_kwh": 45693.09,
+      "peak_power_kw": 2448.37,
+      "efficiency": 97.3,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-09",
+      "production_kwh": 11582.12,
+      "peak_power_kw": 1277.93,
+      "efficiency": 50.79,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-10",
+      "production_kwh": 37204.99,
+      "peak_power_kw": 2039.31,
+      "efficiency": 81.05,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-11",
+      "production_kwh": 35912.49,
+      "peak_power_kw": 2087.57,
+      "efficiency": 92.18,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-12",
+      "production_kwh": 22455.82,
+      "peak_power_kw": 2158.18,
+      "efficiency": 95.3,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-13",
+      "production_kwh": 32366.26,
+      "peak_power_kw": 1674.67,
+      "efficiency": 66.56,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-14",
+      "production_kwh": 19015.74,
+      "peak_power_kw": 2063.76,
+      "efficiency": 82.02,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-15",
+      "production_kwh": 26785.45,
+      "peak_power_kw": 2000.66,
+      "efficiency": 79.51,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-16",
+      "production_kwh": 19502.38,
+      "peak_power_kw": 1359.06,
+      "efficiency": 54.01,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-17",
+      "production_kwh": 26049.53,
+      "peak_power_kw": 2372.94,
+      "efficiency": 94.31,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-18",
+      "production_kwh": 30267.87,
+      "peak_power_kw": 1706.24,
+      "efficiency": 75.34,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-19",
+      "production_kwh": 31707.45,
+      "peak_power_kw": 2234.46,
+      "efficiency": 98.67,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-20",
+      "production_kwh": 41964.46,
+      "peak_power_kw": 1971.41,
+      "efficiency": 78.35,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-21",
+      "production_kwh": 24707.28,
+      "peak_power_kw": 1928.48,
+      "efficiency": 76.64,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-22",
+      "production_kwh": 29194.83,
+      "peak_power_kw": 2455.47,
+      "efficiency": 97.59,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-23",
+      "production_kwh": 14186.59,
+      "peak_power_kw": 1456.08,
+      "efficiency": 57.87,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-24",
+      "production_kwh": 12276.0,
+      "peak_power_kw": 1612.08,
+      "efficiency": 64.07,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-25",
+      "production_kwh": 26737.13,
+      "peak_power_kw": 1511.24,
+      "efficiency": 66.73,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-26",
+      "production_kwh": 28218.13,
+      "peak_power_kw": 1427.95,
+      "efficiency": 63.06,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-27",
+      "production_kwh": 38396.34,
+      "peak_power_kw": 1982.22,
+      "efficiency": 78.78,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-28",
+      "production_kwh": 11898.63,
+      "peak_power_kw": 1449.76,
+      "efficiency": 57.62,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-29",
+      "production_kwh": 13199.72,
+      "peak_power_kw": 1625.01,
+      "efficiency": 64.58,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-30",
+      "production_kwh": 40920.33,
+      "peak_power_kw": 1954.56,
+      "efficiency": 77.68,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-31",
+      "production_kwh": 25684.55,
+      "peak_power_kw": 1542.34,
+      "efficiency": 61.3,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-11-01",
+      "production_kwh": 21013.75,
+      "peak_power_kw": 2155.1,
+      "efficiency": 95.16,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-11-02",
+      "production_kwh": 24435.92,
+      "peak_power_kw": 1306.44,
+      "efficiency": 57.69,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-11-03",
+      "production_kwh": 43808.87,
+      "peak_power_kw": 2229.35,
+      "efficiency": 88.6,
+      "asset_id": "ab56abe0-94ac-4169-9f8d-c4a3e62e1cf4"
+    },
+    {
+      "date": "2025-10-05",
+      "production_kwh": 70055.01,
+      "peak_power_kw": 3469.08,
+      "efficiency": 87.07,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-06",
+      "production_kwh": 86342.43,
+      "peak_power_kw": 4272.72,
+      "efficiency": 96.51,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-07",
+      "production_kwh": 47290.8,
+      "peak_power_kw": 2527.36,
+      "efficiency": 57.09,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-08",
+      "production_kwh": 36880.64,
+      "peak_power_kw": 2869.52,
+      "efficiency": 64.82,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-09",
+      "production_kwh": 49113.69,
+      "peak_power_kw": 2868.87,
+      "efficiency": 64.8,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-10",
+      "production_kwh": 23082.63,
+      "peak_power_kw": 2565.45,
+      "efficiency": 57.95,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-11",
+      "production_kwh": 51781.27,
+      "peak_power_kw": 3017.63,
+      "efficiency": 75.73,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-12",
+      "production_kwh": 76777.59,
+      "peak_power_kw": 3762.52,
+      "efficiency": 94.43,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-13",
+      "production_kwh": 36362.61,
+      "peak_power_kw": 2664.52,
+      "efficiency": 60.19,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-14",
+      "production_kwh": 23820.93,
+      "peak_power_kw": 2514.85,
+      "efficiency": 56.8,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-15",
+      "production_kwh": 46499.73,
+      "peak_power_kw": 2566.38,
+      "efficiency": 57.97,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-16",
+      "production_kwh": 67585.69,
+      "peak_power_kw": 3791.31,
+      "efficiency": 85.64,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-17",
+      "production_kwh": 43553.7,
+      "peak_power_kw": 3535.64,
+      "efficiency": 79.86,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-18",
+      "production_kwh": 32978.78,
+      "peak_power_kw": 2481.17,
+      "efficiency": 62.27,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-19",
+      "production_kwh": 39275.54,
+      "peak_power_kw": 3134.0,
+      "efficiency": 78.66,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-20",
+      "production_kwh": 42337.04,
+      "peak_power_kw": 2524.68,
+      "efficiency": 57.03,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-21",
+      "production_kwh": 39113.58,
+      "peak_power_kw": 2542.48,
+      "efficiency": 57.43,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-22",
+      "production_kwh": 46060.84,
+      "peak_power_kw": 3292.46,
+      "efficiency": 74.37,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-23",
+      "production_kwh": 48979.01,
+      "peak_power_kw": 3635.13,
+      "efficiency": 82.11,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-24",
+      "production_kwh": 33514.0,
+      "peak_power_kw": 3586.03,
+      "efficiency": 81.0,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-25",
+      "production_kwh": 31063.04,
+      "peak_power_kw": 2324.96,
+      "efficiency": 58.35,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-26",
+      "production_kwh": 69050.73,
+      "peak_power_kw": 3586.26,
+      "efficiency": 90.01,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-27",
+      "production_kwh": 62972.13,
+      "peak_power_kw": 3069.31,
+      "efficiency": 69.33,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-28",
+      "production_kwh": 23151.53,
+      "peak_power_kw": 2676.54,
+      "efficiency": 60.46,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-29",
+      "production_kwh": 36989.76,
+      "peak_power_kw": 3581.84,
+      "efficiency": 80.91,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-30",
+      "production_kwh": 38940.28,
+      "peak_power_kw": 2887.37,
+      "efficiency": 65.22,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-31",
+      "production_kwh": 29457.64,
+      "peak_power_kw": 2991.62,
+      "efficiency": 67.57,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-11-01",
+      "production_kwh": 38648.25,
+      "peak_power_kw": 2438.19,
+      "efficiency": 61.19,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-11-02",
+      "production_kwh": 32805.44,
+      "peak_power_kw": 2459.24,
+      "efficiency": 61.72,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-11-03",
+      "production_kwh": 65593.23,
+      "peak_power_kw": 4076.22,
+      "efficiency": 92.07,
+      "asset_id": "52612fe4-4567-454f-967b-b33438fcd166"
+    },
+    {
+      "date": "2025-10-05",
+      "production_kwh": 20253.36,
+      "peak_power_kw": 1060.37,
+      "efficiency": 86.2,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-06",
+      "production_kwh": 21801.18,
+      "peak_power_kw": 1292.5,
+      "efficiency": 94.57,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-07",
+      "production_kwh": 14150.09,
+      "peak_power_kw": 721.71,
+      "efficiency": 52.81,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-08",
+      "production_kwh": 9653.59,
+      "peak_power_kw": 1278.85,
+      "efficiency": 93.57,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-09",
+      "production_kwh": 24874.14,
+      "peak_power_kw": 1366.28,
+      "efficiency": 99.97,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-10",
+      "production_kwh": 11017.97,
+      "peak_power_kw": 1174.35,
+      "efficiency": 85.92,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-11",
+      "production_kwh": 7332.19,
+      "peak_power_kw": 740.93,
+      "efficiency": 60.24,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-12",
+      "production_kwh": 8384.36,
+      "peak_power_kw": 761.08,
+      "efficiency": 61.87,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-13",
+      "production_kwh": 15076.35,
+      "peak_power_kw": 720.71,
+      "efficiency": 52.73,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-14",
+      "production_kwh": 18710.89,
+      "peak_power_kw": 1004.57,
+      "efficiency": 73.5,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-15",
+      "production_kwh": 8427.95,
+      "peak_power_kw": 689.03,
+      "efficiency": 50.41,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-16",
+      "production_kwh": 16273.89,
+      "peak_power_kw": 975.21,
+      "efficiency": 71.35,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-17",
+      "production_kwh": 16925.74,
+      "peak_power_kw": 1162.88,
+      "efficiency": 85.08,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-18",
+      "production_kwh": 13298.26,
+      "peak_power_kw": 669.51,
+      "efficiency": 54.43,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-19",
+      "production_kwh": 16694.48,
+      "peak_power_kw": 987.64,
+      "efficiency": 80.29,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-20",
+      "production_kwh": 15277.8,
+      "peak_power_kw": 931.17,
+      "efficiency": 68.13,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-21",
+      "production_kwh": 8157.73,
+      "peak_power_kw": 825.21,
+      "efficiency": 60.38,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-22",
+      "production_kwh": 15031.85,
+      "peak_power_kw": 805.08,
+      "efficiency": 58.9,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-23",
+      "production_kwh": 13483.0,
+      "peak_power_kw": 978.82,
+      "efficiency": 71.62,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-24",
+      "production_kwh": 23638.47,
+      "peak_power_kw": 1226.59,
+      "efficiency": 89.75,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-25",
+      "production_kwh": 5662.72,
+      "peak_power_kw": 709.68,
+      "efficiency": 57.69,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-26",
+      "production_kwh": 20197.34,
+      "peak_power_kw": 1171.91,
+      "efficiency": 95.27,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-27",
+      "production_kwh": 21538.19,
+      "peak_power_kw": 1015.83,
+      "efficiency": 74.32,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-28",
+      "production_kwh": 10861.9,
+      "peak_power_kw": 1165.56,
+      "efficiency": 85.28,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-29",
+      "production_kwh": 19840.07,
+      "peak_power_kw": 949.3,
+      "efficiency": 69.46,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-30",
+      "production_kwh": 13460.1,
+      "peak_power_kw": 842.99,
+      "efficiency": 61.68,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-31",
+      "production_kwh": 15484.7,
+      "peak_power_kw": 841.96,
+      "efficiency": 61.6,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-11-01",
+      "production_kwh": 9220.89,
+      "peak_power_kw": 706.94,
+      "efficiency": 57.47,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-11-02",
+      "production_kwh": 18096.51,
+      "peak_power_kw": 856.57,
+      "efficiency": 69.64,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-11-03",
+      "production_kwh": 8723.78,
+      "peak_power_kw": 809.89,
+      "efficiency": 59.26,
+      "asset_id": "d27817e8-9856-4823-9b29-e433dc85c393"
+    },
+    {
+      "date": "2025-10-05",
+      "production_kwh": 7985.75,
+      "peak_power_kw": 899.73,
+      "efficiency": 53.59,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-06",
+      "production_kwh": 27260.98,
+      "peak_power_kw": 1316.42,
+      "efficiency": 70.56,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-07",
+      "production_kwh": 18245.43,
+      "peak_power_kw": 1011.03,
+      "efficiency": 54.19,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-08",
+      "production_kwh": 17788.58,
+      "peak_power_kw": 1448.42,
+      "efficiency": 77.64,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-09",
+      "production_kwh": 36172.0,
+      "peak_power_kw": 1787.72,
+      "efficiency": 95.83,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-10",
+      "production_kwh": 10915.09,
+      "peak_power_kw": 1087.93,
+      "efficiency": 58.32,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-11",
+      "production_kwh": 14688.19,
+      "peak_power_kw": 1135.79,
+      "efficiency": 67.65,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-12",
+      "production_kwh": 15871.84,
+      "peak_power_kw": 988.74,
+      "efficiency": 58.89,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-13",
+      "production_kwh": 23899.43,
+      "peak_power_kw": 1746.17,
+      "efficiency": 93.6,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-14",
+      "production_kwh": 29575.95,
+      "peak_power_kw": 1532.62,
+      "efficiency": 82.15,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-15",
+      "production_kwh": 8757.02,
+      "peak_power_kw": 1009.09,
+      "efficiency": 54.09,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-16",
+      "production_kwh": 23625.82,
+      "peak_power_kw": 1191.22,
+      "efficiency": 63.85,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-17",
+      "production_kwh": 28495.66,
+      "peak_power_kw": 1611.99,
+      "efficiency": 86.41,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-18",
+      "production_kwh": 19821.66,
+      "peak_power_kw": 1254.57,
+      "efficiency": 74.72,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-19",
+      "production_kwh": 20037.54,
+      "peak_power_kw": 970.01,
+      "efficiency": 57.77,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-20",
+      "production_kwh": 15803.83,
+      "peak_power_kw": 1264.57,
+      "efficiency": 67.79,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-21",
+      "production_kwh": 9925.95,
+      "peak_power_kw": 1147.14,
+      "efficiency": 61.49,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-22",
+      "production_kwh": 18718.1,
+      "peak_power_kw": 1294.26,
+      "efficiency": 69.38,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-23",
+      "production_kwh": 11125.58,
+      "peak_power_kw": 1264.79,
+      "efficiency": 67.8,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-24",
+      "production_kwh": 21801.47,
+      "peak_power_kw": 1223.9,
+      "efficiency": 65.61,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-25",
+      "production_kwh": 12287.51,
+      "peak_power_kw": 1399.3,
+      "efficiency": 83.34,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-26",
+      "production_kwh": 21835.25,
+      "peak_power_kw": 1403.98,
+      "efficiency": 83.62,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-27",
+      "production_kwh": 20907.69,
+      "peak_power_kw": 1023.69,
+      "efficiency": 54.87,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-28",
+      "production_kwh": 16308.91,
+      "peak_power_kw": 975.05,
+      "efficiency": 52.27,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-29",
+      "production_kwh": 18740.62,
+      "peak_power_kw": 1216.07,
+      "efficiency": 65.19,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-30",
+      "production_kwh": 23117.74,
+      "peak_power_kw": 1663.33,
+      "efficiency": 89.16,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-10-31",
+      "production_kwh": 13850.91,
+      "peak_power_kw": 1590.81,
+      "efficiency": 85.27,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-11-01",
+      "production_kwh": 14553.12,
+      "peak_power_kw": 1669.29,
+      "efficiency": 99.42,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-11-02",
+      "production_kwh": 19161.75,
+      "peak_power_kw": 1344.7,
+      "efficiency": 80.09,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    },
+    {
+      "date": "2025-11-03",
+      "production_kwh": 11911.38,
+      "peak_power_kw": 1505.36,
+      "efficiency": 80.69,
+      "asset_id": "4886a629-f3e9-4b5f-aeba-c9a51ba00854"
+    }
+  ]
+}
