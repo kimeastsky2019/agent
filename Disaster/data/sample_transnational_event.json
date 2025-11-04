@@ -1,0 +1,30 @@
+{
+  "baseline": {
+    "Japan": {"demand_mw": 52000, "generation_mw": 48000, "stored_mwh": 12000},
+    "Korea": {"demand_mw": 36000, "generation_mw": 39000, "stored_mwh": 9000},
+    "EU": {"demand_mw": 61000, "generation_mw": 65000, "stored_mwh": 20000}
+  },
+  "events": [
+    {
+      "region": "Japan",
+      "event_type": "earthquake",
+      "severity": 0.8,
+      "infrastructure_impact": 0.4,
+      "description": "Significant seismic activity disrupts coastal substations"
+    },
+    {
+      "region": "Korea",
+      "event_type": "typhoon",
+      "severity": 0.5,
+      "infrastructure_impact": 0.2,
+      "description": "Typhoon-induced transmission line constraints"
+    },
+    {
+      "region": "EU",
+      "event_type": "heatwave",
+      "severity": 0.3,
+      "infrastructure_impact": 0.1,
+      "description": "Prolonged heatwave increases demand and reduces efficiency"
+    }
+  ]
+}
