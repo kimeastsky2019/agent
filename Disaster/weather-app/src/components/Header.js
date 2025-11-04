@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Sun, Moon, Cloud, CloudRain, Wind, Thermometer } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
+
 
 const HeaderContainer = styled.header`
   background: rgba(255, 255, 255, 0.1);
@@ -72,7 +72,7 @@ const WeatherIcon = styled(motion.div)`
 `;
 
 const Header = () => {
-  const { t, i18n } = useTranslation();
+  
   const [currentTime, setCurrentTime] = useState(new Date());
   const [weatherIcon, setWeatherIcon] = useState('sun');
 
@@ -117,15 +117,15 @@ const Header = () => {
       <Title>
         <Logo>
           {getWeatherIcon()}
-          {t('title')}
+          {"한국 날씨 분석"}
         </Logo>
-        <Subtitle>{t('subtitle')}</Subtitle>
+        <Subtitle>{"실시간 날씨 데이터 분석 및 예측"}</Subtitle>
       </Title>
       
       <StatusBar>
         <StatusItem>
           <StatusIndicator status="online" />
-          <span>{t('liveData', 'Live Data')}</span>
+          <span>{"실시간 데이터"}</span>
         </StatusItem>
         
         <StatusItem>
@@ -139,7 +139,7 @@ const Header = () => {
         </StatusItem>
         
         <TimeDisplay>
-          {currentTime.toLocaleTimeString(i18n.language, {
+          {currentTime.toLocaleTimeString("ko", {
             hour: '2-digit',
             minute: '2-digit',
             second: '2-digit'

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>스마트 그리드 AI 디지털 트윈 대시보드</title>
+    <title>나노그리드 AI 디지털 트윈</title>
     <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
     <style>
         * {
@@ -211,7 +211,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🏫 스마트 그리드 AI 디지털 트윈 대시보드</h1>
+            <h1>🏫 나노그리드 AI 디지털 트윈</h1>
             <p>실시간 수요-공급 에너지 매칭 및 제어 알고리즘 모니터링</p>
         </div>
         
@@ -626,6 +626,177 @@
         
         // 페이지 로드 시 데이터 로드
         window.addEventListener('load', loadData);
+    
+    // Real-time data update function
+    function updateRealTimeData() {
+        // Generate realistic virtual data
+        const now = new Date();
+        const hour = now.getHours();
+        
+        // Simulate daily patterns
+        const demandBase = 50 + Math.sin((hour - 6) * Math.PI / 12) * 30;
+        const supplyBase = 60 + Math.sin((hour - 8) * Math.PI / 12) * 25;
+        const solarBase = hour >= 6 && hour <= 18 ? (hour - 6) * 5 : 0;
+        const windBase = 15 + Math.random() * 10;
+        
+        // Average power demand (with variation)
+        const avgDemand = demandBase + (Math.random() - 0.5) * 10;
+        document.getElementById('avgDemand').textContent = Math.round(avgDemand);
+        
+        // Average power supply (with variation)
+        const avgSupply = supplyBase + (Math.random() - 0.5) * 8;
+        document.getElementById('avgSupply').textContent = Math.round(avgSupply);
+        
+        // Renewable energy ratio
+        const renewableRatio = Math.min(100, Math.round((solarBase + windBase) / avgDemand * 100));
+        document.getElementById('renewableRatio').textContent = renewableRatio;
+        
+        // Performance score (based on balance and renewable ratio)
+        const balance = Math.abs(avgDemand - avgSupply) / Math.max(avgDemand, avgSupply);
+        const performanceScore = Math.round((1 - balance) * 50 + (renewableRatio / 100) * 50);
+        document.getElementById('performanceScore').textContent = performanceScore;
+        
+        // Active devices (simulate)
+        const activeDevices = Math.floor(20 + Math.random() * 20);
+        document.querySelector('.agent-card:first-child .agent-value').textContent = activeDevices;
+        
+        // Solar generation
+        const solarGen = Math.max(0, solarBase + (Math.random() - 0.5) * 5);
+        document.querySelector('.agent-card:nth-child(2) .agent-value').textContent = Math.round(solarGen) + ' kW';
+        
+        // Wind generation
+        const windGen = Math.max(0, windBase + (Math.random() - 0.5) * 5);
+        document.querySelector('.agent-card:nth-child(2) .agent-value:nth-child(3)').textContent = Math.round(windGen) + ' kW';
+        
+        // ESS SOC
+        const essSOC = Math.min(100, Math.max(0, 60 + (Math.random() - 0.5) * 10));
+        document.querySelector('.agent-card:nth-child(2) .agent-value:last-child').textContent = Math.round(essSOC) + '%';
+        
+        // Power price (fluctuate based on demand/supply balance)
+        const priceBase = 100;
+        const priceVariation = (avgDemand - avgSupply) / avgSupply * 20;
+        const currentPrice = Math.max(50, Math.min(150, priceBase + priceVariation));
+        document.querySelector('.agent-card:last-child .agent-value').textContent = Math.round(currentPrice) + ' 원/kWh';
+        
+        // Supply-demand balance
+        const balance = avgSupply / avgDemand;
+        document.querySelector('.agent-card:last-child .agent-value:nth-child(2)').textContent = balance.toFixed(2);
+        
+        // Cost efficiency
+        const costEfficiency = Math.min(100, Math.round((1 - Math.abs(balance - 1)) * 100));
+        document.querySelector('.agent-card:last-child .agent-value:last-child').textContent = costEfficiency + '%';
+        
+        // Update charts if they exist
+        if (typeof updateCharts === 'function') {
+            updateCharts(avgDemand, avgSupply, solarGen, windGen, essSOC);
+        }
+    }
+    
+    // Update data every 2 seconds
+    setInterval(updateRealTimeData, 2000);
+    
+    // Initial update
+    updateRealTimeData();
+
+
+        // Real-time data update function
+        function updateRealTimeData() {
+            const now = new Date();
+            const hour = now.getHours();
+            const minute = now.getMinutes();
+            
+            // Simulate daily patterns based on time
+            const timeOfDay = hour + minute / 60;
+            
+            // Demand pattern: peaks during morning (8-10) and evening (18-20)
+            let demandBase = 50;
+            if (timeOfDay >= 8 && timeOfDay <= 10) {
+                demandBase = 70 + (timeOfDay - 8) * 5; // Morning peak
+            } else if (timeOfDay >= 18 && timeOfDay <= 20) {
+                demandBase = 80 + (20 - timeOfDay) * 3; // Evening peak
+            } else if (timeOfDay >= 6 && timeOfDay <= 22) {
+                demandBase = 55 + Math.sin((timeOfDay - 6) * Math.PI / 16) * 15;
+            } else {
+                demandBase = 30 + Math.random() * 10; // Night time
+            }
+            
+            // Supply pattern: follows solar generation
+            let supplyBase = 50;
+            if (timeOfDay >= 6 && timeOfDay <= 18) {
+                const solarHour = timeOfDay - 6;
+                supplyBase = 60 + Math.sin(solarHour * Math.PI / 12) * 30;
+            } else {
+                supplyBase = 40 + Math.random() * 10;
+            }
+            
+            // Add random variation
+            const avgDemand = Math.max(0, demandBase + (Math.random() - 0.5) * 15);
+            const avgSupply = Math.max(0, supplyBase + (Math.random() - 0.5) * 12);
+            
+            // Update metric values
+            document.getElementById('avgDemand').textContent = Math.round(avgDemand);
+            document.getElementById('avgSupply').textContent = Math.round(avgSupply);
+            
+            // Calculate renewable ratio
+            const solarGen = timeOfDay >= 6 && timeOfDay <= 18 ? 
+                Math.max(0, (timeOfDay - 6) * 3 + (Math.random() - 0.5) * 5) : 0;
+            const windGen = 15 + Math.random() * 10;
+            const totalRenewable = solarGen + windGen;
+            const renewableRatio = avgDemand > 0 ? Math.min(100, Math.round(totalRenewable / avgDemand * 100)) : 0;
+            
+            document.getElementById('renewableRatio').textContent = renewableRatio;
+            
+            // Calculate performance score
+            const balance = Math.abs(avgDemand - avgSupply) / Math.max(avgDemand, avgSupply, 1);
+            const performanceScore = Math.round((1 - balance) * 50 + (renewableRatio / 100) * 50);
+            document.getElementById('overallScore').textContent = Math.max(0, Math.min(100, performanceScore));
+            
+            // Update AI agent cards
+            // Active devices
+            const activeDevices = Math.floor(15 + Math.random() * 25);
+            document.getElementById('activeDevices').textContent = activeDevices;
+            
+            // Solar power
+            document.getElementById('solarPower').textContent = Math.round(solarGen) + ' kW';
+            
+            // Wind power
+            document.getElementById('windPower').textContent = Math.round(windGen) + ' kW';
+            
+            // ESS SOC (varies based on supply-demand balance)
+            const essSOC = Math.max(0, Math.min(100, 60 + (avgSupply - avgDemand) / 10 + (Math.random() - 0.5) * 5));
+            document.getElementById('essSOC').textContent = Math.round(essSOC) + '%';
+            
+            // Power price (fluctuates based on demand/supply balance)
+            const priceBase = 100;
+            const priceVariation = (avgDemand - avgSupply) / Math.max(avgSupply, 1) * 30;
+            const currentPrice = Math.max(50, Math.min(150, priceBase + priceVariation));
+            document.getElementById('currentPrice').textContent = Math.round(currentPrice) + ' 원/kWh';
+            
+            // Supply-demand ratio
+            const supplyDemandRatio = avgDemand > 0 ? (avgSupply / avgDemand).toFixed(2) : 1.0;
+            document.getElementById('supplyDemandRatio').textContent = supplyDemandRatio;
+            
+            // Cost efficiency
+            const costEfficiency = Math.min(100, Math.round((1 - Math.abs(parseFloat(supplyDemandRatio) - 1)) * 100));
+            document.getElementById('costEfficiency').textContent = costEfficiency + '%';
+            
+            // Average priority (simulate)
+            const avgPriority = (4.5 + Math.random()).toFixed(1);
+            document.getElementById('avgPriority').textContent = avgPriority;
+        }
+        
+        // Update data every 2 seconds
+        setInterval(updateRealTimeData, 2000);
+        
+        // Initial update
+        updateRealTimeData();
+        
+        // Also call loadData if CSV exists, otherwise just use real-time data
+        loadData().catch(() => {
+            console.log('CSV 파일을 로드할 수 없습니다. 실시간 데이터를 사용합니다.');
+            updateRealTimeData();
+        });
+
     </script>
 </body>
 </html>

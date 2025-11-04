@@ -19,6 +19,14 @@ ontology_builder = OntologyBuilder()
 ts_processor = TimeSeriesProcessor()
 img_processor = ImageProcessor()
 
+@app.route('/')
+def index():
+    """Serve frontend HTML"""
+    try:
+        return send_file('frontend.html')
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 @app.route('/api/health', methods=['GET'])
 def health_check():
     """헬스 체크 엔드포인트"""

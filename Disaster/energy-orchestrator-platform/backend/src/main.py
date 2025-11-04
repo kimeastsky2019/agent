@@ -26,7 +26,7 @@ app = FastAPI(
 # CORS 설정
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.CORS_ORIGINS,
+    allow_origins=settings.CORS_ORIGINS.split(",") if settings.CORS_ORIGINS else ["http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -63,6 +63,72 @@ async def readiness_check():
             status_code=503,
             content={"status": "not ready", "error": str(e)}
         )
+
+@app.get('/api/energy/demand', tags=['Energy'])
+async def get_energy_demand():
+    """Get energy demand analysis data"""
+    try:
+        import httpx
+        async with httpx.AsyncClient() as client:
+            # Get summary from demand_analysis service
+            try:
+                response = await client.get('http://localhost:5002/api/summary', timeout=10.0)
+                if response.status_code == 200:
+                    return response.json()
+                else:
+                    return {'status': 'error', 'message': f'Demand analysis service returned {response.status_code}'}
+            except httpx.ConnectError:
+                # Try alternative addresses
+                try:
+                    response = await client.get('http://127.0.0.1:5002/api/summary', timeout=10.0)
+                    if response.status_code == 200:
+                        return response.json()
+                except:
+                    pass
+                return {'status': 'error', 'message': 'Demand analysis service unavailable. Please check if the service is running on port 5002.'}
+            except Exception as e:
+                return {'status': 'error', 'message': f'Connection error: {str(e)}'}
+    except Exception as e:
+        return {'status': 'error', 'message': str(e)}
+
+@app.get('/api/energy/demand/patterns', tags=['Energy'])
+async def get_energy_demand_patterns():
+    """Get energy demand time patterns"""
+    try:
+        import httpx
+        async with httpx.AsyncClient() as client:
+            try:
+                response = await client.get('http://localhost:5002/api/patterns', timeout=10.0)
+                if response.status_code == 200:
+                    return response.json()
+                else:
+                    return {'status': 'error', 'message': f'Patterns service returned {response.status_code}'}
+            except httpx.ConnectError:
+                return {'status': 'error', 'message': 'Patterns service unavailable'}
+            except Exception as e:
+                return {'status': 'error', 'message': f'Error: {str(e)}'}
+    except Exception as e:
+        return {'status': 'error', 'message': str(e)}
+
+@app.get('/api/energy/demand/heatmap', tags=['Energy'])
+async def get_energy_demand_heatmap():
+    """Get energy demand heatmap data"""
+    try:
+        import httpx
+        async with httpx.AsyncClient() as client:
+            try:
+                response = await client.get('http://localhost:5002/api/heatmap', timeout=10.0)
+                if response.status_code == 200:
+                    return response.json()
+                else:
+                    return {'status': 'error', 'message': f'Heatmap service returned {response.status_code}'}
+            except httpx.ConnectError:
+                return {'status': 'error', 'message': 'Heatmap service unavailable'}
+            except Exception as e:
+                return {'status': 'error', 'message': f'Error: {str(e)}'}
+    except Exception as e:
+        return {'status': 'error', 'message': str(e)}
+
 
 # Error handler
 @app.exception_handler(Exception)
