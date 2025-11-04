@@ -57,6 +57,50 @@ async def get_demand_dashboard(asset_id: str, db: Session = Depends(get_db)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@router.get('/api/energy/demand', tags=['Energy'])
+async def get_energy_demand():
+    """Get energy demand analysis data"""
+    try:
+        import httpx
+        async with httpx.AsyncClient() as client:
+            # Get summary from demand_analysis service
+            response = await client.get('http://localhost:5002/api/summary', timeout=10.0)
+            if response.status_code == 200:
+                return response.json()
+            else:
+                return {'status': 'error', 'message': 'Demand analysis service unavailable'}
+    except Exception as e:
+        return {'status': 'error', 'message': str(e)}
+
+@router.get('/api/energy/demand/patterns', tags=['Energy'])
+async def get_energy_demand_patterns():
+    """Get energy demand time patterns"""
+    try:
+        import httpx
+        async with httpx.AsyncClient() as client:
+            response = await client.get('http://localhost:5002/api/patterns', timeout=10.0)
+            if response.status_code == 200:
+                return response.json()
+            else:
+                return {'status': 'error', 'message': 'Patterns not available'}
+    except Exception as e:
+        return {'status': 'error', 'message': str(e)}
+
+@router.get('/api/energy/demand/heatmap', tags=['Energy'])
+async def get_energy_demand_heatmap():
+    """Get energy demand heatmap data"""
+    try:
+        import httpx
+        async with httpx.AsyncClient() as client:
+            response = await client.get('http://localhost:5002/api/heatmap', timeout=10.0)
+            if response.status_code == 200:
+                return response.json()
+            else:
+                return {'status': 'error', 'message': 'Heatmap not available'}
+    except Exception as e:
+        return {'status': 'error', 'message': str(e)}
+
+
 
 
 

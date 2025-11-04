@@ -29,13 +29,10 @@ class Settings(BaseSettings):
     REFRESH_TOKEN_EXPIRE_DAYS: int = int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", "7"))
     
     # CORS
-    CORS_ORIGINS: List[str] = os.getenv(
+    CORS_ORIGINS: str = os.getenv(
         "CORS_ORIGINS",
         "http://localhost:3000,http://localhost:5173"
-    ).split(",") if os.getenv("CORS_ORIGINS") else [
-        "http://localhost:3000",
-        "http://localhost:5173"
-    ]
+    )
     
     # MQTT
     MQTT_BROKER_HOST: str = os.getenv("MQTT_BROKER_HOST", "localhost")

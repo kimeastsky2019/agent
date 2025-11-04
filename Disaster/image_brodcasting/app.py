@@ -161,11 +161,19 @@ def monitoring_simulation():
 
 @app.route('/')
 def index():
-    return jsonify({
-        'system': 'PREACT Safety Monitoring System',
-        'version': '1.0.0',
-        'status': 'operational'
-    })
+    """Serve the dashboard HTML file"""
+    import os
+    dashboard_path = os.path.join(os.path.dirname(__file__), 'dashboard.html')
+    if os.path.exists(dashboard_path):
+        with open(dashboard_path, 'r', encoding='utf-8') as f:
+            return f.read(), 200, {'Content-Type': 'text/html; charset=utf-8'}
+    else:
+        # Fallback to JSON if dashboard.html not found
+        return jsonify({
+            'system': 'PREACT Safety Monitoring System',
+            'version': '1.0.0',
+            'status': 'operational'
+        })
 
 @app.route('/api/cameras', methods=['GET'])
 def get_cameras():

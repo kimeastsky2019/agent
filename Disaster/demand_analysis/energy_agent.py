@@ -185,7 +185,7 @@ class EnergyDemandAgent:
             'kW_rolling_mean_24h'
         ]
         
-        X = df[features].fillna(method='ffill').fillna(0)
+        X = df[features].ffill().fillna(0)
         y = df['kWh']
         
         return X, y
