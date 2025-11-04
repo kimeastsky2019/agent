@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Energy Network - 대시보드</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Malgun Gothic', sans-serif; background: #f5f5f5; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header h1 { font-size: 1.8em; font-weight: 700; }
+        .user-info { display: flex; align-items: center; gap: 20px; }
+        .logout-btn { background: rgba(255, 255, 255, 0.2); color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
+        .logout-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 1400px; margin: 40px auto; padding: 0 20px; }
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 30px; }
+        .card { background: white; border-radius: 16px; padding: 35px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); transition: all 0.3s ease; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
+        .card h2 { color: #667eea; margin-bottom: 25px; font-size: 1.5em; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; margin-bottom: 10px; color: #333; font-weight: 600; font-size: 1em; }
+        .form-group select { width: 100%; padding: 14px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1em; background: white; transition: all 0.3s ease; }
+        .form-group select:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); }
+        .simulate-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 10px; font-size: 1.1em; font-weight: 600; cursor: pointer; transition: all 0.3s ease; margin-top: 10px; }
+        .simulate-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3); }
+        .simulate-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        .results { margin-top: 30px; }
+        .result-item { background: #f8f9fa; padding: 20px; border-radius: 12px; margin-bottom: 15px; border-left: 4px solid #667eea; }
+        .result-item h3 { color: #667eea; margin-bottom: 15px; font-size: 1.2em; }
+        .result-item pre { background: #fff; padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 0.9em; line-height: 1.6; }
+        .error { background: #fee; color: #e74c3c; padding: 20px; border-radius: 12px; margin-top: 20px; border-left: 4px solid #e74c3c; font-size: 0.95em; }
+        .success { background: #efe; color: #27ae60; padding: 20px; border-radius: 12px; margin-top: 20px; border-left: 4px solid #27ae60; font-size: 0.95em; font-weight: 600; }
+        .loading { text-align: center; padding: 30px; color: #667eea; font-size: 1.1em; }
+        .info-box { background: #e3f2fd; color: #1976d2; padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 4px solid #1976d2; }
+        .info-box strong { display: block; margin-bottom: 8px; font-size: 1.1em; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>⚡ AI Energy Network - 대시보드</h1>
+        <div class="user-info">
+            <span>환영합니다, {{ username }}</span>
+            <a href="/logout" class="logout-btn">로그아웃</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="info-box">
+            <strong>📊 재난 대응 에너지 공유 네트워크 시뮬레이션</strong>
+            일본, 한국, EU 간의 국경을 넘나드는 에너지 공유 네트워크를 시뮬레이션합니다.
+        </div>
+        <div class="dashboard-grid">
+            <div class="card">
+                <h2>🚀 시뮬레이션 실행</h2>
+                <form id="simulateForm">
+                    <div class="form-group">
+                        <label for="scenario">시나리오 파일 선택</label>
+                        <select id="scenario" name="scenario_file">
+                            <option value="sample_transnational_event">샘플 국경간 이벤트</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="simulate-btn" id="simulateBtn">시뮬레이션 실행</button>
+                </form>
+                <div id="loading" class="loading" style="display: none;">시뮬레이션 실행 중</div>
+                <div id="error" class="error" style="display: none;"></div>
+                <div id="success" class="success" style="display: none;"></div>
+            </div>
+            <div class="card">
+                <h2>📈 시뮬레이션 결과</h2>
+                <div id="results" class="results">
+                    <p style="color: #999; text-align: center; padding: 40px;">시뮬레이션을 실행하면 결과가 여기에 표시됩니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('simulateForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('simulateBtn');
+            const loading = document.getElementById('loading');
+            const error = document.getElementById('error');
+            const success = document.getElementById('success');
+            const results = document.getElementById('results');
+            btn.disabled = true;
+            loading.style.display = 'block';
+            error.style.display = 'none';
+            success.style.display = 'none';
+            const formData = new FormData(e.target);
+            const scenarioFile = formData.get('scenario_file');
+            try {
+                const response = await fetch('/api/simulate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'same-origin',
+                    body: JSON.stringify({ scenario_file: scenarioFile })
+                });
+                const data = await response.json();
+                if (data.success) {
+                    success.style.display = 'block';
+                    success.textContent = '시뮬레이션이 성공적으로 완료되었습니다!';
+                    results.innerHTML = '<h3>📊 디스패치 계획</h3>';
+                    if (data.result && data.result.dispatches) {
+                        data.result.dispatches.forEach((dispatch, index) => {
+                            const div = document.createElement('div');
+                            div.className = 'result-item';
+                            div.innerHTML = '<h4>디스패치 #' + (index + 1) + '</h4><pre>' + JSON.stringify(dispatch, null, 2) + '</pre>';
+                            results.appendChild(div);
+                        });
+                    } else if (data.result) {
+                        const div = document.createElement('div');
+                        div.className = 'result-item';
+                        div.innerHTML = '<pre>' + JSON.stringify(data.result, null, 2) + '</pre>';
+                        results.appendChild(div);
+                    }
+                } else {
+                    error.style.display = 'block';
+                    error.textContent = '오류: ' + (data.error || '알 수 없는 오류가 발생했습니다.');
+                }
+            } catch (err) {
+                error.style.display = 'block';
+                error.textContent = '오류: ' + err.message;
+            } finally {
+                btn.disabled = false;
+                loading.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
