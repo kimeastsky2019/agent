@@ -34,6 +34,16 @@
 - **권한**: 전체 권한
 - **역할**: 시스템 관리, 보안, 백업, 역할 할당
 
+### 2.6 팔런티어 커뮤니티 (Volunteers)
+- **권한**: 제안 생성, 커뮤니티 공간 개설, 공간 코디네이션
+- **역할**: 현장 데이터 수집, 시민 제안, 멘토링 및 온보딩 지원
+- **예시**: 에너지 시민단체, 지역 커뮤니티 리더, 대학 동아리
+
+### 2.7 정책 담당자 (Policy Makers)
+- **권한**: 규제 시나리오 제안, 영향 평가 리뷰, 전략 승인
+- **역할**: 정책/규제 변화 반영, 규범 준수 점검, 이해관계자 피드백 수렴
+- **예시**: 공공기관, 전력거래소, 지자체 에너지정책 부서
+
 ## 3. 핵심 기능
 
 ### 3.1 협업 온톨로지 편집기
@@ -83,6 +93,16 @@
 - 표준 준수 확인 (IEC 61970, SAREF)
 ```
 
+### 3.6 팔런티어 Co-Work 허브
+```
+구성 요소:
+- Collaboration Spaces: 도메인별/지역별 협업 공간
+- Membership Service: 역할/책임/전문성 관리
+- Participation Metrics: 제안 수, 리뷰 속도, 기여 시간 추적
+- Onboarding Gateway: https://agent.gngmeta.com/co-work 연동
+- Notification Fabric: 공간 멘션 및 제안 상태 알림
+```
+
 ## 4. 기술 스택
 
 ### 4.1 Frontend
@@ -98,16 +118,18 @@
 ### 4.2 Backend
 - **API Server**: FastAPI (Python)
 - **실시간 서버**: Socket.io / WebSocket
-- **온톨로지 처리**: 
+- **온톨로지 처리**:
   - RDFLib (Python)
   - Apache Jena (Java)
 - **작업 큐**: Celery + Redis
+- **협업 공간 서비스**: `/api/v1/spaces` (FastAPI) + PostgreSQL 멀티역할 모델
 
 ### 4.3 Database & Storage
-- **온톨로지 저장소**: 
+- **온톨로지 저장소**:
   - Apache Jena Fuseki (SPARQL endpoint)
   - GraphDB / Stardog (Enterprise)
 - **메타데이터**: PostgreSQL
+- **협업 스키마**: `collaboration_spaces`, `collaboration_space_memberships`, `proposals.space_id`
 - **버전 관리**: Git-like 구조 (PostgreSQL)
 - **캐시**: Redis
 - **시계열 데이터**: InfluxDB

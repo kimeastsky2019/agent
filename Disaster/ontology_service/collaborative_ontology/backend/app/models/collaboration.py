@@ -1,4 +1,14 @@
-from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, Boolean, JSON, Enum as SQLEnum
+from sqlalchemy import (
+    Column,
+    Integer,
+    String,
+    Text,
+    DateTime,
+    ForeignKey,
+    Boolean,
+    JSON,
+    Enum as SQLEnum,
+)
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 import enum
@@ -34,7 +44,7 @@ class Proposal(Base):
     __tablename__ = "proposals"
 
     id = Column(Integer, primary_key=True, index=True)
-    
+
     # 기본 정보
     title = Column(String, nullable=False)
     description = Column(Text, nullable=False)
@@ -68,10 +78,11 @@ class Proposal(Base):
     # 작성자 및 담당자
     author_id = Column(Integer, ForeignKey('users.id', ondelete='SET NULL'), nullable=True)
     assigned_to = Column(Integer, ForeignKey('users.id', ondelete='SET NULL'), nullable=True)
-    
+    space_id = Column(Integer, ForeignKey('collaboration_spaces.id', ondelete='SET NULL'), nullable=True)
+
     # 마감일
     deadline = Column(DateTime(timezone=True), nullable=True)
-    
+
     # 생성/수정 정보
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
@@ -83,7 +94,8 @@ class Proposal(Base):
     assignee = relationship("User", foreign_keys=[assigned_to])
     reviews = relationship("Review", back_populates="proposal", cascade="all, delete-orphan")
     comments = relationship("Comment", back_populates="proposal", cascade="all, delete-orphan")
-    
+    space = relationship("CollaborationSpace", back_populates="proposals")
+
     def __repr__(self):
         return f"<Proposal {self.id}: {self.title}>"
 
@@ -198,14 +210,15 @@ class CollaborationSession(Base):
     __tablename__ = "collaboration_sessions"
 
     id = Column(Integer, primary_key=True, index=True)
-    
+
     # 세션 정보
     entity_type = Column(String, nullable=False)  # class, property, proposal
     entity_id = Column(Integer, nullable=False)
-    
+    space_id = Column(Integer, ForeignKey('collaboration_spaces.id', ondelete='CASCADE'), nullable=True)
+
     # 활성 사용자들
     active_users = Column(JSON, default=[])  # user_id 리스트
-    
+
     # 잠금 정보
     locked_by = Column(Integer, ForeignKey('users.id', ondelete='SET NULL'), nullable=True)
     locked_at = Column(DateTime(timezone=True), nullable=True)
@@ -216,6 +229,81 @@ class CollaborationSession(Base):
     
     # Relationships
     lock_holder = relationship("User")
-    
+    space = relationship("CollaborationSpace")
+
     def __repr__(self):
         return f"<CollaborationSession {self.entity_type}:{self.entity_id}>"
+
+
+class CollaborationSpaceVisibility(str, enum.Enum):
+    """협업 공간 공개 범위"""
+
+    PUBLIC = "public"
+    COMMUNITY = "community"
+    PRIVATE = "private"
+
+
+class CollaborationSpaceRole(str, enum.Enum):
+    """협업 공간 내 역할"""
+
+    COORDINATOR = "coordinator"
+    CONTRIBUTOR = "contributor"
+    REVIEWER = "reviewer"
+    OBSERVER = "observer"
+    DATA_STEWARD = "data_steward"
+
+
+class CollaborationSpace(Base):
+    """에너지 온톨로지 협업 공간"""
+
+    __tablename__ = "collaboration_spaces"
+
+    id = Column(Integer, primary_key=True, index=True)
+    slug = Column(String, unique=True, nullable=False, index=True)
+    name = Column(String, nullable=False)
+    description = Column(Text, nullable=True)
+    mission = Column(Text, nullable=True)
+    domain_focus = Column(String, nullable=True)
+    visibility = Column(SQLEnum(CollaborationSpaceVisibility), default=CollaborationSpaceVisibility.PUBLIC, index=True)
+    onboarding_url = Column(String, nullable=True)
+    external_channel = Column(String, nullable=True)
+    tags = Column(JSON, nullable=True)
+    profile = Column(JSON, nullable=True)
+
+    created_by = Column(Integer, ForeignKey('users.id', ondelete='SET NULL'), nullable=True)
+    updated_by = Column(Integer, ForeignKey('users.id', ondelete='SET NULL'), nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+
+    creator = relationship("User", foreign_keys=[created_by], backref="created_spaces")
+    updater = relationship("User", foreign_keys=[updated_by])
+    memberships = relationship("CollaborationSpaceMembership", back_populates="space", cascade="all, delete-orphan")
+    proposals = relationship("Proposal", back_populates="space")
+
+    def __repr__(self):
+        return f"<CollaborationSpace {self.slug}>"
+
+
+class CollaborationSpaceMembership(Base):
+    """협업 공간 참여자"""
+
+    __tablename__ = "collaboration_space_memberships"
+
+    id = Column(Integer, primary_key=True, index=True)
+    space_id = Column(Integer, ForeignKey('collaboration_spaces.id', ondelete='CASCADE'), nullable=False)
+    user_id = Column(Integer, ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
+    role = Column(SQLEnum(CollaborationSpaceRole), default=CollaborationSpaceRole.CONTRIBUTOR, index=True)
+    responsibilities = Column(Text, nullable=True)
+    expertise_tags = Column(JSON, nullable=True)
+    contribution_hours = Column(Integer, default=0)
+    last_contribution_at = Column(DateTime(timezone=True), nullable=True)
+    is_active = Column(Boolean, default=True)
+    is_core_team = Column(Boolean, default=False)
+
+    joined_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    space = relationship("CollaborationSpace", back_populates="memberships")
+    user = relationship("User", backref="collaboration_memberships")
+
+    def __repr__(self):
+        return f"<CollaborationSpaceMembership user={self.user_id} space={self.space_id}>"
