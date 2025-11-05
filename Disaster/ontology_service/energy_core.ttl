@@ -1,0 +1,412 @@
+@prefix : <http://gng-energy.com/ontology/core#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix saref: <https://saref.etsi.org/core/> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+
+<http://gng-energy.com/ontology/core> rdf:type owl:Ontology ;
+    rdfs:label "GnG Energy Core Ontology"@en ;
+    rdfs:comment "Core ontology for collaborative energy management systems"@en ;
+    owl:versionInfo "1.0.0" ;
+    <http://purl.org/dc/terms/creator> "GnG International"@en ;
+    <http://purl.org/dc/terms/created> "2025-01-01"^^xsd:date .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+:connectedTo rdf:type owl:ObjectProperty ;
+    rdfs:domain :EnergySystem ;
+    rdfs:range :EnergySystem ;
+    rdfs:label "connected to"@en ;
+    rdfs:comment "Indicates that two energy systems are connected"@en .
+
+:suppliesEnergyTo rdf:type owl:ObjectProperty ;
+    rdfs:domain :EnergySource ;
+    rdfs:range :EnergyConsumer ;
+    rdfs:label "supplies energy to"@en ;
+    rdfs:comment "Indicates energy flow from source to consumer"@en .
+
+:hasComponent rdf:type owl:ObjectProperty ;
+    rdfs:domain :EnergySystem ;
+    rdfs:range :EnergyComponent ;
+    rdfs:label "has component"@en ;
+    rdfs:comment "Relates a system to its components"@en .
+
+:locatedAt rdf:type owl:ObjectProperty ;
+    rdfs:domain :EnergySystem ;
+    rdfs:range geo:Point ;
+    rdfs:label "located at"@en ;
+    rdfs:comment "Geographic location of the energy system"@en .
+
+:managedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :EnergySystem ;
+    rdfs:range :Operator ;
+    rdfs:label "managed by"@en ;
+    rdfs:comment "Indicates who manages the system"@en .
+
+:hasStorageCapacity rdf:type owl:ObjectProperty ;
+    rdfs:domain :EnergyStorage ;
+    rdfs:range :Capacity ;
+    rdfs:label "has storage capacity"@en .
+
+:generatesEnergyFrom rdf:type owl:ObjectProperty ;
+    rdfs:domain :RenewableEnergySource ;
+    rdfs:range :NaturalResource ;
+    rdfs:label "generates energy from"@en .
+
+:participatesIn rdf:type owl:ObjectProperty ;
+    rdfs:domain :EnergySystem ;
+    rdfs:range :EnergyMarket ;
+    rdfs:label "participates in"@en .
+
+#################################################################
+#    Data Properties
+#################################################################
+
+:hasCapacityValue rdf:type owl:DatatypeProperty ;
+    rdfs:domain :EnergySystem ;
+    rdfs:range xsd:float ;
+    rdfs:label "has capacity value"@en ;
+    rdfs:comment "Capacity in kilowatts"@en .
+
+:hasEfficiency rdf:type owl:DatatypeProperty ;
+    rdfs:domain :EnergySystem ;
+    rdfs:range xsd:float ;
+    rdfs:label "has efficiency"@en ;
+    rdfs:comment "Efficiency rating between 0 and 1"@en .
+
+:currentPowerOutput rdf:type owl:DatatypeProperty ;
+    rdfs:domain :EnergySource ;
+    rdfs:range xsd:float ;
+    rdfs:label "current power output"@en ;
+    rdfs:comment "Current power output in kilowatts"@en .
+
+:currentPowerConsumption rdf:type owl:DatatypeProperty ;
+    rdfs:domain :EnergyConsumer ;
+    rdfs:range xsd:float ;
+    rdfs:label "current power consumption"@en ;
+    rdfs:comment "Current power consumption in kilowatts"@en .
+
+:stateOfCharge rdf:type owl:DatatypeProperty ;
+    rdfs:domain :EnergyStorage ;
+    rdfs:range xsd:float ;
+    rdfs:label "state of charge"@en ;
+    rdfs:comment "Current state of charge as percentage (0-100)"@en .
+
+:installationDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :EnergySystem ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "installation date"@en .
+
+:manufacturerName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :EnergyComponent ;
+    rdfs:range xsd:string ;
+    rdfs:label "manufacturer name"@en .
+
+:modelNumber rdf:type owl:DatatypeProperty ;
+    rdfs:domain :EnergyComponent ;
+    rdfs:range xsd:string ;
+    rdfs:label "model number"@en .
+
+:serialNumber rdf:type owl:DatatypeProperty ;
+    rdfs:domain :EnergyComponent ;
+    rdfs:range xsd:string ;
+    rdfs:label "serial number"@en .
+
+:operationalStatus rdf:type owl:DatatypeProperty ;
+    rdfs:domain :EnergySystem ;
+    rdfs:range xsd:string ;
+    rdfs:label "operational status"@en ;
+    rdfs:comment "Current operational status (e.g., active, maintenance, offline)"@en .
+
+:predictionAccuracy rdf:type owl:DatatypeProperty ;
+    rdfs:domain :ForecastModel ;
+    rdfs:range xsd:float ;
+    rdfs:label "prediction accuracy"@en ;
+    rdfs:comment "Forecast model accuracy as percentage"@en .
+
+#################################################################
+#    Classes
+#################################################################
+
+###  Core Classes  ###
+
+:EnergySystem rdf:type owl:Class ;
+    rdfs:label "Energy System"@en ;
+    rdfs:comment "General concept representing any energy-related system"@en .
+
+:EnergySource rdf:type owl:Class ;
+    rdfs:subClassOf :EnergySystem ;
+    rdfs:label "Energy Source"@en ;
+    rdfs:comment "System that generates or provides energy"@en .
+
+:EnergyConsumer rdf:type owl:Class ;
+    rdfs:subClassOf :EnergySystem ;
+    rdfs:label "Energy Consumer"@en ;
+    rdfs:comment "System that consumes energy"@en .
+
+:EnergyStorage rdf:type owl:Class ;
+    rdfs:subClassOf :EnergySystem ;
+    rdfs:label "Energy Storage"@en ;
+    rdfs:comment "System that stores energy"@en .
+
+:EnergyNetwork rdf:type owl:Class ;
+    rdfs:subClassOf :EnergySystem ;
+    rdfs:label "Energy Network"@en ;
+    rdfs:comment "Infrastructure for energy distribution"@en .
+
+:EnergyComponent rdf:type owl:Class ;
+    rdfs:label "Energy Component"@en ;
+    rdfs:comment "Component or device within an energy system"@en .
+
+###  Renewable Energy Sources  ###
+
+:RenewableEnergySource rdf:type owl:Class ;
+    rdfs:subClassOf :EnergySource ;
+    rdfs:label "Renewable Energy Source"@en ;
+    rdfs:comment "Energy source based on renewable resources"@en .
+
+:SolarPowerPlant rdf:type owl:Class ;
+    rdfs:subClassOf :RenewableEnergySource ;
+    rdfs:label "Solar Power Plant"@en ;
+    rdfs:comment "Facility that generates electricity from solar energy"@en .
+
+:SolarPanel rdf:type owl:Class ;
+    rdfs:subClassOf :EnergyComponent ;
+    rdfs:label "Solar Panel"@en ;
+    rdfs:comment "Photovoltaic panel that converts sunlight to electricity"@en .
+
+:WindTurbine rdf:type owl:Class ;
+    rdfs:subClassOf :RenewableEnergySource ;
+    rdfs:label "Wind Turbine"@en ;
+    rdfs:comment "Device that converts wind energy to electricity"@en .
+
+:HydropowerPlant rdf:type owl:Class ;
+    rdfs:subClassOf :RenewableEnergySource ;
+    rdfs:label "Hydropower Plant"@en ;
+    rdfs:comment "Facility that generates electricity from water flow"@en .
+
+:GeothermalPlant rdf:type owl:Class ;
+    rdfs:subClassOf :RenewableEnergySource ;
+    rdfs:label "Geothermal Plant"@en ;
+    rdfs:comment "Facility that generates electricity from geothermal energy"@en .
+
+###  Conventional Energy Sources  ###
+
+:ConventionalEnergySource rdf:type owl:Class ;
+    rdfs:subClassOf :EnergySource ;
+    rdfs:label "Conventional Energy Source"@en .
+
+:NuclearPowerPlant rdf:type owl:Class ;
+    rdfs:subClassOf :ConventionalEnergySource ;
+    rdfs:label "Nuclear Power Plant"@en .
+
+:CoalPowerPlant rdf:type owl:Class ;
+    rdfs:subClassOf :ConventionalEnergySource ;
+    rdfs:label "Coal Power Plant"@en .
+
+:NaturalGasPlant rdf:type owl:Class ;
+    rdfs:subClassOf :ConventionalEnergySource ;
+    rdfs:label "Natural Gas Plant"@en .
+
+###  Energy Storage Systems  ###
+
+:BatteryEnergyStorageSystem rdf:type owl:Class ;
+    rdfs:subClassOf :EnergyStorage ;
+    rdfs:label "Battery Energy Storage System"@en ;
+    rdfs:comment "System that stores energy in batteries"@en .
+
+:PumpedHydroStorage rdf:type owl:Class ;
+    rdfs:subClassOf :EnergyStorage ;
+    rdfs:label "Pumped Hydro Storage"@en .
+
+:FlywheelEnergyStorage rdf:type owl:Class ;
+    rdfs:subClassOf :EnergyStorage ;
+    rdfs:label "Flywheel Energy Storage"@en .
+
+:CompressedAirEnergyStorage rdf:type owl:Class ;
+    rdfs:subClassOf :EnergyStorage ;
+    rdfs:label "Compressed Air Energy Storage"@en .
+
+###  Energy Consumers  ###
+
+:Building rdf:type owl:Class ;
+    rdfs:subClassOf :EnergyConsumer ;
+    rdfs:label "Building"@en ;
+    rdfs:comment "Structure that consumes energy"@en .
+
+:ResidentialBuilding rdf:type owl:Class ;
+    rdfs:subClassOf :Building ;
+    rdfs:label "Residential Building"@en .
+
+:CommercialBuilding rdf:type owl:Class ;
+    rdfs:subClassOf :Building ;
+    rdfs:label "Commercial Building"@en .
+
+:IndustrialFacility rdf:type owl:Class ;
+    rdfs:subClassOf :EnergyConsumer ;
+    rdfs:label "Industrial Facility"@en .
+
+:ElectricVehicle rdf:type owl:Class ;
+    rdfs:subClassOf :EnergyConsumer ;
+    rdfs:label "Electric Vehicle"@en .
+
+:ChargingStation rdf:type owl:Class ;
+    rdfs:subClassOf :EnergySystem ;
+    rdfs:label "Charging Station"@en ;
+    rdfs:comment "Station for charging electric vehicles"@en .
+
+###  Grid Infrastructure  ###
+
+:PowerGrid rdf:type owl:Class ;
+    rdfs:subClassOf :EnergyNetwork ;
+    rdfs:label "Power Grid"@en ;
+    rdfs:comment "Electrical grid infrastructure"@en .
+
+:Microgrid rdf:type owl:Class ;
+    rdfs:subClassOf :EnergyNetwork ;
+    rdfs:label "Microgrid"@en ;
+    rdfs:comment "Localized energy grid that can operate independently"@en .
+
+:Substation rdf:type owl:Class ;
+    rdfs:subClassOf :EnergyComponent ;
+    rdfs:label "Substation"@en ;
+    rdfs:comment "Facility that transforms voltage in the power grid"@en .
+
+:Transformer rdf:type owl:Class ;
+    rdfs:subClassOf :EnergyComponent ;
+    rdfs:label "Transformer"@en .
+
+:PowerLine rdf:type owl:Class ;
+    rdfs:subClassOf :EnergyComponent ;
+    rdfs:label "Power Line"@en .
+
+###  Actors and Stakeholders  ###
+
+:Operator rdf:type owl:Class ;
+    rdfs:label "Operator"@en ;
+    rdfs:comment "Entity responsible for operating energy systems"@en .
+
+:EnergyProvider rdf:type owl:Class ;
+    rdfs:label "Energy Provider"@en ;
+    rdfs:comment "Company or organization that supplies energy"@en .
+
+:GridOperator rdf:type owl:Class ;
+    rdfs:subClassOf :Operator ;
+    rdfs:label "Grid Operator"@en .
+
+:IndependentPowerProducer rdf:type owl:Class ;
+    rdfs:subClassOf :EnergyProvider ;
+    rdfs:label "Independent Power Producer"@en .
+
+###  Energy Management  ###
+
+:EnergyManagementSystem rdf:type owl:Class ;
+    rdfs:label "Energy Management System"@en ;
+    rdfs:comment "System for monitoring and controlling energy usage"@en .
+
+:BuildingManagementSystem rdf:type owl:Class ;
+    rdfs:subClassOf :EnergyManagementSystem ;
+    rdfs:label "Building Management System"@en .
+
+:SmartMeter rdf:type owl:Class ;
+    rdfs:subClassOf :EnergyComponent ;
+    rdfs:label "Smart Meter"@en ;
+    rdfs:comment "Advanced metering device"@en .
+
+:Sensor rdf:type owl:Class ;
+    rdfs:subClassOf :EnergyComponent ;
+    rdfs:label "Sensor"@en ;
+    rdfs:comment "Device that measures physical quantities"@en .
+
+###  Forecasting and Analytics  ###
+
+:ForecastModel rdf:type owl:Class ;
+    rdfs:label "Forecast Model"@en ;
+    rdfs:comment "Model for predicting energy generation or consumption"@en .
+
+:SolarForecastModel rdf:type owl:Class ;
+    rdfs:subClassOf :ForecastModel ;
+    rdfs:label "Solar Forecast Model"@en .
+
+:LoadForecastModel rdf:type owl:Class ;
+    rdfs:subClassOf :ForecastModel ;
+    rdfs:label "Load Forecast Model"@en .
+
+:WeatherData rdf:type owl:Class ;
+    rdfs:label "Weather Data"@en ;
+    rdfs:comment "Meteorological data relevant to energy systems"@en .
+
+###  Energy Trading  ###
+
+:EnergyMarket rdf:type owl:Class ;
+    rdfs:label "Energy Market"@en ;
+    rdfs:comment "Market for trading energy"@en .
+
+:EnergyTrade rdf:type owl:Class ;
+    rdfs:label "Energy Trade"@en ;
+    rdfs:comment "Transaction for buying or selling energy"@en .
+
+:EnergyPrice rdf:type owl:Class ;
+    rdfs:label "Energy Price"@en ;
+    rdfs:comment "Price of energy at a given time"@en .
+
+###  Natural Resources  ###
+
+:NaturalResource rdf:type owl:Class ;
+    rdfs:label "Natural Resource"@en .
+
+:SolarRadiation rdf:type owl:Class ;
+    rdfs:subClassOf :NaturalResource ;
+    rdfs:label "Solar Radiation"@en .
+
+:Wind rdf:type owl:Class ;
+    rdfs:subClassOf :NaturalResource ;
+    rdfs:label "Wind"@en .
+
+:Water rdf:type owl:Class ;
+    rdfs:subClassOf :NaturalResource ;
+    rdfs:label "Water"@en .
+
+###  Measurements and Units  ###
+
+:Capacity rdf:type owl:Class ;
+    rdfs:label "Capacity"@en ;
+    rdfs:comment "Power capacity measurement"@en .
+
+:EnergyMeasurement rdf:type owl:Class ;
+    rdfs:label "Energy Measurement"@en ;
+    rdfs:comment "Measurement of energy quantity"@en .
+
+:PowerMeasurement rdf:type owl:Class ;
+    rdfs:label "Power Measurement"@en ;
+    rdfs:comment "Measurement of power (rate of energy transfer)"@en .
+
+#################################################################
+#    Individuals (Examples)
+#################################################################
+
+:KEPCO_Grid rdf:type :PowerGrid ;
+    rdfs:label "KEPCO National Grid"@en ;
+    :operationalStatus "active" ;
+    :hasCapacityValue "120000000.0"^^xsd:float .
+
+:Seoul_Microgrid rdf:type :Microgrid ;
+    rdfs:label "Seoul Smart Microgrid"@en ;
+    :connectedTo :KEPCO_Grid ;
+    :hasCapacityValue "50000.0"^^xsd:float .
+
+:GnG_SolarGuard_AI rdf:type :SolarForecastModel ;
+    rdfs:label "SolarGuard AI"@en ;
+    rdfs:comment "GnG International's AI-powered solar forecasting system"@en ;
+    :predictionAccuracy "96.0"^^xsd:float .
+
+#################################################################
+#    End of Ontology
+#################################################################
