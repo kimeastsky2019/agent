@@ -33,6 +33,7 @@ def init_db() -> None:
         User, UserSession,
         OntologyClass, OntologyProperty, OntologyRelationship, OntologyInstance, OntologyVersion,
         Proposal, Review, Comment, Notification, CollaborationSession,
+        CollaborationSpace, CollaborationSpaceMembership,
         AuditLog, DataQualityMetric, SystemMetric, ComplianceReport
     )
     

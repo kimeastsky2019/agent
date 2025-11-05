@@ -13,6 +13,9 @@ class UserRole(str, enum.Enum):
     DOMAIN_EXPERT = "domain_expert"
     ENERGY_PROVIDER = "energy_provider"
     DEVICE_OPERATOR = "device_operator"
+    ENERGY_CONSUMER = "energy_consumer"
+    POLICY_MAKER = "policy_maker"
+    VOLUNTEER = "volunteer"
     VIEWER = "viewer"
 
 # 사용자-역할 다대다 관계 테이블
@@ -67,10 +70,22 @@ class User(Base):
     @property
     def can_edit_ontology(self):
         return UserRole.ONTOLOGY_EDITOR in self.roles or self.has_admin_role
-    
+
     @property
     def can_review(self):
         return UserRole.DOMAIN_EXPERT in self.roles or self.has_admin_role
+
+    @property
+    def can_coordinate_spaces(self):
+        return any(
+            role in self.roles
+            for role in [
+                UserRole.ADMIN,
+                UserRole.ONTOLOGY_EDITOR,
+                UserRole.VOLUNTEER,
+                UserRole.POLICY_MAKER,
+            ]
+        )
 
 
 class UserSession(Base):
