@@ -10,6 +10,9 @@ Palantir 스타일의 협업형 에너지 온톨로지 플랫폼 - 모든 이해
 - **도메인 전문가 (Domain Expert)**: 변경 제안 및 리뷰
 - **에너지 공급자 (Energy Provider)**: 공급 관련 데이터 기여
 - **기기 운영자 (Device Operator)**: 기기 정보 관리
+- **에너지 사용자 (Energy Consumer)**: 수요/소비 데이터 제안
+- **정책 담당자 (Policy Maker)**: 규제/정책 시나리오 제안 및 검토
+- **팔런티어 (Volunteer)**: 커뮤니티 중심 제안, 코디네이션 지원
 - **일반 사용자 (Viewer)**: 조회 권한
 
 ### 2. 협업 워크플로우
@@ -34,6 +37,12 @@ Palantir 스타일의 협업형 에너지 온톨로지 플랫폼 - 모든 이해
 - 승인 프로세스 추적
 - 규정 준수 보고서
 - 데이터 품질 검증
+
+### 6. 팔런티어 Co-Work 공간
+- `agent.gngmeta.com/co-work` 기반 온보딩 & 커뮤니케이션 링크 연결
+- 커뮤니티/공개/비공개 공간 구성 및 참여 자동화
+- 역할별 책임 정의 (코디네이터, 데이터 스튜어드, 리뷰어, 관찰자)
+- 공간별 제안/리뷰/토론 메트릭 대시보드 제공
 
 ## 🏗️ 시스템 아키텍처
 
@@ -137,6 +146,35 @@ npm start
 - **리뷰 (Review)**: 전문가 검토
 - **댓글 (Comment)**: 토론 내용
 - **승인 (Approval)**: 최종 승인
+
+### 협업 공간 (Collaboration Spaces)
+- **공간 (Space)**: 특정 도메인/프로젝트를 위한 협업 허브
+- **멤버십 (Membership)**: 팔런티어/전문가 역할, 책임, 전문 태그 기록
+- **가시성 (Visibility)**: `public` / `community` / `private` 모드 지원
+- **온보딩 링크**: `https://agent.gngmeta.com/co-work` 연결로 통합 커뮤니케이션
+- **메트릭**: 공간별 제안/멤버 수, 코디네이터 통계 자동 산출
+
+### 팔런티어 협업 플로우
+1. `agent.gngmeta.com/co-work`에서 공간 선택 및 합류
+2. 자동 멤버십 부여 (커뮤니티/공개 공간)
+3. 제안 생성 → 공간 리뷰어에게 자동 알림
+4. 토론/멘션 기반 피드백 후 승인 & 온톨로지 반영
+5. 활동 메트릭이 공간 대시보드에 집계
+
+## 🔗 API 확장 (Co-Work)
+
+| 메서드 | 엔드포인트 | 설명 |
+| --- | --- | --- |
+| `GET` | `/api/v1/spaces` | 접근 가능한 협업 공간 목록 조회 |
+| `POST` | `/api/v1/spaces` | 코디네이터/팔런티어가 새 공간 생성 |
+| `GET` | `/api/v1/spaces/{space_id}` | 공간 상세, 메트릭, 내 멤버십 정보 |
+| `POST` | `/api/v1/spaces/{space_id}/join` | 공간 참여/재참여 |
+| `GET` | `/api/v1/spaces/{space_id}/members` | 공간 멤버 목록 및 역할 조회 |
+| `POST` | `/api/v1/spaces/{space_id}/members` | 코디네이터가 멤버 초대/역할 설정 |
+| `PATCH` | `/api/v1/spaces/{space_id}/members/{user_id}` | 멤버십 세부 조정 |
+| `POST` | `/api/v1/proposals` | 공간 ID를 지정해 제안 생성 |
+
+> ⚡ 모든 커뮤니티 공간은 팔런티어가 제안 생성 시 자동으로 멤버십이 생성되어, 온보딩 장벽을 줄입니다.
 
 ## 🔒 보안 기능
 
