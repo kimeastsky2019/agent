@@ -44,27 +44,25 @@ def login_required(f):
 def index():
     if 'user_id' not in session:
         return redirect('/login')
-    return redirect('/assets')
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        
-        if username == 'info@gngmeta.com' and password == 'admin1234':
-            session['user_id'] = 1
-            session['username'] = username
-            return redirect('/assets')
-        else:
-            return render_template('login.html', error='Invalid credentials')
+    # When accessed through Nginx /assets/, render assets page directly
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    c.execute('SELECT * FROM assets ORDER BY created_at DESC')
+    assets_list = c.fetchall()
+    conn.close()
     
-    return render_template('login.html')
-
-@app.route('/logout')
-def logout():
-    session.clear()
-    return redirect('/login')
+    assets_data = []
+    for asset in assets_list:
+        assets_data.append({
+            'id': asset[0],
+            'name': asset[1],
+            'type': asset[2],
+            'api_url': asset[3],
+            'service_url': asset[4],
+            'created_at': asset[5]
+        })
+    
+    return render_template('assets.html', assets=assets_data, username=session.get('username'))
 
 @app.route('/assets')
 @login_required
@@ -87,6 +85,26 @@ def assets():
         })
     
     return render_template('assets.html', assets=assets_data, username=session.get('username'))
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        
+        if username == 'info@gngmeta.com' and password == 'admin1234':
+            session['user_id'] = 1
+            session['username'] = username
+            return redirect('/assets')
+        else:
+            return render_template('login.html', error='Invalid credentials')
+    
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/login')
 
 @app.route('/api/assets', methods=['GET'])
 @login_required

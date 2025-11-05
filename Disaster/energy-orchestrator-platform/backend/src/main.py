@@ -57,8 +57,17 @@ async def root():
     <title>Energy Orchestrator Platform</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Malgun Gothic", sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
-        .container { max-width: 1400px; margin: 0 auto; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Malgun Gothic", sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 0; }
+        .top-header { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; padding: 15px 30px; }
+        .top-header-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: #667eea; font-weight: 700; font-size: 1.3rem; }
+        .logo-icon { font-size: 1.8rem; }
+        .nav-menu { display: flex; gap: 20px; align-items: center; }
+        .nav-link { color: #333; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: all 0.3s ease; }
+        .nav-link:hover { background: #667eea; color: white; }
+        .home-link { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .home-link:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4); }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
         .header { text-align: center; color: white; margin-bottom: 40px; padding: 40px 0; }
         .header h1 { font-size: 3rem; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); font-weight: 700; }
         .header p { font-size: 1.3rem; opacity: 0.95; }
@@ -78,6 +87,21 @@ async def root():
     </style>
 </head>
 <body>
+    <nav class="top-header">
+        <div class="top-header-content">
+            <a href="/eop" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Energy Orchestrator Platform</span>
+            </a>
+            <div class="nav-menu">
+                <a href="/eop" class="nav-link home-link">홈</a>
+                <a href="/da" class="nav-link">Energy Demand</a>
+                <a href="/sa" class="nav-link">Energy Supply</a>
+                <a href="/assets" class="nav-link">Asset Management</a>
+                <a href="/dashboard" class="nav-link">Disaster</a>
+            </div>
+        </div>
+    </nav>
     <div class="container">
         <div class="header">
             <h1>⚡ Energy Orchestrator Platform</h1>
@@ -93,7 +117,7 @@ async def root():
             <a href="http://localhost:3010" class="card" target="_blank"><span class="card-icon">🤝</span><div class="card-title">Collaborative Ontology</div><div class="card-description">협업형 온톨로지 플랫폼</div></a>
             <a href="/ibs" class="card"><span class="card-icon">📡</span><div class="card-title">Image Broadcasting</div><div class="card-description">영상 모니터링 서비스</div></a>
             <a href="/assets" class="card"><span class="card-icon">📦</span><div class="card-title">Asset Management</div><div class="card-description">자산 관리 시스템</div></a>
-            <a href="/dashboard" class="card"><span class="card-icon">🎛️</span><div class="card-title">Dashboard</div><div class="card-description">에너지 네트워크 대시보드</div></a>
+            <a href="/dashboard" class="card"><span class="card-icon">🎛️</span><div class="card-title">Disaster</div><div class="card-description">재난 대비</div></a>
         </div>
         <div class="info-section">
             <h2>📋 시스템 정보</h2>

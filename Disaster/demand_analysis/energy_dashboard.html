@@ -17,8 +17,70 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #333;
             line-height: 1.6;
-            padding: 20px;
+            padding: 0;
             min-height: 100vh;
+        }
+        
+        .top-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 30px;
+        }
+        
+        .top-header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #667eea;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+        
+        .logo-icon {
+            font-size: 1.8rem;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .home-link {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .home-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
         }
 
         .container {
@@ -47,15 +109,6 @@
             color: #666;
         }
 
-        .agent-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 10px 25px;
-            border-radius: 25px;
-            font-weight: 600;
-            margin-top: 10px;
-        }
 
         /* Upload Section */
         .upload-section {
@@ -220,11 +273,25 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <nav class="top-header">
+        <div class="top-header-content">
+            <a href="/eop" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Energy Orchestrator Platform</span>
+            </a>
+            <div class="nav-menu">
+                <a href="/eop" class="nav-link home-link">홈</a>
+                <a href="/da" class="nav-link">Energy Demand</a>
+                <a href="/sa" class="nav-link">Energy Supply</a>
+                <a href="/assets" class="nav-link">Asset Management</a>
+                <a href="/dashboard" class="nav-link">Disaster</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container" style="padding: 20px;">
         <header>
-            <h1>⚡ Energy Demand Analysis AI Agent</h1>
+            <h1 id="assetTitle">⚡ Energy Demand Analysis AI Agent</h1>
             <p class="subtitle">Advanced AI-Powered Energy Forecasting & Anomaly Detection System</p>
-            <div class="agent-badge">🤖 Multi-Agent AI System with CNN, LSTM, TFT Models</div>
         </header>
 
         <!-- Upload Section -->
@@ -336,6 +403,80 @@
     </div>
 
     <script>
+        // Load asset name from URL parameter or assets service
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('Loading asset name...');
+            
+            // Try to get asset name from URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            let assetName = urlParams.get('asset');
+            // Decode if needed
+            if (assetName) {
+                try {
+                    assetName = decodeURIComponent(assetName);
+                } catch (e) {
+                    // If decoding fails, use original value
+                    console.log('URL decode failed, using original:', assetName);
+                }
+            }
+            console.log('Asset name from URL parameter:', assetName);
+            
+            // If not in URL, try to get from assets service API
+            if (!assetName) {
+                try {
+                    // Get current path to determine service type
+                    const path = window.location.pathname;
+                    let serviceUrl = '/da';
+                    if (path.includes('/da')) {
+                        serviceUrl = '/da';
+                    } else if (path.includes('/sa')) {
+                        serviceUrl = '/sa';
+                    }
+                    console.log('Service URL:', serviceUrl);
+                    
+                    // Call assets service API to get asset name
+                    const response = await fetch('/assets/api/assets', {
+                        credentials: 'same-origin'
+                    });
+                    
+                    console.log('API Response status:', response.status);
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log('API Response data:', data);
+                        
+                        if (data.success && data.data) {
+                            // Find asset with matching service_url
+                            const asset = data.data.find(a => a.service_url === serviceUrl);
+                            console.log('Found asset:', asset);
+                            
+                            if (asset) {
+                                assetName = asset.name;
+                                console.log('Asset name from API:', assetName);
+                            }
+                        }
+                    } else {
+                        console.error('API request failed:', response.status, response.statusText);
+                    }
+                } catch (error) {
+                    console.error('Error fetching asset name from API:', error);
+                }
+            }
+            
+            // Update title if asset name is found
+            if (assetName) {
+                const titleElement = document.getElementById('assetTitle');
+                if (titleElement) {
+                    titleElement.textContent = `⚡ ${assetName}`;
+                    console.log('Title updated to:', titleElement.textContent);
+                } else {
+                    console.error('Title element not found!');
+                }
+            } else {
+                console.log('No asset name found, keeping default title');
+            }
+        });
+        
                 // Upload handler with model selection
         document.getElementById('uploadForm').addEventListener('submit', async function(e) {
             e.preventDefault();

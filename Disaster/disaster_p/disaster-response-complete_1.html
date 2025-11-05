@@ -1,0 +1,2152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disaster Response Platform</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f7fa;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e88e5 0%, #1565c0 100%);
+            color: white;
+            padding: 0 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            cursor: pointer;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            opacity: 0.9;
+            transition: opacity 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-menu a:hover {
+            opacity: 1;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .page-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 50px;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        /* Dashboard Section */
+        .dashboard-section {
+            display: block;
+        }
+
+        .assets-section {
+            display: none;
+        }
+
+        .section-active {
+            display: block;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-top: 4px solid;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+
+        .card.blue {
+            border-top-color: #2196F3;
+        }
+
+        .card.red {
+            border-top-color: #f44336;
+        }
+
+        .card.green {
+            border-top-color: #4caf50;
+        }
+
+        .card.orange {
+            border-top-color: #ff9800;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .card-icon {
+            font-size: 24px;
+        }
+
+        .card-value {
+            font-size: 42px;
+            font-weight: 700;
+            margin: 20px 0;
+        }
+
+        .card.blue .card-value {
+            color: #2196F3;
+        }
+
+        .card.red .card-value {
+            color: #f44336;
+        }
+
+        .card.green .card-value {
+            color: #4caf50;
+        }
+
+        .card.orange .card-value {
+            color: #ff9800;
+        }
+
+        .card-subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .card-footer {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 13px;
+            color: #999;
+        }
+
+        /* Status Indicator */
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-indicator.active {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .status-indicator.normal {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status-indicator.active .status-dot {
+            background: #e65100;
+        }
+
+        .status-indicator.normal .status-dot {
+            background: #2e7d32;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        /* Alert Section */
+        .alert-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-top: 30px;
+        }
+
+        .section-header {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .alert-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            background: #fafafa;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+
+        .alert-item.critical {
+            border-left-color: #f44336;
+            background: #ffebee;
+        }
+
+        .alert-item.warning {
+            border-left-color: #ff9800;
+            background: #fff3e0;
+        }
+
+        .alert-item.info {
+            border-left-color: #2196F3;
+            background: #e3f2fd;
+        }
+
+        .alert-content {
+            flex: 1;
+        }
+
+        .alert-title {
+            font-weight: 600;
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .alert-time {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .alert-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .alert-item.critical .alert-badge {
+            background: #f44336;
+            color: white;
+        }
+
+        .alert-item.warning .alert-badge {
+            background: #ff9800;
+            color: white;
+        }
+
+        .alert-item.info .alert-badge {
+            background: #2196F3;
+            color: white;
+        }
+
+        /* Map Section */
+        .map-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-top: 30px;
+        }
+
+        #disaster-map {
+            height: 500px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .map-legend {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .legend-marker {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .legend-marker.critical {
+            background: #f44336;
+        }
+
+        .legend-marker.warning {
+            background: #ff9800;
+        }
+
+        .legend-marker.resolved {
+            background: #4caf50;
+        }
+
+        /* Weather Section */
+        .weather-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-top: 30px;
+        }
+
+        .weather-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .weather-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .weather-card.sunny {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .weather-card.cloudy {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .weather-card.rainy {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .weather-location {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .weather-icon {
+            font-size: 48px;
+            margin: 15px 0;
+        }
+
+        .weather-temp {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .weather-condition {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .weather-details {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .weather-detail {
+            text-align: center;
+        }
+
+        .weather-detail-label {
+            font-size: 11px;
+            opacity: 0.8;
+            margin-bottom: 3px;
+        }
+
+        .weather-detail-value {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Assets Management Section */
+        .assets-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .assets-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #1e88e5;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: #1565c0;
+        }
+
+        .btn-icon {
+            margin-right: 6px;
+        }
+
+        /* Asset Stats Cards */
+        .asset-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        /* Energy Analysis Cards */
+        .energy-analysis {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .analysis-card {
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .analysis-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .analysis-card.demand {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .analysis-card.supply {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .analysis-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .analysis-number {
+            font-size: 48px;
+            font-weight: 700;
+        }
+
+        .analysis-icon {
+            font-size: 32px;
+        }
+
+        .analysis-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .analysis-description {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .view-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 15px;
+            font-size: 14px;
+            opacity: 0.9;
+            text-decoration: none;
+            color: white;
+        }
+
+        /* Assets Table */
+        .assets-table-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow-x: auto;
+        }
+
+        .assets-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .assets-table thead {
+            background: #f5f7fa;
+        }
+
+        .assets-table th {
+            padding: 15px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .assets-table td {
+            padding: 18px 15px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .assets-table tbody tr:hover {
+            background: #fafafa;
+        }
+
+        .asset-type-icon {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .type-icon {
+            font-size: 20px;
+        }
+
+        .online-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .offline-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #ffebee;
+            color: #c62828;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .icon-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: #f0f0f0;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .icon-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .icon-btn.edit {
+            color: #2196F3;
+        }
+
+        .icon-btn.delete {
+            color: #f44336;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-content.large {
+            max-width: 1200px;
+        }
+
+        .modal-header {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: #f0f0f0;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #666;
+        }
+
+        .modal-close:hover {
+            background: #e0e0e0;
+        }
+
+        /* Analysis Details */
+        .analysis-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .analysis-stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .analysis-stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+
+        .analysis-stat-label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .analysis-section {
+            margin-bottom: 30px;
+        }
+
+        .analysis-section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .analysis-chart-container {
+            height: 300px;
+            margin-bottom: 20px;
+        }
+
+        .asset-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .asset-detail-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .asset-detail-label {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .asset-detail-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .view-detail-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 0;
+            text-decoration: underline;
+            opacity: 0.9;
+        }
+
+        .view-detail-btn:hover {
+            opacity: 1;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .required {
+            color: #f44336;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #2196F3;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #666;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        /* Chart Section */
+        .chart-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-top: 30px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .energy-analysis {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: column;
+                height: auto;
+                padding: 15px 0;
+            }
+
+            .nav-menu {
+                gap: 20px;
+                margin-top: 15px;
+            }
+
+            .container {
+                padding: 30px 20px;
+            }
+
+            .page-title {
+                font-size: 28px;
+            }
+
+            #disaster-map {
+                height: 400px;
+            }
+
+            .weather-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .assets-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .modal-content {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo" onclick="showDashboard()">Disaster Response Platform</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a onclick="showDashboard()">Home</a></li>
+                    <li><a onclick="showAssets()">Assets</a></li>
+                    <li><a href="#analysis">Disaster Analysis</a></li>
+                    <li><a href="#profile">My Page</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Dashboard Section -->
+        <section class="dashboard-section section-active">
+            <h1 class="page-title">AI-Powered Disaster Response Energy Sharing Platform</h1>
+
+            <!-- Dashboard Cards -->
+            <div class="dashboard-grid">
+                <div class="card blue">
+                    <div class="card-header">
+                        <span class="card-title">Energy Assets</span>
+                        <span class="card-icon">⚡</span>
+                    </div>
+                    <div class="card-value" id="total-assets">2</div>
+                    <div class="card-subtitle">Total registered assets</div>
+                    <div class="card-footer">
+                        <span class="status-indicator normal">
+                            <span class="status-dot"></span>
+                            All Systems Operational
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card red">
+                    <div class="card-header">
+                        <span class="card-title">Active Disasters</span>
+                        <span class="card-icon">🚨</span>
+                    </div>
+                    <div class="card-value">3</div>
+                    <div class="card-subtitle">Requiring immediate response</div>
+                    <div class="card-footer">
+                        <span class="status-indicator active">
+                            <span class="status-dot"></span>
+                            Monitoring Active
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card green">
+                    <div class="card-header">
+                        <span class="card-title">Energy Balance</span>
+                        <span class="card-icon">📊</span>
+                    </div>
+                    <div class="card-value">87%</div>
+                    <div class="card-subtitle">Network efficiency</div>
+                    <div class="card-footer">
+                        <span class="status-indicator normal">
+                            <span class="status-dot"></span>
+                            Optimal Performance
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card orange">
+                    <div class="card-header">
+                        <span class="card-title">Avg Response Time</span>
+                        <span class="card-icon">⏱️</span>
+                    </div>
+                    <div class="card-value">2.4<span style="font-size: 24px; font-weight: 500;">min</span></div>
+                    <div class="card-subtitle">Emergency allocation speed</div>
+                    <div class="card-footer">
+                        <span class="status-indicator normal">
+                            <span class="status-dot"></span>
+                            Within Target Range
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alert Section -->
+            <div class="alert-section">
+                <div class="section-header">
+                    <span>🔔</span>
+                    Recent Disaster Alerts
+                </div>
+                <div class="alert-list">
+                    <div class="alert-item critical">
+                        <div class="alert-content">
+                            <div class="alert-title">Power Outage - Seoul District 3</div>
+                            <div class="alert-time">15 minutes ago • 2,340 households affected</div>
+                        </div>
+                        <span class="alert-badge">CRITICAL</span>
+                    </div>
+
+                    <div class="alert-item warning">
+                        <div class="alert-content">
+                            <div class="alert-title">High Demand Alert - Busan Region</div>
+                            <div class="alert-time">1 hour ago • Energy redistribution in progress</div>
+                        </div>
+                        <span class="alert-badge">WARNING</span>
+                    </div>
+
+                    <div class="alert-item info">
+                        <div class="alert-content">
+                            <div class="alert-title">System Maintenance Completed</div>
+                            <div class="alert-time">3 hours ago • All systems restored</div>
+                        </div>
+                        <span class="alert-badge">INFO</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Disaster Map Section -->
+            <div class="map-section">
+                <div class="section-header">
+                    <span>🗺️</span>
+                    Real-Time Disaster Monitoring Map
+                </div>
+                <div id="disaster-map"></div>
+                <div class="map-legend">
+                    <div class="legend-item">
+                        <span class="legend-marker critical"></span>
+                        <span>Critical Incident</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-marker warning"></span>
+                        <span>Warning Alert</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-marker resolved"></span>
+                        <span>Resolved</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weather Section -->
+            <div class="weather-section">
+                <div class="section-header">
+                    <span>🌤️</span>
+                    Regional Weather Information
+                </div>
+                <div class="weather-grid">
+                    <div class="weather-card sunny">
+                        <div class="weather-location">Seoul</div>
+                        <div class="weather-icon">☀️</div>
+                        <div class="weather-temp">18°C</div>
+                        <div class="weather-condition">Sunny</div>
+                        <div class="weather-details">
+                            <div class="weather-detail">
+                                <div class="weather-detail-label">Humidity</div>
+                                <div class="weather-detail-value">45%</div>
+                            </div>
+                            <div class="weather-detail">
+                                <div class="weather-detail-label">Wind</div>
+                                <div class="weather-detail-value">12km/h</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="weather-card cloudy">
+                        <div class="weather-location">Busan</div>
+                        <div class="weather-icon">⛅</div>
+                        <div class="weather-temp">16°C</div>
+                        <div class="weather-condition">Partly Cloudy</div>
+                        <div class="weather-details">
+                            <div class="weather-detail">
+                                <div class="weather-detail-label">Humidity</div>
+                                <div class="weather-detail-value">62%</div>
+                            </div>
+                            <div class="weather-detail">
+                                <div class="weather-detail-label">Wind</div>
+                                <div class="weather-detail-value">8km/h</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="weather-card rainy">
+                        <div class="weather-location">Incheon</div>
+                        <div class="weather-icon">🌧️</div>
+                        <div class="weather-temp">14°C</div>
+                        <div class="weather-condition">Light Rain</div>
+                        <div class="weather-details">
+                            <div class="weather-detail">
+                                <div class="weather-detail-label">Humidity</div>
+                                <div class="weather-detail-value">78%</div>
+                            </div>
+                            <div class="weather-detail">
+                                <div class="weather-detail-label">Wind</div>
+                                <div class="weather-detail-value">15km/h</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="weather-card sunny">
+                        <div class="weather-location">Daegu</div>
+                        <div class="weather-icon">☀️</div>
+                        <div class="weather-temp">19°C</div>
+                        <div class="weather-condition">Clear</div>
+                        <div class="weather-details">
+                            <div class="weather-detail">
+                                <div class="weather-detail-label">Humidity</div>
+                                <div class="weather-detail-value">42%</div>
+                            </div>
+                            <div class="weather-detail">
+                                <div class="weather-detail-label">Wind</div>
+                                <div class="weather-detail-value">10km/h</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Assets Management Section -->
+        <section class="assets-section">
+            <div class="assets-header">
+                <h1 class="assets-title">Energy Asset Management</h1>
+                <button class="btn" onclick="openAddAssetModal()">
+                    <span class="btn-icon">+</span>
+                    Add Asset
+                </button>
+            </div>
+
+            <!-- Asset Stats -->
+            <div class="asset-stats">
+                <div class="stat-card">
+                    <div class="stat-label">Total Assets</div>
+                    <div class="stat-value" id="stat-total">2</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Operating</div>
+                    <div class="stat-value" id="stat-operating">2</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Capacity</div>
+                    <div class="stat-value" id="stat-capacity">0.0 kW</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Avg Capacity</div>
+                    <div class="stat-value" id="stat-avg">0.0 kW</div>
+                </div>
+            </div>
+
+            <!-- Energy Analysis Dashboard Cards -->
+            <div class="energy-analysis" id="analysis-cards">
+                <div class="analysis-card demand">
+                    <div class="analysis-header">
+                        <div class="analysis-number">32</div>
+                        <div class="analysis-icon">📊</div>
+                    </div>
+                    <div class="analysis-title">Energy Demand Analysis Dashboard</div>
+                    <div class="analysis-description">Real-time monitoring • Smart matching • Data analysis</div>
+                    <button class="view-detail-btn" onclick="openAnalysisDetail('demand')">Open ↗</button>
+                </div>
+
+                <div class="analysis-card supply">
+                    <div class="analysis-header">
+                        <div class="analysis-number">123</div>
+                        <div class="analysis-icon">⚡</div>
+                    </div>
+                    <div class="analysis-title">Energy Supply Analysis Dashboard</div>
+                    <div class="analysis-description">Solar power • Real-time monitoring • AI-based matching</div>
+                    <button class="view-detail-btn" onclick="openAnalysisDetail('supply')">Open ↗</button>
+                </div>
+            </div>
+
+            <!-- Energy Charts -->
+            <div class="chart-section">
+                <div class="section-header">
+                    <span>📈</span>
+                    Energy Supply & Demand Matching (15-minute intervals)
+                </div>
+                <div class="chart-container">
+                    <canvas id="energyChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Assets Table -->
+            <div class="assets-table-container">
+                <table class="assets-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Name</th>
+                            <th>Capacity (kW)</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="assets-table-body">
+                        <tr>
+                            <td>
+                                <div class="asset-type-icon">
+                                    <span class="type-icon">☀️</span>
+                                    <span>Solar Panel</span>
+                                </div>
+                            </td>
+                            <td><a href="#" onclick="openAssetDetail(1); return false;" style="color: #2196F3; text-decoration: none;">123</a></td>
+                            <td>-</td>
+                            <td><span class="online-badge">online</span></td>
+                            <td>2025. 11. 3.</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="icon-btn edit" onclick="openEditAssetModal(1)">✏️</button>
+                                    <button class="icon-btn delete" onclick="deleteAsset(1)">🗑️</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="asset-type-icon">
+                                    <span class="type-icon">📊</span>
+                                    <span>Building</span>
+                                </div>
+                            </td>
+                            <td><a href="#" onclick="openAssetDetail(2); return false;" style="color: #2196F3; text-decoration: none;">32</a></td>
+                            <td>-</td>
+                            <td><span class="online-badge">online</span></td>
+                            <td>2025. 11. 3.</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="icon-btn edit" onclick="openEditAssetModal(2)">✏️</button>
+                                    <button class="icon-btn delete" onclick="deleteAsset(2)">🗑️</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Add Asset Modal -->
+    <div class="modal" id="addAssetModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span>Add Asset</span>
+                <button class="modal-close" onclick="closeAddAssetModal()">×</button>
+            </div>
+            <form id="addAssetForm">
+                <div class="form-group">
+                    <label class="form-label">Asset Name <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="assetName" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Sector Selection <span class="required">*</span></label>
+                    <select class="form-select" id="assetSector" onchange="updateAssetTypes()" required>
+                        <option value="">Select Sector</option>
+                        <option value="supply">Supply Sector</option>
+                        <option value="demand">Demand Sector</option>
+                        <option value="imaging">Imaging Sector</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Asset Type <span class="required">*</span></label>
+                    <select class="form-select" id="assetType" required>
+                        <option value="">Select Type</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Capacity (kW)</label>
+                    <input type="number" class="form-input" id="assetCapacity" step="0.1" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">API Key</label>
+                    <input type="text" class="form-input" id="assetApiKey">
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeAddAssetModal()">Cancel</button>
+                    <button type="submit" class="btn">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Asset Modal -->
+    <div class="modal" id="editAssetModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span>Edit Asset</span>
+                <button class="modal-close" onclick="closeEditAssetModal()">×</button>
+            </div>
+            <form id="editAssetForm">
+                <input type="hidden" id="editAssetId">
+                <div class="form-group">
+                    <label class="form-label">Asset Name <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="editAssetName" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Sector Selection <span class="required">*</span></label>
+                    <select class="form-select" id="editAssetSector" onchange="updateEditAssetTypes()" required>
+                        <option value="">Select Sector</option>
+                        <option value="supply">Supply Sector</option>
+                        <option value="demand">Demand Sector</option>
+                        <option value="imaging">Imaging Sector</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Asset Type <span class="required">*</span></label>
+                    <select class="form-select" id="editAssetType" required>
+                        <option value="">Select Type</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Capacity (kW)</label>
+                    <input type="number" class="form-input" id="editAssetCapacity" step="0.1" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">API Key</label>
+                    <input type="text" class="form-input" id="editAssetApiKey">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Status</label>
+                    <select class="form-select" id="editAssetStatus">
+                        <option value="online">Online</option>
+                        <option value="offline">Offline</option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeEditAssetModal()">Cancel</button>
+                    <button type="submit" class="btn">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Asset Detail Modal -->
+    <div class="modal" id="assetDetailModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <span id="assetDetailTitle">Asset Details</span>
+                <button class="modal-close" onclick="closeAssetDetailModal()">×</button>
+            </div>
+            
+            <div class="asset-detail-grid">
+                <div class="asset-detail-item">
+                    <div class="asset-detail-label">Asset Name</div>
+                    <div class="asset-detail-value" id="detailAssetName">-</div>
+                </div>
+                <div class="asset-detail-item">
+                    <div class="asset-detail-label">Asset Type</div>
+                    <div class="asset-detail-value" id="detailAssetType">-</div>
+                </div>
+                <div class="asset-detail-item">
+                    <div class="asset-detail-label">Sector</div>
+                    <div class="asset-detail-value" id="detailAssetSector">-</div>
+                </div>
+                <div class="asset-detail-item">
+                    <div class="asset-detail-label">Capacity</div>
+                    <div class="asset-detail-value" id="detailAssetCapacity">-</div>
+                </div>
+                <div class="asset-detail-item">
+                    <div class="asset-detail-label">Status</div>
+                    <div class="asset-detail-value" id="detailAssetStatus">-</div>
+                </div>
+                <div class="asset-detail-item">
+                    <div class="asset-detail-label">Created Date</div>
+                    <div class="asset-detail-value" id="detailAssetCreated">-</div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                <div class="analysis-section-title">Real-Time Performance</div>
+                <div class="analysis-chart-container">
+                    <canvas id="assetPerformanceChart"></canvas>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                <div class="analysis-section-title">24-Hour Energy Pattern</div>
+                <div class="analysis-chart-container">
+                    <canvas id="assetEnergyPatternChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analysis Detail Modal -->
+    <div class="modal" id="analysisDetailModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <span id="analysisDetailTitle">Energy Analysis Dashboard</span>
+                <button class="modal-close" onclick="closeAnalysisDetailModal()">×</button>
+            </div>
+
+            <div class="analysis-stats">
+                <div class="analysis-stat-card">
+                    <div class="analysis-stat-value" id="statTotalAssets">0</div>
+                    <div class="analysis-stat-label">Total Assets</div>
+                </div>
+                <div class="analysis-stat-card">
+                    <div class="analysis-stat-value" id="statAvgCapacity">0 kW</div>
+                    <div class="analysis-stat-label">Average Capacity</div>
+                </div>
+                <div class="analysis-stat-card">
+                    <div class="analysis-stat-value" id="statPeakTime">--:--</div>
+                    <div class="analysis-stat-label">Peak Time</div>
+                </div>
+                <div class="analysis-stat-card">
+                    <div class="analysis-stat-value" id="statEfficiency">0%</div>
+                    <div class="analysis-stat-label">Efficiency</div>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                <div class="analysis-section-title">24-Hour Energy Trend</div>
+                <div class="analysis-chart-container">
+                    <canvas id="analysisTrendChart"></canvas>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                <div class="analysis-section-title">Hourly Distribution</div>
+                <div class="analysis-chart-container">
+                    <canvas id="analysisDistributionChart"></canvas>
+                </div>
+            </div>
+
+            <div class="analysis-section">
+                <div class="analysis-section-title">AI-Based Predictions & Anomaly Detection</div>
+                <div class="alert-list">
+                    <div class="alert-item info">
+                        <div class="alert-content">
+                            <div class="alert-title">Normal Operation Detected</div>
+                            <div class="alert-time">All systems operating within expected parameters</div>
+                        </div>
+                        <span class="alert-badge">INFO</span>
+                    </div>
+                    <div class="alert-item warning" style="display: none;" id="anomalyAlert">
+                        <div class="alert-content">
+                            <div class="alert-title">Anomaly Detected</div>
+                            <div class="alert-time">Unusual pattern detected at 14:30</div>
+                        </div>
+                        <span class="alert-badge">WARNING</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Asset types by sector
+        const assetTypesBySector = {
+            supply: ['Solar Panel', 'ESS (Energy Storage System)'],
+            demand: ['Building', 'EV Charging Station'],
+            imaging: ['Image', 'CCTV', 'Drone']
+        };
+
+        // Assets data
+        let assets = [
+            { id: 1, name: '123', sector: 'supply', type: 'Solar Panel', capacity: 0, status: 'online', created: '2025. 11. 3.' },
+            { id: 2, name: '32', sector: 'demand', type: 'Building', capacity: 0, status: 'online', created: '2025. 11. 3.' }
+        ];
+
+        let energyChart = null;
+
+        // Navigation
+        function showDashboard() {
+            document.querySelector('.dashboard-section').classList.add('section-active');
+            document.querySelector('.assets-section').classList.remove('section-active');
+        }
+
+        function showAssets() {
+            document.querySelector('.dashboard-section').classList.remove('section-active');
+            document.querySelector('.assets-section').classList.add('section-active');
+            updateAssetsTable();
+            updateStats();
+        }
+
+        // Update asset types based on sector
+        function updateAssetTypes() {
+            const sector = document.getElementById('assetSector').value;
+            const typeSelect = document.getElementById('assetType');
+            
+            typeSelect.innerHTML = '<option value="">Select Type</option>';
+            
+            if (sector && assetTypesBySector[sector]) {
+                assetTypesBySector[sector].forEach(type => {
+                    const option = document.createElement('option');
+                    option.value = type;
+                    option.textContent = type;
+                    typeSelect.appendChild(option);
+                });
+            }
+        }
+
+        function updateEditAssetTypes() {
+            const sector = document.getElementById('editAssetSector').value;
+            const typeSelect = document.getElementById('editAssetType');
+            
+            typeSelect.innerHTML = '<option value="">Select Type</option>';
+            
+            if (sector && assetTypesBySector[sector]) {
+                assetTypesBySector[sector].forEach(type => {
+                    const option = document.createElement('option');
+                    option.value = type;
+                    option.textContent = type;
+                    typeSelect.appendChild(option);
+                });
+            }
+        }
+
+        // Modal functions
+        function openAddAssetModal() {
+            document.getElementById('addAssetModal').classList.add('active');
+        }
+
+        function closeAddAssetModal() {
+            document.getElementById('addAssetModal').classList.remove('active');
+            document.getElementById('addAssetForm').reset();
+        }
+
+        function openEditAssetModal(id) {
+            const asset = assets.find(a => a.id === id);
+            if (!asset) return;
+
+            document.getElementById('editAssetId').value = asset.id;
+            document.getElementById('editAssetName').value = asset.name;
+            document.getElementById('editAssetSector').value = asset.sector;
+            updateEditAssetTypes();
+            document.getElementById('editAssetType').value = asset.type;
+            document.getElementById('editAssetCapacity').value = asset.capacity;
+            document.getElementById('editAssetApiKey').value = asset.apiKey || '';
+            document.getElementById('editAssetStatus').value = asset.status;
+
+            document.getElementById('editAssetModal').classList.add('active');
+        }
+
+        function closeEditAssetModal() {
+            document.getElementById('editAssetModal').classList.remove('active');
+        }
+
+        function openAssetDetail(id) {
+            const asset = assets.find(a => a.id === id);
+            if (!asset) return;
+
+            document.getElementById('assetDetailTitle').textContent = `Asset Details: ${asset.name}`;
+            document.getElementById('detailAssetName').textContent = asset.name;
+            document.getElementById('detailAssetType').textContent = asset.type;
+            document.getElementById('detailAssetSector').textContent = asset.sector.charAt(0).toUpperCase() + asset.sector.slice(1);
+            document.getElementById('detailAssetCapacity').textContent = asset.capacity > 0 ? asset.capacity + ' kW' : '-';
+            document.getElementById('detailAssetStatus').textContent = asset.status;
+            document.getElementById('detailAssetCreated').textContent = asset.created;
+
+            // Create performance chart
+            createAssetPerformanceChart();
+            createAssetEnergyPatternChart();
+
+            document.getElementById('assetDetailModal').classList.add('active');
+        }
+
+        function closeAssetDetailModal() {
+            document.getElementById('assetDetailModal').classList.remove('active');
+        }
+
+        function openAnalysisDetail(type) {
+            const title = type === 'demand' ? 'Energy Demand Analysis Dashboard' : 'Energy Supply Analysis Dashboard';
+            document.getElementById('analysisDetailTitle').textContent = title;
+
+            const filteredAssets = assets.filter(a => a.sector === type);
+            const totalCapacity = filteredAssets.reduce((sum, a) => sum + a.capacity, 0);
+            const avgCapacity = filteredAssets.length > 0 ? totalCapacity / filteredAssets.length : 0;
+
+            document.getElementById('statTotalAssets').textContent = filteredAssets.length;
+            document.getElementById('statAvgCapacity').textContent = avgCapacity.toFixed(1) + ' kW';
+            document.getElementById('statPeakTime').textContent = type === 'demand' ? '14:30' : '12:15';
+            document.getElementById('statEfficiency').textContent = type === 'demand' ? '87' : '92';
+
+            createAnalysisTrendChart(type);
+            createAnalysisDistributionChart(type);
+
+            document.getElementById('analysisDetailModal').classList.add('active');
+        }
+
+        function closeAnalysisDetailModal() {
+            document.getElementById('analysisDetailModal').classList.remove('active');
+        }
+
+        // Add asset
+        document.getElementById('addAssetForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newAsset = {
+                id: assets.length + 1,
+                name: document.getElementById('assetName').value,
+                sector: document.getElementById('assetSector').value,
+                type: document.getElementById('assetType').value,
+                capacity: parseFloat(document.getElementById('assetCapacity').value) || 0,
+                apiKey: document.getElementById('assetApiKey').value,
+                status: 'online',
+                created: new Date().toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '. ')
+            };
+            
+            assets.push(newAsset);
+            updateAssetsTable();
+            updateStats();
+            updateAnalysisCards();
+            closeAddAssetModal();
+        });
+
+        // Edit asset
+        document.getElementById('editAssetForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const id = parseInt(document.getElementById('editAssetId').value);
+            const asset = assets.find(a => a.id === id);
+            
+            if (asset) {
+                asset.name = document.getElementById('editAssetName').value;
+                asset.sector = document.getElementById('editAssetSector').value;
+                asset.type = document.getElementById('editAssetType').value;
+                asset.capacity = parseFloat(document.getElementById('editAssetCapacity').value) || 0;
+                asset.apiKey = document.getElementById('editAssetApiKey').value;
+                asset.status = document.getElementById('editAssetStatus').value;
+                
+                updateAssetsTable();
+                updateStats();
+                updateAnalysisCards();
+                closeEditAssetModal();
+            }
+        });
+
+        // Update assets table
+        function updateAssetsTable() {
+            const tbody = document.getElementById('assets-table-body');
+            tbody.innerHTML = '';
+            
+            assets.forEach(asset => {
+                const icon = getAssetIcon(asset.type);
+                const row = `
+                    <tr>
+                        <td>
+                            <div class="asset-type-icon">
+                                <span class="type-icon">${icon}</span>
+                                <span>${asset.type}</span>
+                            </div>
+                        </td>
+                        <td><a href="#" onclick="openAssetDetail(${asset.id}); return false;" style="color: #2196F3; text-decoration: none;">${asset.name}</a></td>
+                        <td>${asset.capacity > 0 ? asset.capacity : '-'}</td>
+                        <td><span class="${asset.status === 'online' ? 'online-badge' : 'offline-badge'}">${asset.status}</span></td>
+                        <td>${asset.created}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="icon-btn edit" onclick="openEditAssetModal(${asset.id})">✏️</button>
+                                <button class="icon-btn delete" onclick="deleteAsset(${asset.id})">🗑️</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        // Get asset icon
+        function getAssetIcon(type) {
+            const icons = {
+                'Solar Panel': '☀️',
+                'ESS (Energy Storage System)': '🔋',
+                'Building': '🏢',
+                'EV Charging Station': '🔌',
+                'Image': '🖼️',
+                'CCTV': '📹',
+                'Drone': '🚁'
+            };
+            return icons[type] || '⚡';
+        }
+
+        // Update stats
+        function updateStats() {
+            const totalAssets = assets.length;
+            const operating = assets.filter(a => a.status === 'online').length;
+            const totalCapacity = assets.reduce((sum, a) => sum + a.capacity, 0);
+            const avgCapacity = totalAssets > 0 ? totalCapacity / totalAssets : 0;
+            
+            document.getElementById('stat-total').textContent = totalAssets;
+            document.getElementById('stat-operating').textContent = operating;
+            document.getElementById('stat-capacity').textContent = totalCapacity.toFixed(1) + ' kW';
+            document.getElementById('stat-avg').textContent = avgCapacity.toFixed(1) + ' kW';
+            document.getElementById('total-assets').textContent = totalAssets;
+        }
+
+        // Update analysis cards
+        function updateAnalysisCards() {
+            const supplyAssets = assets.filter(a => a.sector === 'supply');
+            const demandAssets = assets.filter(a => a.sector === 'demand');
+            
+            const analysisContainer = document.getElementById('analysis-cards');
+            analysisContainer.innerHTML = '';
+            
+            if (demandAssets.length > 0) {
+                analysisContainer.innerHTML += `
+                    <div class="analysis-card demand">
+                        <div class="analysis-header">
+                            <div class="analysis-number">${demandAssets.length}</div>
+                            <div class="analysis-icon">📊</div>
+                        </div>
+                        <div class="analysis-title">Energy Demand Analysis Dashboard</div>
+                        <div class="analysis-description">Real-time monitoring • Smart matching • Data analysis</div>
+                        <button class="view-detail-btn" onclick="openAnalysisDetail('demand')">Open ↗</button>
+                    </div>
+                `;
+            }
+            
+            if (supplyAssets.length > 0) {
+                analysisContainer.innerHTML += `
+                    <div class="analysis-card supply">
+                        <div class="analysis-header">
+                            <div class="analysis-number">${supplyAssets.length}</div>
+                            <div class="analysis-icon">⚡</div>
+                        </div>
+                        <div class="analysis-title">Energy Supply Analysis Dashboard</div>
+                        <div class="analysis-description">Solar power • Real-time monitoring • AI-based matching</div>
+                        <button class="view-detail-btn" onclick="openAnalysisDetail('supply')">Open ↗</button>
+                    </div>
+                `;
+            }
+        }
+
+        // Delete asset
+        function deleteAsset(id) {
+            if (confirm('Are you sure you want to delete this asset?')) {
+                assets = assets.filter(a => a.id !== id);
+                updateAssetsTable();
+                updateStats();
+                updateAnalysisCards();
+            }
+        }
+
+        // Chart creation functions
+        function createAssetPerformanceChart() {
+            const ctx = document.getElementById('assetPerformanceChart');
+            if (!ctx) return;
+
+            const labels = [];
+            const data = [];
+            
+            for (let i = 0; i < 24; i++) {
+                labels.push(`${i.toString().padStart(2, '0')}:00`);
+                data.push(Math.random() * 100 + 50);
+            }
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Performance (%)',
+                        data: data,
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+
+        function createAssetEnergyPatternChart() {
+            const ctx = document.getElementById('assetEnergyPatternChart');
+            if (!ctx) return;
+
+            const labels = [];
+            const data = [];
+            
+            for (let i = 0; i < 24; i++) {
+                labels.push(`${i.toString().padStart(2, '0')}:00`);
+                const hour = i;
+                const baseValue = 50;
+                const peakValue = 150;
+                const variation = Math.sin((hour - 6) * Math.PI / 12) * (peakValue - baseValue) / 2;
+                data.push(Math.max(0, baseValue + (peakValue - baseValue) / 2 + variation + Math.random() * 20));
+            }
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Energy (kW)',
+                        data: data,
+                        backgroundColor: 'rgba(245, 87, 108, 0.6)',
+                        borderColor: '#f5576c',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+
+        function createAnalysisTrendChart(type) {
+            const ctx = document.getElementById('analysisTrendChart');
+            if (!ctx) return;
+
+            const labels = [];
+            const data = [];
+            
+            for (let i = 0; i < 96; i++) {
+                const hour = Math.floor(i / 4);
+                const minute = (i % 4) * 15;
+                if (i % 4 === 0) {
+                    labels.push(`${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`);
+                } else {
+                    labels.push('');
+                }
+                
+                const timeOfDay = hour + minute / 60;
+                const baseValue = type === 'demand' ? 50 : 20;
+                const peakValue = type === 'demand' ? 150 : 180;
+                
+                if (type === 'demand') {
+                    const variation = Math.sin((timeOfDay - 6) * Math.PI / 12) * (peakValue - baseValue) / 2;
+                    data.push(baseValue + (peakValue - baseValue) / 2 + variation + Math.random() * 10);
+                } else {
+                    const variation = Math.max(0, Math.sin((timeOfDay - 6) * Math.PI / 12)) * (peakValue - baseValue);
+                    data.push(baseValue + variation + Math.random() * 10);
+                }
+            }
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: type === 'demand' ? 'Demand (kW)' : 'Supply (kW)',
+                        data: data,
+                        borderColor: type === 'demand' ? '#667eea' : '#f5576c',
+                        backgroundColor: type === 'demand' ? 'rgba(102, 126, 234, 0.1)' : 'rgba(245, 87, 108, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+
+        function createAnalysisDistributionChart(type) {
+            const ctx = document.getElementById('analysisDistributionChart');
+            if (!ctx) return;
+
+            const labels = [];
+            const data = [];
+            
+            for (let i = 0; i < 24; i++) {
+                labels.push(`${i.toString().padStart(2, '0')}:00`);
+                
+                const hour = i;
+                const baseValue = type === 'demand' ? 50 : 20;
+                const peakValue = type === 'demand' ? 150 : 180;
+                
+                if (type === 'demand') {
+                    const variation = Math.sin((hour - 6) * Math.PI / 12) * (peakValue - baseValue) / 2;
+                    data.push(baseValue + (peakValue - baseValue) / 2 + variation + Math.random() * 10);
+                } else {
+                    const variation = Math.max(0, Math.sin((hour - 6) * Math.PI / 12)) * (peakValue - baseValue);
+                    data.push(baseValue + variation + Math.random() * 10);
+                }
+            }
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: type === 'demand' ? 'Demand (kW)' : 'Supply (kW)',
+                        data: data,
+                        backgroundColor: type === 'demand' ? 'rgba(102, 126, 234, 0.6)' : 'rgba(245, 87, 108, 0.6)',
+                        borderColor: type === 'demand' ? '#667eea' : '#f5576c',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+
+        // Show energy chart
+        function showEnergyChart(type) {
+            if (energyChart) {
+                energyChart.destroy();
+            }
+            
+            const ctx = document.getElementById('energyChart').getContext('2d');
+            
+            // Generate 15-minute interval data for 24 hours (96 data points)
+            const labels = [];
+            const demandData = [];
+            const supplyData = [];
+            
+            for (let i = 0; i < 96; i++) {
+                const hour = Math.floor(i / 4);
+                const minute = (i % 4) * 15;
+                labels.push(`${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`);
+                
+                // Generate realistic demand curve (higher during day, lower at night)
+                const timeOfDay = hour + minute / 60;
+                const baseDemand = 50;
+                const peakDemand = 150;
+                const demandVariation = Math.sin((timeOfDay - 6) * Math.PI / 12) * (peakDemand - baseDemand) / 2;
+                demandData.push(baseDemand + (peakDemand - baseDemand) / 2 + demandVariation + Math.random() * 10);
+                
+                // Generate realistic supply curve (solar peaks at midday)
+                const baseSupply = 20;
+                const peakSupply = 180;
+                const supplyVariation = Math.max(0, Math.sin((timeOfDay - 6) * Math.PI / 12)) * (peakSupply - baseSupply);
+                supplyData.push(baseSupply + supplyVariation + Math.random() * 10);
+            }
+            
+            energyChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Energy Demand (kW)',
+                            data: demandData,
+                            borderColor: '#667eea',
+                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Energy Supply (kW)',
+                            data: supplyData,
+                            borderColor: '#f5576c',
+                            backgroundColor: 'rgba(245, 87, 108, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Energy Supply & Demand Matching (15-minute intervals)'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Time'
+                            },
+                            ticks: {
+                                maxRotation: 45,
+                                minRotation: 45,
+                                autoSkip: true,
+                                maxTicksLimit: 24
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Power (kW)'
+                            },
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize map
+        function initializeMap() {
+            const map = L.map('disaster-map').setView([36.5, 127.8], 7);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: 18
+            }).addTo(map);
+
+            const disasterLocations = [
+                {
+                    lat: 37.5665,
+                    lng: 126.9780,
+                    title: "Power Outage - Seoul District 3",
+                    description: "2,340 households affected",
+                    status: "critical",
+                    time: "15 minutes ago"
+                },
+                {
+                    lat: 35.1796,
+                    lng: 129.0756,
+                    title: "High Demand Alert - Busan",
+                    description: "Energy redistribution in progress",
+                    status: "warning",
+                    time: "1 hour ago"
+                },
+                {
+                    lat: 37.4563,
+                    lng: 126.7052,
+                    title: "Maintenance Completed - Incheon",
+                    description: "All systems restored",
+                    status: "resolved",
+                    time: "3 hours ago"
+                },
+                {
+                    lat: 35.8714,
+                    lng: 128.6014,
+                    title: "Grid Overload Warning - Daegu",
+                    description: "Monitoring situation",
+                    status: "warning",
+                    time: "2 hours ago"
+                }
+            ];
+
+            disasterLocations.forEach(location => {
+                let markerColor = '#4caf50';
+                if (location.status === 'critical') markerColor = '#f44336';
+                if (location.status === 'warning') markerColor = '#ff9800';
+
+                const customIcon = L.divIcon({
+                    className: 'custom-marker',
+                    html: `<div style="background-color: ${markerColor}; width: 20px; height: 20px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3);"></div>`,
+                    iconSize: [20, 20],
+                    iconAnchor: [10, 10]
+                });
+
+                const marker = L.marker([location.lat, location.lng], {
+                    icon: customIcon
+                }).addTo(map);
+
+                const popupContent = `
+                    <div class="popup-content">
+                        <div class="popup-title">${location.title}</div>
+                        <div class="popup-details">
+                            ${location.description}<br>
+                            <small>${location.time}</small>
+                        </div>
+                        <span class="popup-status ${location.status}">
+                            ${location.status.toUpperCase()}
+                        </span>
+                    </div>
+                `;
+
+                marker.bindPopup(popupContent);
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeMap();
+            updateStats();
+            showEnergyChart('all');
+        });
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const addModal = document.getElementById('addAssetModal');
+            const editModal = document.getElementById('editAssetModal');
+            const detailModal = document.getElementById('assetDetailModal');
+            const analysisModal = document.getElementById('analysisDetailModal');
+            
+            if (event.target === addModal) {
+                closeAddAssetModal();
+            } else if (event.target === editModal) {
+                closeEditAssetModal();
+            } else if (event.target === detailModal) {
+                closeAssetDetailModal();
+            } else if (event.target === analysisModal) {
+                closeAnalysisDetailModal();
+            }
+        }
+    </script>
+</body>
+</html>

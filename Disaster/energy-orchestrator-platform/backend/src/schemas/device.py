@@ -17,3 +17,7 @@ class DeviceResponse(BaseModel):
 
 
 
+
+
+
+

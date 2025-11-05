@@ -488,3 +488,7 @@ async def update_member(
 
     return {"message": "멤버십이 업데이트되었습니다"}
 
+
+
+
+
