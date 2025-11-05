@@ -85,6 +85,28 @@ services:
     networks:
       - energy-net
 
+  influxdb:
+    image: influxdb:2.7
+    container_name: energy_influxdb
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: admin
+      DOCKER_INFLUXDB_INIT_PASSWORD: adminpassword
+      DOCKER_INFLUXDB_INIT_ORG: gng_energy
+      DOCKER_INFLUXDB_INIT_BUCKET: energy_data
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: energy-data-token
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+    networks:
+      - energy-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8086/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   ontology-service:
     build: ../ontology_service
     container_name: ontology_service
@@ -130,6 +152,59 @@ services:
       retries: 3
       start_period: 40s
 
+  collaborative-ontology-backend:
+    build:
+      context: ../ontology_service/collaborative_ontology/backend
+      dockerfile: Dockerfile
+    container_name: collaborative_ontology_backend
+    ports:
+      - "8010:8000"
+    volumes:
+      - ../ontology_service/collaborative_ontology/backend:/app
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/collaborative_ontology
+      - REDIS_URL=redis://redis:6379/0
+      - INFLUXDB_URL=http://influxdb:8086
+      - INFLUXDB_TOKEN=energy-data-token
+      - INFLUXDB_ORG=gng_energy
+      - INFLUXDB_BUCKET=energy_data
+      - FUSEKI_URL=http://jena:3030
+      - SECRET_KEY=your-super-secret-key-change-in-production
+      - CORS_ORIGINS=http://localhost:3000,http://localhost:80,http://localhost:3010
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      influxdb:
+        condition: service_healthy
+      jena:
+        condition: service_started
+    networks:
+      - energy-net
+    restart: unless-stopped
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  collaborative-ontology-frontend:
+    build:
+      context: ../ontology_service/collaborative_ontology/frontend
+      dockerfile: Dockerfile
+    container_name: collaborative_ontology_frontend
+    ports:
+      - "3010:3000"
+    volumes:
+      - ../ontology_service/collaborative_ontology/frontend:/app
+      - /app/node_modules
+    environment:
+      - REACT_APP_API_URL=http://localhost:8010
+      - REACT_APP_WS_URL=ws://localhost:8010/ws
+    depends_on:
+      - collaborative-ontology-backend
+    networks:
+      - energy-net
+    restart: unless-stopped
+    command: npm start
+
   backend:
     build: ./backend
     container_name: energy_backend
@@ -145,14 +220,21 @@ services:
       - JENA_FUSEKI_URL=http://jena:3030
       - ONTOLOGY_SERVICE_URL=http://ontology-service:5000
       - IMAGE_BROADCASTING_URL=http://image-broadcasting:5001
+      - COLLABORATIVE_ONTOLOGY_URL=http://collaborative-ontology-backend:8000
+      - INFLUXDB_URL=http://influxdb:8086
+      - INFLUXDB_TOKEN=energy-data-token
+      - INFLUXDB_ORG=gng_energy
+      - INFLUXDB_BUCKET=energy_data
     depends_on:
       - db
       - redis
       - kafka
       - mqtt
       - jena
+      - influxdb
       - ontology-service
       - image-broadcasting
+      - collaborative-ontology-backend
     networks:
       - energy-net
     command: uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
@@ -184,6 +266,7 @@ volumes:
   ontology_data:
   image_broadcasting_data:
   image_broadcasting_logs:
+  influxdb_data:
 
 networks:
   energy-net:
