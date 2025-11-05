@@ -11,6 +11,10 @@ from app.models.collaboration import (
     Review,
     Comment,
     Notification,
+    CollaborationSpace,
+    CollaborationSpaceMembership,
+    CollaborationSpaceRole,
+    CollaborationSpaceVisibility,
     ProposalStatus,
     ProposalType,
     ReviewDecision
@@ -34,6 +38,7 @@ class ProposalCreate(BaseModel):
     priority: str = "medium"
     category: Optional[str] = None
     tags: Optional[List[str]] = None
+    space_id: Optional[int] = None
 
 
 class ProposalUpdate(BaseModel):
@@ -46,6 +51,7 @@ class ProposalUpdate(BaseModel):
     category: Optional[str] = None
     tags: Optional[List[str]] = None
     status: Optional[ProposalStatus] = None
+    space_id: Optional[int] = None
 
 
 class ReviewCreate(BaseModel):
@@ -70,6 +76,7 @@ async def list_proposals(
     proposal_type: Optional[ProposalType] = None,
     author_id: Optional[int] = None,
     assigned_to: Optional[int] = None,
+    space_id: Optional[int] = None,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_active_user)
 ):
@@ -88,10 +95,13 @@ async def list_proposals(
     
     if assigned_to:
         query = query.filter(Proposal.assigned_to == assigned_to)
-    
+
+    if space_id is not None:
+        query = query.filter(Proposal.space_id == space_id)
+
     total = query.count()
     proposals = query.order_by(Proposal.created_at.desc()).offset(skip).limit(limit).all()
-    
+
     return {
         "total": total,
         "items": [
@@ -107,6 +117,9 @@ async def list_proposals(
                 "author_id": p.author_id,
                 "current_approvals": p.current_approvals,
                 "required_approvals": p.required_approvals,
+                "space_id": p.space_id,
+                "space_slug": p.space.slug if p.space else None,
+                "space_onboarding_url": p.space.onboarding_url if p.space else None,
                 "created_at": p.created_at,
                 "updated_at": p.updated_at
             }
@@ -178,6 +191,15 @@ async def get_proposal(
         "author_id": proposal.author_id,
         "author_name": proposal.author.full_name if proposal.author else None,
         "assigned_to": proposal.assigned_to,
+        "space_id": proposal.space_id,
+        "space": {
+            "id": proposal.space.id,
+            "slug": proposal.space.slug,
+            "name": proposal.space.name,
+            "visibility": proposal.space.visibility,
+            "onboarding_url": proposal.space.onboarding_url,
+            "external_channel": proposal.space.external_channel,
+        } if proposal.space else None,
         "deadline": proposal.deadline,
         "created_at": proposal.created_at,
         "updated_at": proposal.updated_at,
@@ -195,7 +217,43 @@ async def create_proposal(
     current_user: User = Depends(get_current_active_user)
 ):
     """제안 생성"""
-    
+
+    space = None
+    if data.space_id is not None:
+        space = db.query(CollaborationSpace).filter(CollaborationSpace.id == data.space_id).first()
+        if not space:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="협업 공간을 찾을 수 없습니다"
+            )
+
+        membership = db.query(CollaborationSpaceMembership).filter(
+            CollaborationSpaceMembership.space_id == data.space_id,
+            CollaborationSpaceMembership.user_id == current_user.id,
+            CollaborationSpaceMembership.is_active.is_(True)
+        ).first()
+
+        if not membership:
+            if space.visibility == CollaborationSpaceVisibility.PRIVATE and not current_user.has_admin_role:
+                raise HTTPException(
+                    status_code=status.HTTP_403_FORBIDDEN,
+                    detail="이 협업 공간에 제안을 생성할 권한이 없습니다"
+                )
+
+            # 공개 또는 커뮤니티 공간은 자동 참여 처리
+            auto_role = CollaborationSpaceRole.CONTRIBUTOR
+            if current_user.can_coordinate_spaces:
+                auto_role = CollaborationSpaceRole.COORDINATOR
+
+            membership = CollaborationSpaceMembership(
+                space_id=space.id,
+                user_id=current_user.id,
+                role=auto_role,
+                is_active=True
+            )
+            db.add(membership)
+            db.flush()
+
     proposal = Proposal(
         title=data.title,
         description=data.description,
@@ -209,7 +267,8 @@ async def create_proposal(
         category=data.category,
         tags=data.tags,
         author_id=current_user.id,
-        status=ProposalStatus.DRAFT
+        status=ProposalStatus.DRAFT,
+        space_id=data.space_id
     )
     
     db.add(proposal)
@@ -287,9 +346,39 @@ async def update_proposal(
         proposal.status = data.status
         if data.status == ProposalStatus.SUBMITTED:
             proposal.submitted_at = datetime.utcnow()
-    
+    if data.space_id is not None and data.space_id != proposal.space_id:
+        space = db.query(CollaborationSpace).filter(CollaborationSpace.id == data.space_id).first()
+        if not space:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="협업 공간을 찾을 수 없습니다"
+            )
+
+        membership = db.query(CollaborationSpaceMembership).filter(
+            CollaborationSpaceMembership.space_id == data.space_id,
+            CollaborationSpaceMembership.user_id == current_user.id,
+            CollaborationSpaceMembership.is_active.is_(True)
+        ).first()
+
+        if not membership and space.visibility == CollaborationSpaceVisibility.PRIVATE and not current_user.has_admin_role:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="이 협업 공간에 접근할 권한이 없습니다"
+            )
+
+        if not membership and space.visibility != CollaborationSpaceVisibility.PRIVATE:
+            membership = CollaborationSpaceMembership(
+                space_id=space.id,
+                user_id=current_user.id,
+                role=CollaborationSpaceRole.COORDINATOR if current_user.can_coordinate_spaces else CollaborationSpaceRole.CONTRIBUTOR,
+                is_active=True
+            )
+            db.add(membership)
+
+        proposal.space_id = data.space_id
+
     db.commit()
-    
+
     return {"message": "제안이 업데이트되었습니다"}
 
 
