@@ -90,6 +90,7 @@ async def root():
             <a href="/dtwin" class="card"><span class="card-icon">🌐</span><div class="card-title">Digital Twin</div><div class="card-description">디지털 트윈 시뮬레이션</div></a>
             <a href="/weather" class="card"><span class="card-icon">🌤️</span><div class="card-title">Weather</div><div class="card-description">날씨 분석 및 예측</div></a>
             <a href="/ontology" class="card"><span class="card-icon">🔗</span><div class="card-title">Ontology Service</div><div class="card-description">지식 그래프 서비스</div></a>
+            <a href="http://localhost:3010" class="card" target="_blank"><span class="card-icon">🤝</span><div class="card-title">Collaborative Ontology</div><div class="card-description">협업형 온톨로지 플랫폼</div></a>
             <a href="/ibs" class="card"><span class="card-icon">📡</span><div class="card-title">Image Broadcasting</div><div class="card-description">영상 모니터링 서비스</div></a>
             <a href="/assets" class="card"><span class="card-icon">📦</span><div class="card-title">Asset Management</div><div class="card-description">자산 관리 시스템</div></a>
             <a href="/dashboard" class="card"><span class="card-icon">🎛️</span><div class="card-title">Dashboard</div><div class="card-description">에너지 네트워크 대시보드</div></a>
@@ -187,6 +188,44 @@ async def get_energy_demand_heatmap():
                     return {'status': 'error', 'message': f'Heatmap service returned {response.status_code}'}
             except httpx.ConnectError:
                 return {'status': 'error', 'message': 'Heatmap service unavailable'}
+            except Exception as e:
+                return {'status': 'error', 'message': f'Error: {str(e)}'}
+    except Exception as e:
+        return {'status': 'error', 'message': str(e)}
+
+@app.get('/api/collaborative-ontology/health', tags=['Collaborative Ontology'])
+async def get_collaborative_ontology_health():
+    """Get collaborative ontology service health status"""
+    try:
+        import httpx
+        async with httpx.AsyncClient() as client:
+            try:
+                response = await client.get(f'{settings.COLLABORATIVE_ONTOLOGY_URL}/health', timeout=10.0)
+                if response.status_code == 200:
+                    return response.json()
+                else:
+                    return {'status': 'error', 'message': f'Collaborative ontology service returned {response.status_code}'}
+            except httpx.ConnectError:
+                return {'status': 'error', 'message': 'Collaborative ontology service unavailable'}
+            except Exception as e:
+                return {'status': 'error', 'message': f'Error: {str(e)}'}
+    except Exception as e:
+        return {'status': 'error', 'message': str(e)}
+
+@app.get('/api/collaborative-ontology', tags=['Collaborative Ontology'])
+async def get_collaborative_ontology_info():
+    """Get collaborative ontology service information"""
+    try:
+        import httpx
+        async with httpx.AsyncClient() as client:
+            try:
+                response = await client.get(f'{settings.COLLABORATIVE_ONTOLOGY_URL}/', timeout=10.0)
+                if response.status_code == 200:
+                    return response.json()
+                else:
+                    return {'status': 'error', 'message': f'Collaborative ontology service returned {response.status_code}'}
+            except httpx.ConnectError:
+                return {'status': 'error', 'message': 'Collaborative ontology service unavailable'}
             except Exception as e:
                 return {'status': 'error', 'message': f'Error: {str(e)}'}
     except Exception as e:

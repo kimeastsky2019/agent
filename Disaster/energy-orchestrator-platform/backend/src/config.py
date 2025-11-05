@@ -56,9 +56,16 @@ class Settings(BaseSettings):
     JENA_FUSEKI_URL: str = os.getenv("JENA_FUSEKI_URL", "http://localhost:3030")
     RDF_DATABASE: str = os.getenv("RDF_DATABASE", "energy_ontology")
     ONTOLOGY_SERVICE_URL: str = os.getenv("ONTOLOGY_SERVICE_URL", "http://localhost:5000")
+    COLLABORATIVE_ONTOLOGY_URL: str = os.getenv("COLLABORATIVE_ONTOLOGY_URL", "http://localhost:8010")
     
     # Image Broadcasting
     IMAGE_BROADCASTING_URL: str = os.getenv("IMAGE_BROADCASTING_URL", "http://localhost:5001")
+    
+    # InfluxDB (Time-series database)
+    INFLUXDB_URL: str = os.getenv("INFLUXDB_URL", "http://localhost:8086")
+    INFLUXDB_TOKEN: str = os.getenv("INFLUXDB_TOKEN", "energy-data-token")
+    INFLUXDB_ORG: str = os.getenv("INFLUXDB_ORG", "gng_energy")
+    INFLUXDB_BUCKET: str = os.getenv("INFLUXDB_BUCKET", "energy_data")
     
     # Monitoring
     SENTRY_DSN: str = os.getenv("SENTRY_DSN", "")
