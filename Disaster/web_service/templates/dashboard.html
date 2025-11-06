@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="{{ current_lang }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Energy Network - 대시보드</title>
+    <title>{{ _('dashboard_html_title') }}</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Malgun Gothic', sans-serif; background: #f5f5f5; }
-        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); flex-wrap: wrap; gap: 15px; }
         .header h1 { font-size: 1.8em; font-weight: 700; }
-        .user-info { display: flex; align-items: center; gap: 20px; }
+        .user-info { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
         .logout-btn { background: rgba(255, 255, 255, 0.2); color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
         .logout-btn:hover { background: rgba(255, 255, 255, 0.3); }
         .container { max-width: 1400px; margin: 40px auto; padding: 0 20px; }
@@ -26,53 +26,73 @@
         .simulate-btn:disabled { opacity: 0.6; cursor: not-allowed; }
         .results { margin-top: 30px; }
         .result-item { background: #f8f9fa; padding: 20px; border-radius: 12px; margin-bottom: 15px; border-left: 4px solid #667eea; }
-        .result-item h3 { color: #667eea; margin-bottom: 15px; font-size: 1.2em; }
+        .result-item h4 { color: #667eea; margin-bottom: 15px; font-size: 1.1em; }
         .result-item pre { background: #fff; padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 0.9em; line-height: 1.6; }
         .error { background: #fee; color: #e74c3c; padding: 20px; border-radius: 12px; margin-top: 20px; border-left: 4px solid #e74c3c; font-size: 0.95em; }
         .success { background: #efe; color: #27ae60; padding: 20px; border-radius: 12px; margin-top: 20px; border-left: 4px solid #27ae60; font-size: 0.95em; font-weight: 600; }
         .loading { text-align: center; padding: 30px; color: #667eea; font-size: 1.1em; }
         .info-box { background: #e3f2fd; color: #1976d2; padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 4px solid #1976d2; }
         .info-box strong { display: block; margin-bottom: 8px; font-size: 1.1em; }
+        .language-switcher { display: flex; align-items: center; gap: 10px; font-size: 0.9em; }
+        .language-switcher span.label { font-weight: 600; }
+        .language-switcher a { color: #ffd7ff; text-decoration: none; font-weight: 600; }
+        .language-switcher a:hover { text-decoration: underline; }
+        .language-switcher .active { color: white; font-weight: 700; }
+        @media (max-width: 768px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .header { padding: 20px; }
+        }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>⚡ AI Energy Network - 대시보드</h1>
+        <h1>⚡ {{ _('app_name') }} - {{ _('dashboard_title_suffix') }}</h1>
         <div class="user-info">
-            <span>환영합니다, {{ username }}</span>
-            <a href="/logout" class="logout-btn">로그아웃</a>
+            <div class="language-switcher" aria-label="{{ _('language_switcher_hint') }}">
+                <span class="label">{{ _('language_label') }}:</span>
+                {% for code, name in supported_languages.items() %}
+                    {% if code == current_lang %}
+                        <span class="active">{{ name }}</span>
+                    {% else %}
+                        <a href="{{ url_for('set_language', lang=code, next=request.full_path) }}">{{ name }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <span>{{ _('welcome_user', username=username) }}</span>
+            <a href="/logout" class="logout-btn">{{ _('logout') }}</a>
         </div>
     </div>
     <div class="container">
         <div class="info-box">
-            <strong>📊 재난 대응 에너지 공유 네트워크 시뮬레이션</strong>
-            일본, 한국, EU 간의 국경을 넘나드는 에너지 공유 네트워크를 시뮬레이션합니다.
+            <strong>{{ _('simulation_intro_title') }}</strong>
+            {{ _('simulation_intro_description') }}
         </div>
         <div class="dashboard-grid">
             <div class="card">
-                <h2>🚀 시뮬레이션 실행</h2>
+                <h2>{{ _('simulation_run_title') }}</h2>
                 <form id="simulateForm">
                     <div class="form-group">
-                        <label for="scenario">시나리오 파일 선택</label>
+                        <label for="scenario">{{ _('simulation_scenario_label') }}</label>
                         <select id="scenario" name="scenario_file">
-                            <option value="sample_transnational_event">샘플 국경간 이벤트</option>
+                            <option value="sample_transnational_event">{{ _('simulation_scenario_sample') }}</option>
                         </select>
                     </div>
-                    <button type="submit" class="simulate-btn" id="simulateBtn">시뮬레이션 실행</button>
+                    <button type="submit" class="simulate-btn" id="simulateBtn">{{ _('simulation_run_button') }}</button>
                 </form>
-                <div id="loading" class="loading" style="display: none;">시뮬레이션 실행 중</div>
+                <div id="loading" class="loading" style="display: none;">{{ _('simulation_running') }}</div>
                 <div id="error" class="error" style="display: none;"></div>
                 <div id="success" class="success" style="display: none;"></div>
             </div>
             <div class="card">
-                <h2>📈 시뮬레이션 결과</h2>
+                <h2>{{ _('simulation_results_title') }}</h2>
                 <div id="results" class="results">
-                    <p style="color: #999; text-align: center; padding: 40px;">시뮬레이션을 실행하면 결과가 여기에 표시됩니다.</p>
+                    <p style="color: #999; text-align: center; padding: 40px;">{{ _('simulation_results_placeholder') }}</p>
                 </div>
             </div>
         </div>
     </div>
     <script>
+        const translations = {{ js_translations|tojson }};
         document.getElementById('simulateForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('simulateBtn');
@@ -81,9 +101,11 @@
             const success = document.getElementById('success');
             const results = document.getElementById('results');
             btn.disabled = true;
+            loading.textContent = translations.simulation_running;
             loading.style.display = 'block';
             error.style.display = 'none';
             success.style.display = 'none';
+            results.innerHTML = '';
             const formData = new FormData(e.target);
             const scenarioFile = formData.get('scenario_file');
             try {
@@ -96,28 +118,48 @@
                 const data = await response.json();
                 if (data.success) {
                     success.style.display = 'block';
-                    success.textContent = '시뮬레이션이 성공적으로 완료되었습니다!';
-                    results.innerHTML = '<h3>📊 디스패치 계획</h3>';
-                    if (data.result && data.result.dispatches) {
+                    success.textContent = data.message || translations.simulation_success;
+                    const hasDispatches = data.result && Array.isArray(data.result.dispatches) && data.result.dispatches.length > 0;
+                    const hasResult = Boolean(data.result);
+                    if (hasDispatches || hasResult) {
+                        const title = document.createElement('h3');
+                        title.textContent = translations.dispatch_plan_title;
+                        results.appendChild(title);
+                    }
+                    if (hasDispatches) {
                         data.result.dispatches.forEach((dispatch, index) => {
                             const div = document.createElement('div');
                             div.className = 'result-item';
-                            div.innerHTML = '<h4>디스패치 #' + (index + 1) + '</h4><pre>' + JSON.stringify(dispatch, null, 2) + '</pre>';
+                            const heading = document.createElement('h4');
+                            heading.textContent = translations.dispatch_item_title.replace('{index}', index + 1);
+                            const pre = document.createElement('pre');
+                            pre.textContent = JSON.stringify(dispatch, null, 2);
+                            div.appendChild(heading);
+                            div.appendChild(pre);
                             results.appendChild(div);
                         });
-                    } else if (data.result) {
+                    } else if (hasResult) {
                         const div = document.createElement('div');
                         div.className = 'result-item';
-                        div.innerHTML = '<pre>' + JSON.stringify(data.result, null, 2) + '</pre>';
+                        const pre = document.createElement('pre');
+                        pre.textContent = JSON.stringify(data.result, null, 2);
+                        div.appendChild(pre);
                         results.appendChild(div);
+                    } else {
+                        const placeholder = document.createElement('p');
+                        placeholder.style.color = '#999';
+                        placeholder.style.textAlign = 'center';
+                        placeholder.style.padding = '40px';
+                        placeholder.textContent = translations.simulation_results_placeholder;
+                        results.appendChild(placeholder);
                     }
                 } else {
                     error.style.display = 'block';
-                    error.textContent = '오류: ' + (data.error || '알 수 없는 오류가 발생했습니다.');
+                    error.textContent = translations.error_prefix + (data.error || translations.error_unknown);
                 }
             } catch (err) {
                 error.style.display = 'block';
-                error.textContent = '오류: ' + err.message;
+                error.textContent = translations.error_prefix + (err.message || translations.error_unknown);
             } finally {
                 btn.disabled = false;
                 loading.style.display = 'none';
