@@ -131,4 +131,3 @@ def default_language() -> str:
 
 def normalize_language(lang: str | None = None) -> str:
     return _normalize_lang(lang)
-

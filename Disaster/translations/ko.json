@@ -1,0 +1,230 @@
+{
+  "common": {
+    "welcome": "환영합니다, {username}님",
+    "language": "언어",
+    "change_language": "언어 변경",
+    "save": "저장",
+    "cancel": "취소",
+    "delete": "삭제",
+    "edit": "편집",
+    "create": "생성",
+    "update": "업데이트",
+    "search": "검색",
+    "filter": "필터",
+    "export": "내보내기",
+    "import": "가져오기",
+    "loading": "로딩 중...",
+    "success": "성공",
+    "error": "오류",
+    "warning": "경고",
+    "info": "정보",
+    "confirm": "확인",
+    "yes": "예",
+    "no": "아니오",
+    "ok": "확인",
+    "close": "닫기",
+    "back": "뒤로",
+    "next": "다음",
+    "previous": "이전",
+    "submit": "제출",
+    "reset": "초기화"
+  },
+  "app": {
+    "name": "Energy Orchestrator Platform",
+    "tagline": "재난 대응 에너지 공유 네트워크",
+    "version": "버전 {version}",
+    "copyright": "© 2025 Energy Orchestrator Platform"
+  },
+  "auth": {
+    "login": "로그인",
+    "logout": "로그아웃",
+    "register": "회원가입",
+    "email": "이메일 주소",
+    "email_placeholder": "이메일을 입력하세요",
+    "password": "비밀번호",
+    "password_placeholder": "비밀번호를 입력하세요",
+    "remember_me": "로그인 상태 유지",
+    "forgot_password": "비밀번호를 잊으셨나요?",
+    "invalid_credentials": "이메일 또는 비밀번호가 올바르지 않습니다",
+    "login_success": "로그인 성공",
+    "logout_success": "로그아웃 성공",
+    "session_expired": "세션이 만료되었습니다. 다시 로그인해주세요."
+  },
+  "navigation": {
+    "dashboard": "대시보드",
+    "assets": "자산",
+    "disasters": "재난",
+    "analytics": "분석",
+    "weather": "날씨",
+    "settings": "설정",
+    "help": "도움말",
+    "about": "정보"
+  },
+  "dashboard": {
+    "title": "대시보드",
+    "system_status": "시스템 상태",
+    "operational": "운영 중",
+    "maintenance": "점검 중",
+    "offline": "오프라인",
+    "active_disasters": "활성 재난",
+    "energy_status": "에너지 상태",
+    "recent_events": "최근 이벤트"
+  },
+  "services": {
+    "energy_demand": {
+      "title": "에너지 수요",
+      "description": "에너지 수요 분석 및 예측"
+    },
+    "energy_supply": {
+      "title": "에너지 공급",
+      "description": "에너지 공급 분석 및 관리"
+    },
+    "digital_twin": {
+      "title": "디지털 트윈",
+      "description": "디지털 트윈 시뮬레이션"
+    },
+    "weather": {
+      "title": "날씨",
+      "description": "날씨 분석 및 예측"
+    },
+    "ontology_service": {
+      "title": "온톨로지 서비스",
+      "description": "지식 그래프 서비스"
+    },
+    "image_broadcasting": {
+      "title": "영상 브로드캐스팅",
+      "description": "영상 모니터링 서비스"
+    },
+    "asset_management": {
+      "title": "자산 관리",
+      "description": "자산 관리 시스템"
+    },
+    "disaster_response": {
+      "title": "재난 대응",
+      "description": "재난 대비 및 대응"
+    }
+  },
+  "simulation": {
+    "title": "재난 대응 에너지 공유 시뮬레이션",
+    "description": "일본, 한국, 유럽연합 간 국경을 넘나드는 에너지 공유 네트워크 시뮬레이션",
+    "run_simulation": "시뮬레이션 실행",
+    "select_scenario": "시나리오 선택",
+    "scenario_sample": "샘플 국경간 이벤트",
+    "running": "시뮬레이션 실행 중...",
+    "success": "시뮬레이션이 성공적으로 완료되었습니다!",
+    "failed": "시뮬레이션 실패",
+    "results": "시뮬레이션 결과",
+    "results_placeholder": "시뮬레이션을 실행하면 결과가 여기에 표시됩니다",
+    "dispatch_plan": "디스패치 계획",
+    "dispatch_item": "디스패치 #{index}"
+  },
+  "errors": {
+    "generic": "오류가 발생했습니다",
+    "not_found": "찾을 수 없습니다",
+    "unauthorized": "권한이 없습니다",
+    "forbidden": "접근이 금지되었습니다",
+    "server_error": "서버 오류",
+    "network_error": "네트워크 오류",
+    "timeout": "요청 시간 초과",
+    "file_not_found": "파일을 찾을 수 없습니다: {path}",
+    "file_upload_failed": "파일 업로드 실패",
+    "file_too_large": "파일 크기가 너무 큽니다",
+    "invalid_file_type": "잘못된 파일 형식입니다",
+    "no_file_provided": "파일이 제공되지 않았습니다",
+    "no_file_selected": "파일이 선택되지 않았습니다",
+    "processing_failed": "처리 실패",
+    "disaster_not_found": "재난 정보를 찾을 수 없습니다",
+    "asset_not_found": "자산 정보를 찾을 수 없습니다",
+    "device_not_found": "장치 정보를 찾을 수 없습니다"
+  },
+  "api": {
+    "loading": "데이터 로딩 중...",
+    "saving": "저장 중...",
+    "deleting": "삭제 중...",
+    "uploading": "업로드 중...",
+    "downloading": "다운로드 중...",
+    "processing": "처리 중...",
+    "success": "작업이 성공적으로 완료되었습니다",
+    "failed": "작업 실패",
+    "timeout": "요청 시간 초과"
+  },
+  "file_upload": {
+    "title": "파일 업로드",
+    "drag_drop": "여기에 파일을 드래그하거나 클릭하여 찾아보기",
+    "select_file": "파일 선택",
+    "upload": "업로드",
+    "uploading": "업로드 중...",
+    "success": "파일이 성공적으로 업로드되었습니다",
+    "failed": "파일 업로드 실패",
+    "invalid_type": "잘못된 파일 형식입니다. {types} 파일만 허용됩니다.",
+    "too_large": "파일 크기가 너무 큽니다. 최대 크기는 {max_size}입니다."
+  },
+  "disaster": {
+    "title": "재난 관리",
+    "active": "활성 재난",
+    "severity_high": "높은 심각도",
+    "severity_medium": "중간 심각도",
+    "severity_low": "낮은 심각도",
+    "type_earthquake": "지진",
+    "type_flood": "홍수",
+    "type_typhoon": "태풍",
+    "type_blackout": "정전",
+    "type_other": "기타",
+    "affected_regions": "영향 받은 지역",
+    "response_status": "대응 상태",
+    "details": "재난 세부정보"
+  },
+  "energy": {
+    "demand": "에너지 수요",
+    "supply": "에너지 공급",
+    "consumption": "에너지 소비",
+    "production": "에너지 생산",
+    "forecast": "에너지 예측",
+    "unit_mw": "MW",
+    "unit_mwh": "MWh",
+    "unit_kwh": "kWh",
+    "current": "현재",
+    "predicted": "예측",
+    "historical": "과거"
+  },
+  "assets": {
+    "title": "자산 관리",
+    "asset_type": "자산 유형",
+    "asset_status": "상태",
+    "status_active": "활성",
+    "status_inactive": "비활성",
+    "status_maintenance": "점검 중",
+    "location": "위치",
+    "capacity": "용량",
+    "efficiency": "효율",
+    "last_updated": "최종 업데이트"
+  },
+  "weather": {
+    "title": "날씨 정보",
+    "current": "현재 날씨",
+    "forecast": "날씨 예보",
+    "temperature": "기온",
+    "humidity": "습도",
+    "wind_speed": "풍속",
+    "precipitation": "강수량",
+    "conditions": "날씨 상태"
+  },
+  "analytics": {
+    "title": "분석",
+    "charts": "차트",
+    "reports": "보고서",
+    "export": "데이터 내보내기",
+    "date_range": "날짜 범위",
+    "from": "시작",
+    "to": "종료",
+    "apply": "적용"
+  },
+  "notifications": {
+    "title": "알림",
+    "mark_read": "읽음으로 표시",
+    "mark_all_read": "모두 읽음으로 표시",
+    "no_notifications": "알림이 없습니다",
+    "new": "새로운 알림",
+    "earlier": "이전 알림"
+  }
+}
