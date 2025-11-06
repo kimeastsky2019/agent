@@ -1,0 +1,543 @@
+Missing translation keys for fr:
+Total: 180 keys
+
+analytics.apply
+  EN: Apply
+
+analytics.charts
+  EN: Charts
+
+analytics.date_range
+  EN: Date Range
+
+analytics.export
+  EN: Export Data
+
+analytics.from
+  EN: From
+
+analytics.reports
+  EN: Reports
+
+analytics.title
+  EN: Analytics
+
+analytics.to
+  EN: To
+
+api.deleting
+  EN: Deleting...
+
+api.downloading
+  EN: Downloading...
+
+api.failed
+  EN: Operation failed
+
+api.loading
+  EN: Loading data...
+
+api.processing
+  EN: Processing...
+
+api.saving
+  EN: Saving...
+
+api.success
+  EN: Operation completed successfully
+
+api.timeout
+  EN: Request timeout
+
+api.uploading
+  EN: Uploading...
+
+app.copyright
+  EN: © 2025 Energy Orchestrator Platform
+
+app.name
+  EN: Energy Orchestrator Platform
+
+app.tagline
+  EN: Disaster-Response Energy Sharing Network
+
+app.version
+  EN: Version {version}
+
+assets.asset_status
+  EN: Status
+
+assets.asset_type
+  EN: Asset Type
+
+assets.capacity
+  EN: Capacity
+
+assets.efficiency
+  EN: Efficiency
+
+assets.last_updated
+  EN: Last Updated
+
+assets.location
+  EN: Location
+
+assets.status_active
+  EN: Active
+
+assets.status_inactive
+  EN: Inactive
+
+assets.status_maintenance
+  EN: Maintenance
+
+assets.title
+  EN: Asset Management
+
+auth.email
+  EN: Email Address
+
+auth.email_placeholder
+  EN: Enter your email
+
+auth.forgot_password
+  EN: Forgot password?
+
+auth.invalid_credentials
+  EN: Invalid email or password
+
+auth.login
+  EN: Login
+
+auth.login_success
+  EN: Login successful
+
+auth.logout
+  EN: Logout
+
+auth.logout_success
+  EN: Logout successful
+
+auth.password
+  EN: Password
+
+auth.password_placeholder
+  EN: Enter your password
+
+auth.register
+  EN: Register
+
+auth.remember_me
+  EN: Remember me
+
+auth.session_expired
+  EN: Your session has expired. Please login again.
+
+common.back
+  EN: Back
+
+common.cancel
+  EN: Cancel
+
+common.change_language
+  EN: Change Language
+
+common.close
+  EN: Close
+
+common.confirm
+  EN: Confirm
+
+common.create
+  EN: Create
+
+common.delete
+  EN: Delete
+
+common.edit
+  EN: Edit
+
+common.error
+  EN: Error
+
+common.export
+  EN: Export
+
+common.filter
+  EN: Filter
+
+common.import
+  EN: Import
+
+common.info
+  EN: Information
+
+common.language
+  EN: Language
+
+common.loading
+  EN: Loading...
+
+common.next
+  EN: Next
+
+common.no
+  EN: No
+
+common.ok
+  EN: OK
+
+common.previous
+  EN: Previous
+
+common.reset
+  EN: Reset
+
+common.save
+  EN: Save
+
+common.search
+  EN: Search
+
+common.submit
+  EN: Submit
+
+common.success
+  EN: Success
+
+common.update
+  EN: Update
+
+common.warning
+  EN: Warning
+
+common.welcome
+  EN: Welcome, {username}
+
+common.yes
+  EN: Yes
+
+dashboard.active_disasters
+  EN: Active Disasters
+
+dashboard.energy_status
+  EN: Energy Status
+
+dashboard.maintenance
+  EN: Maintenance
+
+dashboard.offline
+  EN: Offline
+
+dashboard.operational
+  EN: Operational
+
+dashboard.recent_events
+  EN: Recent Events
+
+dashboard.system_status
+  EN: System Status
+
+dashboard.title
+  EN: Dashboard
+
+disaster.active
+  EN: Active Disasters
+
+disaster.affected_regions
+  EN: Affected Regions
+
+disaster.details
+  EN: Disaster Details
+
+disaster.response_status
+  EN: Response Status
+
+disaster.severity_high
+  EN: High Severity
+
+disaster.severity_low
+  EN: Low Severity
+
+disaster.severity_medium
+  EN: Medium Severity
+
+disaster.title
+  EN: Disaster Management
+
+disaster.type_blackout
+  EN: Blackout
+
+disaster.type_earthquake
+  EN: Earthquake
+
+disaster.type_flood
+  EN: Flood
+
+disaster.type_other
+  EN: Other
+
+disaster.type_typhoon
+  EN: Typhoon
+
+energy.consumption
+  EN: Energy Consumption
+
+energy.current
+  EN: Current
+
+energy.demand
+  EN: Energy Demand
+
+energy.forecast
+  EN: Energy Forecast
+
+energy.historical
+  EN: Historical
+
+energy.predicted
+  EN: Predicted
+
+energy.production
+  EN: Energy Production
+
+energy.supply
+  EN: Energy Supply
+
+energy.unit_kwh
+  EN: kWh
+
+energy.unit_mw
+  EN: MW
+
+energy.unit_mwh
+  EN: MWh
+
+errors.asset_not_found
+  EN: Asset not found
+
+errors.device_not_found
+  EN: Device not found
+
+errors.disaster_not_found
+  EN: Disaster not found
+
+errors.file_not_found
+  EN: File not found: {path}
+
+errors.file_too_large
+  EN: File is too large
+
+errors.file_upload_failed
+  EN: File upload failed
+
+errors.forbidden
+  EN: Forbidden
+
+errors.generic
+  EN: An error occurred
+
+errors.invalid_file_type
+  EN: Invalid file type
+
+errors.network_error
+  EN: Network error
+
+errors.no_file_provided
+  EN: No file provided
+
+errors.no_file_selected
+  EN: No file selected
+
+errors.not_found
+  EN: Not found
+
+errors.processing_failed
+  EN: Processing failed
+
+errors.server_error
+  EN: Internal server error
+
+errors.timeout
+  EN: Request timeout
+
+errors.unauthorized
+  EN: Unauthorized
+
+file_upload.drag_drop
+  EN: Drag and drop file here or click to browse
+
+file_upload.failed
+  EN: File upload failed
+
+file_upload.invalid_type
+  EN: Invalid file type. Only {types} files are allowed.
+
+file_upload.select_file
+  EN: Select File
+
+file_upload.success
+  EN: File uploaded successfully
+
+file_upload.title
+  EN: Upload File
+
+file_upload.too_large
+  EN: File is too large. Maximum size is {max_size}.
+
+file_upload.upload
+  EN: Upload
+
+file_upload.uploading
+  EN: Uploading...
+
+navigation.about
+  EN: About
+
+navigation.analytics
+  EN: Analytics
+
+navigation.assets
+  EN: Assets
+
+navigation.dashboard
+  EN: Dashboard
+
+navigation.disasters
+  EN: Disasters
+
+navigation.help
+  EN: Help
+
+navigation.settings
+  EN: Settings
+
+navigation.weather
+  EN: Weather
+
+notifications.earlier
+  EN: Earlier
+
+notifications.mark_all_read
+  EN: Mark all as read
+
+notifications.mark_read
+  EN: Mark as read
+
+notifications.new
+  EN: New
+
+notifications.no_notifications
+  EN: No notifications
+
+notifications.title
+  EN: Notifications
+
+services.asset_management.description
+  EN: Asset management system
+
+services.asset_management.title
+  EN: Asset Management
+
+services.digital_twin.description
+  EN: Digital twin simulation
+
+services.digital_twin.title
+  EN: Digital Twin
+
+services.disaster_response.description
+  EN: Disaster preparedness and response
+
+services.disaster_response.title
+  EN: Disaster Response
+
+services.energy_demand.description
+  EN: Energy demand analysis and prediction
+
+services.energy_demand.title
+  EN: Energy Demand
+
+services.energy_supply.description
+  EN: Energy supply analysis and management
+
+services.energy_supply.title
+  EN: Energy Supply
+
+services.image_broadcasting.description
+  EN: Video monitoring service
+
+services.image_broadcasting.title
+  EN: Image Broadcasting
+
+services.ontology_service.description
+  EN: Knowledge graph service
+
+services.ontology_service.title
+  EN: Ontology Service
+
+services.weather.description
+  EN: Weather analysis and prediction
+
+services.weather.title
+  EN: Weather
+
+simulation.description
+  EN: Simulate cross-border energy sharing network across Japan, Korea, and the European Union
+
+simulation.dispatch_item
+  EN: Dispatch #{index}
+
+simulation.dispatch_plan
+  EN: Dispatch Plan
+
+simulation.failed
+  EN: Simulation failed
+
+simulation.results
+  EN: Simulation Results
+
+simulation.results_placeholder
+  EN: Run a simulation to see results here
+
+simulation.run_simulation
+  EN: Run Simulation
+
+simulation.running
+  EN: Running simulation...
+
+simulation.scenario_sample
+  EN: Sample transnational event
+
+simulation.select_scenario
+  EN: Select Scenario
+
+simulation.success
+  EN: Simulation completed successfully!
+
+simulation.title
+  EN: Disaster-Response Energy Sharing Simulation
+
+weather.conditions
+  EN: Conditions
+
+weather.current
+  EN: Current Weather
+
+weather.forecast
+  EN: Weather Forecast
+
+weather.humidity
+  EN: Humidity
+
+weather.precipitation
+  EN: Precipitation
+
+weather.temperature
+  EN: Temperature
+
+weather.title
+  EN: Weather Information
+
+weather.wind_speed
+  EN: Wind Speed
+

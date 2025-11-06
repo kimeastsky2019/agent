@@ -1,11 +1,17 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from flask_cors import CORS
 import os
-import json
-from datetime import datetime, timedelta
 import hashlib
 import sqlite3
 from functools import wraps
+
+from i18n import (
+    available_languages,
+    default_language,
+    get_js_translations,
+    normalize_language,
+    translate,
+)
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -37,6 +43,35 @@ def init_db():
 
 init_db()
 
+
+def _get_locale():
+    lang = session.get("lang")
+    if not lang:
+        best = request.accept_languages.best_match(list(available_languages().keys()))
+        lang = best or default_language()
+    lang = normalize_language(lang)
+    session["lang"] = lang
+    return lang
+
+
+@app.before_request
+def ensure_locale():
+    _get_locale()
+
+
+@app.context_processor
+def inject_translations():
+    lang = _get_locale()
+
+    def _translate(key, **kwargs):
+        return translate(key, lang=lang, **kwargs)
+
+    return {
+        "_": _translate,
+        "current_lang": lang,
+        "supported_languages": available_languages(),
+    }
+
 # Login required decorator
 def login_required(f):
     @wraps(f)
@@ -54,10 +89,12 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    _get_locale()
+    error_message = None
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        
+
         if username and password:
             password_hash = hashlib.sha256(password.encode()).hexdigest()
             conn = sqlite3.connect(DB_PATH)
@@ -74,25 +111,45 @@ def login():
                 session['username'] = user[1]
                 return redirect(url_for('dashboard'))
             else:
-                return render_template('login.html', error='Invalid username or password')
-    
-    return render_template('login.html')
+                error_message = translate('login_error_invalid_credentials', lang=_get_locale())
+
+    return render_template('login.html', error=error_message)
+
+@app.route('/set_language/<lang>')
+def set_language(lang):
+    lang_code = normalize_language(lang)
+    session['lang'] = lang_code
+    next_url = request.args.get('next')
+    if next_url and next_url.startswith('/'):
+        return redirect(next_url)
+    referrer = request.referrer
+    if referrer and referrer.startswith(request.host_url):
+        return redirect(referrer)
+    return redirect(url_for('index'))
 
 @app.route('/logout')
 def logout():
+    lang = session.get('lang')
     session.clear()
+    if lang:
+        session['lang'] = normalize_language(lang)
     return redirect(url_for('login'))
 
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('dashboard.html', username=session.get('username'))
+    lang = _get_locale()
+    return render_template(
+        'dashboard.html',
+        username=session.get('username'),
+        js_translations=get_js_translations(lang),
+    )
 
 @app.route('/api/simulate', methods=['POST'])
 @login_required
 def simulate():
     try:
-        data = request.json
+        data = request.get_json(silent=True) or {}
         scenario_file = data.get('scenario_file', 'sample_transnational_event')
         
         # Import simulation runner
@@ -109,7 +166,9 @@ def simulate():
         scenario_path = data_root / f'{scenario_file}.json'
         
         if not scenario_path.exists():
-            raise FileNotFoundError(f'Scenario file not found: {scenario_path}')
+            raise FileNotFoundError(
+                translate('error_scenario_missing', lang=_get_locale(), path=scenario_path)
+            )
         
         # Run simulation
         runner = SimulationRunner(
@@ -148,6 +207,7 @@ def simulate():
         
         return jsonify({
             'success': True,
+            'message': translate('simulation_success', lang=_get_locale()),
             'result': result_dict
         })
     except Exception as e:

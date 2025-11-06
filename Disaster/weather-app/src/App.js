@@ -2,15 +2,14 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import SimpleWeatherDashboard from './components/SimpleWeatherDashboard';
-import Header from './components/Header';
+import NavigationHeader from './components/NavigationHeader';
 import Sidebar from './components/Sidebar';
-
-
 
 const AppContainer = styled.div`
   display: flex;
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding-top: 80px; /* NavigationHeader 높이만큼 패딩 */
 `;
 
 const MainContent = styled.main`
@@ -34,11 +33,10 @@ const ContentArea = styled.div`
 function App() {
   return (
     <Router>
+      <NavigationHeader />
       <AppContainer>
         <Sidebar />
         <MainContent>
-          <Header />
-          
           <ContentArea>
             <Routes>
               <Route path="/" element={<SimpleWeatherDashboard />} />

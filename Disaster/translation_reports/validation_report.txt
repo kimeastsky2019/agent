@@ -1,0 +1,128 @@
+================================================================================
+Translation Validation Report
+================================================================================
+
+📊 Translation Coverage:
+--------------------------------------------------------------------------------
+Language        Total      Translated   Missing    Coverage  
+--------------------------------------------------------------------------------
+✅ English       180        180          0          100.0%
+✅ 한국어           180        180          0          100.0%
+❌ 日本語           180        0            180        0.0%
+❌ Deutsch       180        0            180        0.0%
+❌ Français      180        0            180        0.0%
+❌ Español       180        0            180        0.0%
+❌ Ελληνικά      180        0            180        0.0%
+❌ Română        180        0            180        0.0%
+❌ Svenska       180        0            180        0.0%
+❌ Suomi         180        0            180        0.0%
+
+❌ Missing Translation Keys:
+--------------------------------------------------------------------------------
+
+日本語 (ja): 180 keys missing
+  - analytics.apply
+  - analytics.charts
+  - analytics.date_range
+  - analytics.export
+  - analytics.from
+  - analytics.reports
+  - analytics.title
+  - analytics.to
+  - api.deleting
+  - api.downloading
+  ... and 170 more
+
+Deutsch (de): 180 keys missing
+  - analytics.apply
+  - analytics.charts
+  - analytics.date_range
+  - analytics.export
+  - analytics.from
+  - analytics.reports
+  - analytics.title
+  - analytics.to
+  - api.deleting
+  - api.downloading
+  ... and 170 more
+
+Français (fr): 180 keys missing
+  - analytics.apply
+  - analytics.charts
+  - analytics.date_range
+  - analytics.export
+  - analytics.from
+  - analytics.reports
+  - analytics.title
+  - analytics.to
+  - api.deleting
+  - api.downloading
+  ... and 170 more
+
+Español (es): 180 keys missing
+  - analytics.apply
+  - analytics.charts
+  - analytics.date_range
+  - analytics.export
+  - analytics.from
+  - analytics.reports
+  - analytics.title
+  - analytics.to
+  - api.deleting
+  - api.downloading
+  ... and 170 more
+
+Ελληνικά (el): 180 keys missing
+  - analytics.apply
+  - analytics.charts
+  - analytics.date_range
+  - analytics.export
+  - analytics.from
+  - analytics.reports
+  - analytics.title
+  - analytics.to
+  - api.deleting
+  - api.downloading
+  ... and 170 more
+
+Română (ro): 180 keys missing
+  - analytics.apply
+  - analytics.charts
+  - analytics.date_range
+  - analytics.export
+  - analytics.from
+  - analytics.reports
+  - analytics.title
+  - analytics.to
+  - api.deleting
+  - api.downloading
+  ... and 170 more
+
+Svenska (sv): 180 keys missing
+  - analytics.apply
+  - analytics.charts
+  - analytics.date_range
+  - analytics.export
+  - analytics.from
+  - analytics.reports
+  - analytics.title
+  - analytics.to
+  - api.deleting
+  - api.downloading
+  ... and 170 more
+
+Suomi (fi): 180 keys missing
+  - analytics.apply
+  - analytics.charts
+  - analytics.date_range
+  - analytics.export
+  - analytics.from
+  - analytics.reports
+  - analytics.title
+  - analytics.to
+  - api.deleting
+  - api.downloading
+  ... and 170 more
+
+
+================================================================================
