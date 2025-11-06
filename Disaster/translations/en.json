@@ -1,0 +1,230 @@
+{
+  "common": {
+    "welcome": "Welcome, {username}",
+    "language": "Language",
+    "change_language": "Change Language",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "update": "Update",
+    "search": "Search",
+    "filter": "Filter",
+    "export": "Export",
+    "import": "Import",
+    "loading": "Loading...",
+    "success": "Success",
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Information",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "ok": "OK",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "reset": "Reset"
+  },
+  "app": {
+    "name": "Energy Orchestrator Platform",
+    "tagline": "Disaster-Response Energy Sharing Network",
+    "version": "Version {version}",
+    "copyright": "© 2025 Energy Orchestrator Platform"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register",
+    "email": "Email Address",
+    "email_placeholder": "Enter your email",
+    "password": "Password",
+    "password_placeholder": "Enter your password",
+    "remember_me": "Remember me",
+    "forgot_password": "Forgot password?",
+    "invalid_credentials": "Invalid email or password",
+    "login_success": "Login successful",
+    "logout_success": "Logout successful",
+    "session_expired": "Your session has expired. Please login again."
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "assets": "Assets",
+    "disasters": "Disasters",
+    "analytics": "Analytics",
+    "weather": "Weather",
+    "settings": "Settings",
+    "help": "Help",
+    "about": "About"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "system_status": "System Status",
+    "operational": "Operational",
+    "maintenance": "Maintenance",
+    "offline": "Offline",
+    "active_disasters": "Active Disasters",
+    "energy_status": "Energy Status",
+    "recent_events": "Recent Events"
+  },
+  "services": {
+    "energy_demand": {
+      "title": "Energy Demand",
+      "description": "Energy demand analysis and prediction"
+    },
+    "energy_supply": {
+      "title": "Energy Supply",
+      "description": "Energy supply analysis and management"
+    },
+    "digital_twin": {
+      "title": "Digital Twin",
+      "description": "Digital twin simulation"
+    },
+    "weather": {
+      "title": "Weather",
+      "description": "Weather analysis and prediction"
+    },
+    "ontology_service": {
+      "title": "Ontology Service",
+      "description": "Knowledge graph service"
+    },
+    "image_broadcasting": {
+      "title": "Image Broadcasting",
+      "description": "Video monitoring service"
+    },
+    "asset_management": {
+      "title": "Asset Management",
+      "description": "Asset management system"
+    },
+    "disaster_response": {
+      "title": "Disaster Response",
+      "description": "Disaster preparedness and response"
+    }
+  },
+  "simulation": {
+    "title": "Disaster-Response Energy Sharing Simulation",
+    "description": "Simulate cross-border energy sharing network across Japan, Korea, and the European Union",
+    "run_simulation": "Run Simulation",
+    "select_scenario": "Select Scenario",
+    "scenario_sample": "Sample transnational event",
+    "running": "Running simulation...",
+    "success": "Simulation completed successfully!",
+    "failed": "Simulation failed",
+    "results": "Simulation Results",
+    "results_placeholder": "Run a simulation to see results here",
+    "dispatch_plan": "Dispatch Plan",
+    "dispatch_item": "Dispatch #{index}"
+  },
+  "errors": {
+    "generic": "An error occurred",
+    "not_found": "Not found",
+    "unauthorized": "Unauthorized",
+    "forbidden": "Forbidden",
+    "server_error": "Internal server error",
+    "network_error": "Network error",
+    "timeout": "Request timeout",
+    "file_not_found": "File not found: {path}",
+    "file_upload_failed": "File upload failed",
+    "file_too_large": "File is too large",
+    "invalid_file_type": "Invalid file type",
+    "no_file_provided": "No file provided",
+    "no_file_selected": "No file selected",
+    "processing_failed": "Processing failed",
+    "disaster_not_found": "Disaster not found",
+    "asset_not_found": "Asset not found",
+    "device_not_found": "Device not found"
+  },
+  "api": {
+    "loading": "Loading data...",
+    "saving": "Saving...",
+    "deleting": "Deleting...",
+    "uploading": "Uploading...",
+    "downloading": "Downloading...",
+    "processing": "Processing...",
+    "success": "Operation completed successfully",
+    "failed": "Operation failed",
+    "timeout": "Request timeout"
+  },
+  "file_upload": {
+    "title": "Upload File",
+    "drag_drop": "Drag and drop file here or click to browse",
+    "select_file": "Select File",
+    "upload": "Upload",
+    "uploading": "Uploading...",
+    "success": "File uploaded successfully",
+    "failed": "File upload failed",
+    "invalid_type": "Invalid file type. Only {types} files are allowed.",
+    "too_large": "File is too large. Maximum size is {max_size}."
+  },
+  "disaster": {
+    "title": "Disaster Management",
+    "active": "Active Disasters",
+    "severity_high": "High Severity",
+    "severity_medium": "Medium Severity",
+    "severity_low": "Low Severity",
+    "type_earthquake": "Earthquake",
+    "type_flood": "Flood",
+    "type_typhoon": "Typhoon",
+    "type_blackout": "Blackout",
+    "type_other": "Other",
+    "affected_regions": "Affected Regions",
+    "response_status": "Response Status",
+    "details": "Disaster Details"
+  },
+  "energy": {
+    "demand": "Energy Demand",
+    "supply": "Energy Supply",
+    "consumption": "Energy Consumption",
+    "production": "Energy Production",
+    "forecast": "Energy Forecast",
+    "unit_mw": "MW",
+    "unit_mwh": "MWh",
+    "unit_kwh": "kWh",
+    "current": "Current",
+    "predicted": "Predicted",
+    "historical": "Historical"
+  },
+  "assets": {
+    "title": "Asset Management",
+    "asset_type": "Asset Type",
+    "asset_status": "Status",
+    "status_active": "Active",
+    "status_inactive": "Inactive",
+    "status_maintenance": "Maintenance",
+    "location": "Location",
+    "capacity": "Capacity",
+    "efficiency": "Efficiency",
+    "last_updated": "Last Updated"
+  },
+  "weather": {
+    "title": "Weather Information",
+    "current": "Current Weather",
+    "forecast": "Weather Forecast",
+    "temperature": "Temperature",
+    "humidity": "Humidity",
+    "wind_speed": "Wind Speed",
+    "precipitation": "Precipitation",
+    "conditions": "Conditions"
+  },
+  "analytics": {
+    "title": "Analytics",
+    "charts": "Charts",
+    "reports": "Reports",
+    "export": "Export Data",
+    "date_range": "Date Range",
+    "from": "From",
+    "to": "To",
+    "apply": "Apply"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "mark_read": "Mark as read",
+    "mark_all_read": "Mark all as read",
+    "no_notifications": "No notifications",
+    "new": "New",
+    "earlier": "Earlier"
+  }
+}
