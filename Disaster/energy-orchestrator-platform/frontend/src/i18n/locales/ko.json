@@ -1,0 +1,74 @@
+{
+  "app": {
+    "name": "Energy Orchestrator Platform",
+    "tagline": "재난 대응 에너지 공유 네트워크",
+    "status": "서비스 운영 중",
+    "version": "1.0.0"
+  },
+  "header": {
+    "title": "Energy Orchestrator Platform",
+    "dashboard": "대시보드",
+    "assets": "자산",
+    "disasters": "재난",
+    "analytics": "분석",
+    "weather": "날씨"
+  },
+  "services": {
+    "button": "열기",
+    "energyDemand": {
+      "title": "Energy Demand",
+      "description": "에너지 수요 분석 및 예측",
+      "button": "열기"
+    },
+    "energySupply": {
+      "title": "Energy Supply",
+      "description": "에너지 공급 분석 및 관리",
+      "button": "열기"
+    },
+    "digitalTwin": {
+      "title": "Digital Twin",
+      "description": "디지털 트윈 시뮬레이션",
+      "button": "열기"
+    },
+    "weather": {
+      "title": "Weather",
+      "description": "날씨 분석 및 예측",
+      "button": "열기"
+    },
+    "ontologyService": {
+      "title": "Ontology Service",
+      "description": "지식 그래프 서비스",
+      "button": "열기"
+    },
+    "imageBroadcasting": {
+      "title": "Image Broadcasting",
+      "description": "영상 모니터링 서비스",
+      "button": "열기"
+    },
+    "assetManagement": {
+      "title": "Asset Management",
+      "description": "자산 관리 시스템",
+      "button": "열기"
+    },
+    "disaster": {
+      "title": "Disaster",
+      "description": "재난 대비",
+      "button": "열기"
+    }
+  },
+  "system": {
+    "info": "시스템 정보",
+    "service": "서비스",
+    "version": "버전",
+    "status": "상태",
+    "operational": "운영 중",
+    "api": "API"
+  },
+  "common": {
+    "language": "언어",
+    "changeLanguage": "언어 변경",
+    "korean": "한국어",
+    "english": "English"
+  }
+}
+

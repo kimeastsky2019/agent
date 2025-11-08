@@ -1,3 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# Node
+node_modules/
+dist/
+*.log
+npm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-*
+
+# OS
 .DS_Store
-Disaster/git/
-Energy_Agent/
+Thumbs.db
+*.DS_Store
+
+# Build
+*.tar.gz
+*.zip
+*.backup
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary
+*.tmp
+*.temp
+*.bak
+
+# Large files
+backup_*.tar.gz
+*.tar.gz
+
+# Disaster folder backups
+Disaster/backup_*
+
+# Cache
+.cache/
+*.cache
+
+# Environment variables
+.env
+.env.local
+.env.*.local

@@ -1,0 +1,74 @@
+{
+  "app": {
+    "name": "Energy Orchestrator Platform",
+    "tagline": "Disaster-Response Energy Sharing Network",
+    "status": "Service Operational",
+    "version": "1.0.0"
+  },
+  "header": {
+    "title": "Energy Orchestrator Platform",
+    "dashboard": "Dashboard",
+    "assets": "Assets",
+    "disasters": "Disasters",
+    "analytics": "Analytics",
+    "weather": "Weather"
+  },
+  "services": {
+    "button": "Open",
+    "energyDemand": {
+      "title": "Energy Demand",
+      "description": "Energy Demand Analysis and Prediction",
+      "button": "Open"
+    },
+    "energySupply": {
+      "title": "Energy Supply",
+      "description": "Energy Supply Analysis and Management",
+      "button": "Open"
+    },
+    "digitalTwin": {
+      "title": "Digital Twin",
+      "description": "Digital Twin Simulation",
+      "button": "Open"
+    },
+    "weather": {
+      "title": "Weather",
+      "description": "Weather Analysis and Prediction",
+      "button": "Open"
+    },
+    "ontologyService": {
+      "title": "Ontology Service",
+      "description": "Knowledge Graph Service",
+      "button": "Open"
+    },
+    "imageBroadcasting": {
+      "title": "Image Broadcasting",
+      "description": "Video Monitoring Service",
+      "button": "Open"
+    },
+    "assetManagement": {
+      "title": "Asset Management",
+      "description": "Asset Management System",
+      "button": "Open"
+    },
+    "disaster": {
+      "title": "Disaster",
+      "description": "Disaster Preparedness",
+      "button": "Open"
+    }
+  },
+  "system": {
+    "info": "System Information",
+    "service": "Service",
+    "version": "Version",
+    "status": "Status",
+    "operational": "Operational",
+    "api": "API"
+  },
+  "common": {
+    "language": "Language",
+    "changeLanguage": "Change Language",
+    "korean": "한국어",
+    "english": "English"
+  }
+}
+

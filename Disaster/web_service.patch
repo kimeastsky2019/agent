@@ -1,0 +1,379 @@
+diff --git a/Disaster/web_service/app.py b/Disaster/web_service/app.py
+index 6bdd13f2bc5d65c770d2477228b2d504e9e83021..6d7892ae8100f9c5a8a71fc2ab66ab4ae479796c 100644
+--- a/Disaster/web_service/app.py
++++ b/Disaster/web_service/app.py
+@@ -1,163 +1,224 @@
+ from flask import Flask, render_template, request, redirect, url_for, session, jsonify
+ from flask_cors import CORS
+ import os
+-import json
+-from datetime import datetime, timedelta
+ import hashlib
+ import sqlite3
+ from functools import wraps
+ 
++from i18n import (
++    available_languages,
++    default_language,
++    get_js_translations,
++    normalize_language,
++    translate,
++)
++
+ app = Flask(__name__)
+ app.secret_key = os.urandom(24)
+ CORS(app)
+ 
+ # Database setup
+ DB_PATH = 'users.db'
+ 
+ def init_db():
+     conn = sqlite3.connect(DB_PATH)
+     c = conn.cursor()
+     c.execute('''
+         CREATE TABLE IF NOT EXISTS users (
+             id INTEGER PRIMARY KEY AUTOINCREMENT,
+             username TEXT UNIQUE NOT NULL,
+             password_hash TEXT NOT NULL,
+             email TEXT,
+             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+         )
+     ''')
+     # Create default admin user
+     default_password = hashlib.sha256('admin1234'.encode()).hexdigest()
+     c.execute('''
+         INSERT OR IGNORE INTO users (username, password_hash, email)
+         VALUES (?, ?, ?)
+     ''', ('info@gngmeta.com', default_password, 'info@gngmeta.com'))
+     conn.commit()
+     conn.close()
+ 
+ init_db()
+ 
++
++def _get_locale():
++    lang = session.get("lang")
++    if not lang:
++        best = request.accept_languages.best_match(list(available_languages().keys()))
++        lang = best or default_language()
++    lang = normalize_language(lang)
++    session["lang"] = lang
++    return lang
++
++
++@app.before_request
++def ensure_locale():
++    _get_locale()
++
++
++@app.context_processor
++def inject_translations():
++    lang = _get_locale()
++
++    def _translate(key, **kwargs):
++        return translate(key, lang=lang, **kwargs)
++
++    return {
++        "_": _translate,
++        "current_lang": lang,
++        "supported_languages": available_languages(),
++    }
++
+ # Login required decorator
+ def login_required(f):
+     @wraps(f)
+     def decorated_function(*args, **kwargs):
+         if 'user_id' not in session:
+             return redirect(url_for('login'))
+         return f(*args, **kwargs)
+     return decorated_function
+ 
+ @app.route('/')
+ def index():
+     if 'user_id' in session:
+         return redirect(url_for('dashboard'))
+     return redirect(url_for('login'))
+ 
+ @app.route('/login', methods=['GET', 'POST'])
+ def login():
++    _get_locale()
++    error_message = None
+     if request.method == 'POST':
+         username = request.form.get('username')
+         password = request.form.get('password')
+-        
++
+         if username and password:
+             password_hash = hashlib.sha256(password.encode()).hexdigest()
+             conn = sqlite3.connect(DB_PATH)
+             c = conn.cursor()
+             c.execute('''
+                 SELECT id, username, email FROM users 
+                 WHERE (username = ? OR email = ?) AND password_hash = ?
+             ''', (username, username, password_hash))
+             user = c.fetchone()
+             conn.close()
+             
+             if user:
+                 session['user_id'] = user[0]
+                 session['username'] = user[1]
+                 return redirect(url_for('dashboard'))
+             else:
+-                return render_template('login.html', error='Invalid username or password')
+-    
+-    return render_template('login.html')
++                error_message = translate('login_error_invalid_credentials', lang=_get_locale())
++
++    return render_template('login.html', error=error_message)
++
++
++@app.route('/set_language/<lang>')
++def set_language(lang):
++    lang_code = normalize_language(lang)
++    session['lang'] = lang_code
++    next_url = request.args.get('next')
++    if next_url and next_url.startswith('/'):
++        return redirect(next_url)
++    referrer = request.referrer
++    if referrer and referrer.startswith(request.host_url):
++        return redirect(referrer)
++    return redirect(url_for('index'))
+ 
+ @app.route('/logout')
+ def logout():
++    lang = session.get('lang')
+     session.clear()
++    if lang:
++        session['lang'] = normalize_language(lang)
+     return redirect(url_for('login'))
+ 
+ @app.route('/dashboard')
+ @login_required
+ def dashboard():
+-    return render_template('dashboard.html', username=session.get('username'))
++    lang = _get_locale()
++    return render_template(
++        'dashboard.html',
++        username=session.get('username'),
++        js_translations=get_js_translations(lang),
++    )
+ 
+ @app.route('/api/simulate', methods=['POST'])
+ @login_required
+ def simulate():
+     try:
+-        data = request.json
++        data = request.get_json(silent=True) or {}
+         scenario_file = data.get('scenario_file', 'sample_transnational_event')
+         
+         # Import simulation runner
+         import sys
+         from pathlib import Path
+         base_dir = os.path.join(os.path.dirname(__file__), '..')
+         sys.path.insert(0, base_dir)
+         
+         from src.energy_network.simulation_runner import SimulationRunner, _default_region_configs
+         from src.energy_network.config import OptimizationParameters
+         
+         # Get absolute path to data directory
+         data_root = Path(base_dir) / 'data'
+         scenario_path = data_root / f'{scenario_file}.json'
+         
+         if not scenario_path.exists():
+-            raise FileNotFoundError(f'Scenario file not found: {scenario_path}')
++            raise FileNotFoundError(
++                translate('error_scenario_missing', lang=_get_locale(), path=scenario_path)
++            )
+         
+         # Run simulation
+         runner = SimulationRunner(
+             data_root=data_root,
+             region_configs=_default_region_configs(),
+             optimization_params=OptimizationParameters(),
+         )
+         result = runner.run(scenario_file)
+         
+         # Convert result to dict for JSON serialization
+         # Handle dispatch_logs - check if it's a dict or object
+         dispatches = []
+         for d in result.dispatch_logs:
+             if isinstance(d, dict):
+                 dispatches.append(d)
+             else:
+                 # It's an object with attributes
+                 dispatch_dict = {
+                     'region': getattr(d, 'region', ''),
+                     'target_region': getattr(d, 'target_region', ''),
+                     'energy_mw': getattr(d, 'energy_mw', 0),
+                 }
+                 # Handle timestamp
+                 timestamp = getattr(d, 'timestamp', None)
+                 if timestamp:
+                     if hasattr(timestamp, 'isoformat'):
+                         dispatch_dict['timestamp'] = timestamp.isoformat()
+                     else:
+                         dispatch_dict['timestamp'] = str(timestamp)
+                 dispatches.append(dispatch_dict)
+         
+         result_dict = {
+             'scenario': result.scenario if hasattr(result, 'scenario') else str(result),
+             'dispatches': dispatches
+         }
+         
+         return jsonify({
+             'success': True,
++            'message': translate('simulation_success', lang=_get_locale()),
+             'result': result_dict
+         })
+     except Exception as e:
+         import traceback
+         return jsonify({
+             'success': False,
+             'error': str(e),
+             'traceback': traceback.format_exc()
+         }), 500
+ 
+ if __name__ == '__main__':
+     port = int(os.environ.get('PORT', 5007))
+     app.run(host='0.0.0.0', port=port, debug=True)
+diff --git a/Disaster/web_service/i18n.py b/Disaster/web_service/i18n.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..757c87d577dcce875f39542a4874b52c4571fa41
+--- /dev/null
++++ b/Disaster/web_service/i18n.py
+@@ -0,0 +1,133 @@
++"""Simple translation utilities for the web service."""
++from __future__ import annotations
++
++from typing import Dict
++
++LANGUAGES: Dict[str, str] = {
++    "en": "English",
++    "ko": "한국어",
++}
++
++_TRANSLATIONS: Dict[str, Dict[str, str]] = {
++    "en": {
++        "app_name": "AI Energy Network",
++        "login_html_title": "AI Energy Network - Login",
++        "login_tagline": "Disaster-Response Energy Sharing Network",
++        "login_info_title": "System Access",
++        "login_info_body": "Energy network simulation and management system",
++        "login_email_label": "Email address",
++        "login_email_placeholder": "info@gngmeta.com",
++        "login_password_label": "Password",
++        "login_password_placeholder": "Enter your password",
++        "login_button": "Log in",
++        "language_label": "Language",
++        "login_error_invalid_credentials": "Invalid username or password",
++        "dashboard_html_title": "AI Energy Network - Dashboard",
++        "dashboard_title_suffix": "Dashboard",
++        "welcome_user": "Welcome, {username}",
++        "logout": "Log out",
++        "simulation_intro_title": "📊 Disaster-Response Energy Sharing Simulation",
++        "simulation_intro_description": (
++            "Simulate the cross-border energy sharing network across Japan, Korea, "
++            "and the European Union."
++        ),
++        "simulation_run_title": "🚀 Run Simulation",
++        "simulation_scenario_label": "Select scenario file",
++        "simulation_scenario_sample": "Sample transnational event",
++        "simulation_run_button": "Run simulation",
++        "simulation_running": "Running simulation…",
++        "simulation_results_title": "📈 Simulation Results",
++        "simulation_results_placeholder": "Run a simulation to see results here.",
++        "simulation_success": "Simulation completed successfully!",
++        "dispatch_plan_title": "📊 Dispatch Plan",
++        "dispatch_item_title": "Dispatch #{index}",
++        "error_prefix": "Error: ",
++        "error_unknown": "An unknown error occurred.",
++        "footer_text": "Energy Orchestrator Platform © 2025",
++        "language_switcher_hint": "Change language",
++        "error_scenario_missing": "Scenario file not found: {path}",
++    },
++    "ko": {
++        "app_name": "AI Energy Network",
++        "login_html_title": "AI Energy Network - 로그인",
++        "login_tagline": "재난 대응 에너지 공유 네트워크",
++        "login_info_title": "시스템 접속",
++        "login_info_body": "에너지 네트워크 시뮬레이션 및 관리 시스템",
++        "login_email_label": "이메일 주소",
++        "login_email_placeholder": "info@gngmeta.com",
++        "login_password_label": "비밀번호",
++        "login_password_placeholder": "비밀번호를 입력하세요",
++        "login_button": "로그인",
++        "language_label": "언어",
++        "login_error_invalid_credentials": "아이디 또는 비밀번호가 올바르지 않습니다",
++        "dashboard_html_title": "AI Energy Network - 대시보드",
++        "dashboard_title_suffix": "대시보드",
++        "welcome_user": "환영합니다, {username}",
++        "logout": "로그아웃",
++        "simulation_intro_title": "📊 재난 대응 에너지 공유 네트워크 시뮬레이션",
++        "simulation_intro_description": "일본, 한국, EU 간의 국경을 넘나드는 에너지 공유 네트워크를 시뮬레이션합니다.",
++        "simulation_run_title": "🚀 시뮬레이션 실행",
++        "simulation_scenario_label": "시나리오 파일 선택",
++        "simulation_scenario_sample": "샘플 국경간 이벤트",
++        "simulation_run_button": "시뮬레이션 실행",
++        "simulation_running": "시뮬레이션 실행 중…",
++        "simulation_results_title": "📈 시뮬레이션 결과",
++        "simulation_results_placeholder": "시뮬레이션을 실행하면 결과가 여기에 표시됩니다.",
++        "simulation_success": "시뮬레이션이 성공적으로 완료되었습니다!",
++        "dispatch_plan_title": "📊 디스패치 계획",
++        "dispatch_item_title": "디스패치 #{index}",
++        "error_prefix": "오류: ",
++        "error_unknown": "알 수 없는 오류가 발생했습니다.",
++        "footer_text": "Energy Orchestrator Platform © 2025",
++        "language_switcher_hint": "언어 변경",
++        "error_scenario_missing": "시나리오 파일을 찾을 수 없습니다: {path}",
++    },
++}
++
++_DEFAULT_LANG = "ko"
++
++
++def _normalize_lang(lang: str | None) -> str:
++    if not lang:
++        return _DEFAULT_LANG
++    lang = lang.lower()
++    if "-" in lang:
++        lang = lang.split("-", 1)[0]
++    return lang if lang in LANGUAGES else _DEFAULT_LANG
++
++
++def translate(key: str, lang: str | None = None, **kwargs) -> str:
++    locale = _normalize_lang(lang)
++    catalog = _TRANSLATIONS.get(locale, {})
++    default_catalog = _TRANSLATIONS.get("en", {})
++    template = catalog.get(key, default_catalog.get(key, key))
++    try:
++        return template.format(**kwargs)
++    except Exception:
++        return template
++
++
++def get_js_translations(lang: str | None = None) -> Dict[str, str]:
++    locale = _normalize_lang(lang)
++    keys = [
++        "simulation_running",
++        "simulation_success",
++        "dispatch_plan_title",
++        "dispatch_item_title",
++        "error_prefix",
++        "error_unknown",
++        "simulation_results_placeholder",
++    ]
++    return {key: translate(key, locale) for key in keys}
++
++
++def available_languages() -> Dict[str, str]:
++    return LANGUAGES.copy()
++
++
++def default_language() -> str:
++    return _DEFAULT_LANG
++
++
++def normalize_language(lang: str | None = None) -> str:
++    return _normalize_lang(lang)
+
+
