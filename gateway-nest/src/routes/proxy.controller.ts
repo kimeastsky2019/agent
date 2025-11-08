@@ -1,32 +1,30 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
-import { HttpService } from '@nestjs/axios';
-import { firstValueFrom } from 'rxjs';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { ApiKeyGuard } from '../auth/apikey.guard';
+import { JwtAuthGuard } from '../auth/jwt.guard';
+import { ProxyService } from '../services/proxy.service';
+import { ForecastDto } from '../dto/forecast.dto';
+import { PlanOptimizeDto } from '../dto/plan.dto';
 
 const env = (k: string, d?: string) => process.env[k] || d || '';
 
 @Controller()
 export class ProxyController {
-  constructor(private readonly http: HttpService) {}
+  constructor(private readonly proxy: ProxyService) {}
 
   @Get('probe')
   async probe() {
-    const url = `${env('DT_URL')}/health`;
-    const r$ = this.http.get(url);
-    const r = await firstValueFrom(r$);
-    return { dt: r.data };
+    return { dt: await this.proxy.health(`${env('DT_URL')}/health`) };
   }
 
-  // ---- Pass-through routes (minimal set) ----
+  @UseGuards(JwtAuthGuard)
   @Post('plan/optimize')
-  async planOptimize(@Body() body: any) {
-    const r = await firstValueFrom(this.http.post(`${env('EOP_URL')}/plan/optimize`, body));
-    return r.data;
+  async planOptimize(@Body() body: PlanOptimizeDto) {
+    return await this.proxy.post(`${env('EOP_URL')}/plan/optimize`, body);
   }
 
+  @UseGuards(ApiKeyGuard)
   @Post('forecast/:type')
-  async forecast(@Body() body: any, @Param('type') type: 'load'|'pv'|'price') {
-    const url = `${env('FORECAST_URL')}/forecast/${type}`;
-    const r = await firstValueFrom(this.http.post(url, body));
-    return r.data;
+  async forecast(@Param('type') type: 'load'|'pv'|'price', @Body() body: ForecastDto) {
+    return await this.proxy.post(`${env('FORECAST_URL')}/forecast/${type}`, body);
   }
 }

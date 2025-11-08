@@ -8,7 +8,10 @@ services:
       FORECAST_URL: http://forecast:8003
       MON_URL: http://monitoring:8004
       ENG_URL: http://engagement:8005
-    depends_on: [dt, eop, forecast, monitoring, engagement]
+      API_KEY: dev-key-123
+      JWT_SECRET: supersecretjwt
+      REDIS_URL: redis://redis:6379
+    depends_on: [dt, eop, forecast, monitoring, engagement, redis]
 
   dt:
     build: ./services/dt
@@ -29,3 +32,7 @@ services:
   engagement:
     build: ./services/engagement
     ports: ["8005:8005"]
+
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
