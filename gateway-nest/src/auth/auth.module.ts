@@ -4,6 +4,9 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './jwt.strategy';
 import { ApiKeyGuard } from './apikey.guard';
 import { AuthService } from './auth.service';
+import { RolesGuard } from './roles.guard';
+import { BlacklistService } from './blacklist.service';
+import { AuthController } from './auth.controller';
 
 @Module({
   imports: [
@@ -14,7 +17,8 @@ import { AuthService } from './auth.service';
       signOptions: { expiresIn: '1h' },
     }),
   ],
-  providers: [JwtStrategy, ApiKeyGuard, AuthService],
-  exports: [ApiKeyGuard, AuthService],
+  controllers: [AuthController],
+  providers: [JwtStrategy, ApiKeyGuard, RolesGuard, BlacklistService, AuthService],
+  exports: [ApiKeyGuard, RolesGuard, AuthService],
 })
 export class AuthModule {}

@@ -5,21 +5,25 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { AppController } from './routes/app.controller';
 import { ProxyController } from './routes/proxy.controller';
+import { MetricsController } from './metrics.controller';
 import { AuthModule } from './auth/auth.module';
 import { ProxyService } from './services/proxy.service';
-import { RootResolver } from './graphql/resolvers';
 import * as redisStore from 'cache-manager-ioredis-yet';
+import { RootResolver } from './graphql/resolvers';
+
+const ttl = parseInt(process.env.THROTTLE_TTL_MS || '60000', 10);
+const limit = parseInt(process.env.THROTTLE_LIMIT || '120', 10);
 
 @Module({
   imports: [
     HttpModule.register({ timeout: 3000 }),
-    ThrottlerModule.forRoot([{ ttl: 60_000, limit: 120 }]),
+    ThrottlerModule.forRoot([{ ttl, limit }]),
     CacheModule.registerAsync({
       useFactory: () => ({
         store: redisStore.create({
           url: process.env.REDIS_URL || 'redis://localhost:6379',
         }),
-        ttl: 30, // seconds
+        ttl: 30,
         max: 1000,
       }),
       isGlobal: true,
@@ -33,7 +37,7 @@ import * as redisStore from 'cache-manager-ioredis-yet';
     }),
     AuthModule,
   ],
-  controllers: [AppController, ProxyController],
+  controllers: [AppController, ProxyController, MetricsController],
   providers: [ProxyService, RootResolver],
 })
 export class AppModule {}
