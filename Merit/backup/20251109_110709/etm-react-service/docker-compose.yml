@@ -1,0 +1,116 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:14
+    container_name: etm-postgres
+    environment:
+      POSTGRES_USER: etm
+      POSTGRES_PASSWORD: etm_password
+      POSTGRES_DB: etengine_development
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - etm-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U etm"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: etm-redis
+    ports:
+      - "6380:6379"
+    networks:
+      - etm-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ETEngine - Calculation Engine (Backend API)
+  etengine:
+    build:
+      context: ./etengine
+      dockerfile: Dockerfile
+    container_name: etm-engine
+    environment:
+      - RAILS_ENV=development
+      - DATABASE_URL=postgresql://etm:etm_password@postgres:5432/etengine_development
+      - REDIS_URL=redis://redis:6379/0
+      - ETSOURCE_PATH=/app/etsource
+      - SECRET_KEY_BASE=development_secret_key_base_change_in_production
+      - DOCKER_BUILD=true
+      - OPENID_ISSUER=http://localhost:3002
+      - IDENTITY_CLIENT_ID=development_client_id
+      - IDENTITY_CLIENT_SECRET=development_client_secret
+      - IDENTITY_CLIENT_URI=http://localhost:3000
+      - CI=true
+    volumes:
+      - ./etengine:/app
+      - ./etsource:/app/etsource:ro
+      - bundle_cache_engine:/usr/local/bundle
+    ports:
+      - "3001:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - etm-network
+    command: >
+      bash -c "
+        bundle install &&
+        bundle exec rake db:create db:migrate || true &&
+        bundle exec rails server -b 0.0.0.0 -p 3000
+      "
+
+  # React Frontend
+  react-frontend:
+    build:
+      context: ./etm-react-frontend
+      dockerfile: Dockerfile
+    container_name: etm-react-frontend
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./etm-react-frontend:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      - etengine
+    networks:
+      - etm-network
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: etm-nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "8080:80"
+    depends_on:
+      - react-frontend
+      - etengine
+    networks:
+      - etm-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  postgres_data:
+  bundle_cache_engine:
+
+networks:
+  etm-network:
+    driver: bridge
