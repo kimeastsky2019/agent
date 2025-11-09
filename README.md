@@ -1,50 +1,29 @@
-# AI Agent Services
+# NanoGrid Agent (EOP × DT) — Monorepo Skeleton
 
-나노그리드 운영 시스템을 위한 AI Agent 서비스 모음입니다.
+This is a production-ready skeleton to implement your system across **Design → Plan → Monitor → Predict → Engage**,
+built around **DT Core (`/dt`)** and **EOP Planner (`/eop`)**. Each service is a small FastAPI app with typed schemas,
+dockerized, and wired through Kafka-ready envs.
 
-## 프로젝트 구조
+## Services
+- `dt` — Digital Twin (assets/topology/constraints)
+- `eop` — Planning/Optimization (day-ahead & intra-day)
+- `forecast` — Load/PV/price forecasting API
+- `monitoring` — Telemetry ingest, KPIs
+- `engagement` — Nudge cards & user actions
+- `gateway` — API Gateway (FastAPI) aggregates above
 
-- **agent/**: 메인 에이전트 서비스 (gateway, services, libs)
-- **Disaster/**: 재해 대응 서비스
-- **Energy_Agent/**: 에너지 에이전트 서비스
-- **Merit/**: ETM React 서비스
-- **NanoGrid/**: 나노그리드 관련 모듈 및 스켈레톤
-
-## 주요 서비스
-
-### Gateway
-- **gateway/**: FastAPI 기반 게이트웨이
-- **gateway-nest/**: NestJS 기반 게이트웨이 (BFF)
-
-### Services
-- **dt/**: Digital Twin 서비스
-- **eop/**: Energy Optimization Platform
-- **forecast/**: 예측 서비스
-- **monitoring/**: 모니터링 서비스
-- **engagement/**: 사용자 참여 서비스
-
-## 시작하기
-
-### Docker Compose로 실행
-
+## Quick start (local)
 ```bash
-cd agent
 docker compose up --build
+# Then visit: http://localhost:8080/docs (Gateway), and /health on each service.
 ```
 
-### 접속 정보
-- **Swagger UI**: http://localhost:8080/docs
-- **GraphQL Playground**: http://localhost:8080/graphql
-- **Metrics**: http://localhost:8080/metrics
+## Deploy (Kubernetes)
+See `infra/k8s/` for manifests (namespace, deployments, services, configmaps).
 
-## 기술 스택
+## CI
+GitHub Actions runs lint & unit tests on PRs (`.github/workflows/ci.yml`).
 
-- **Backend**: Python (FastAPI), TypeScript (NestJS)
-- **Database**: Redis
-- **Container**: Docker, Docker Compose
-- **Orchestration**: Kubernetes
-- **Observability**: OpenTelemetry, Prometheus
+---
 
-## 라이선스
-
-See LICENSE file for details.
+> This is intentionally minimal: clean code, clear contracts, and room for your models.
