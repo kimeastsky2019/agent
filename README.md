@@ -10,6 +10,7 @@ dockerized, and wired through Kafka-ready envs.
 - `forecast` — Load/PV/price forecasting API
 - `monitoring` — Telemetry ingest, KPIs
 - `engagement` — Nudge cards & user actions
+- `converter` — Excel/CSV upload, labeling, transform, and export utility
 - `gateway` — API Gateway (FastAPI) aggregates above
 
 ## Quick start (local)
